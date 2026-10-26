@@ -5,6 +5,7 @@ from classrooms.services import mutation, get_object, paginated
 from .models import Quiz, Attempt, Answer
 from .permissions import QuizStudent
 from .serializers import EmptyActionSerializer
+from .schedule import availability
 from .attempt_serializers import SaveAnswerSerializer, SubmitAttemptSerializer, answer_data
 from .attempt_services import (require_group_access, own_attempt, error_response, expire_if_due,
     finalize, attempt_summary, attempt_data, result_data, create_attempt, accessible_attempts, refresh_expired)
@@ -31,6 +32,7 @@ class QuizAttemptsView(StudentAttemptView):
         refresh_expired(request, attempts)
         current = next((a for a in attempts if a.status == 'IN_PROGRESS'), None)
         return Response({'quiz_status': quiz.status, 'attempts_used': len(attempts),
+            'availability': availability(quiz),
             'max_attempts': quiz.max_attempts, 'remaining_attempts': max(0, quiz.max_attempts - len(attempts)),
             'current_attempt_id': str(current.pk) if current else None,
             'attempts': [attempt_summary(a) for a in attempts]})
@@ -45,6 +47,10 @@ class QuizAttemptsView(StudentAttemptView):
             expire_if_due(attempt)
             if attempt.status == 'IN_PROGRESS': return Response(attempt_data(attempt))
         if quiz.status != 'PUBLISHED': return error_response('quiz_unavailable', 'Ce quiz n’est pas publié. Aucun nouveau départ n’est possible.', 400)
+        window = availability(quiz)
+        if not window['can_start']:
+            return error_response('quiz_not_open' if window['state'] == 'UPCOMING' else 'quiz_closed',
+                'Ce quiz n’est pas encore ouvert.' if window['state'] == 'UPCOMING' else 'Ce quiz est fermé. Aucun nouveau départ n’est possible.', 400)
         if len(attempts) >= quiz.max_attempts: return error_response('attempt_limit', 'Vous avez utilisé toutes les tentatives autorisées.', 400)
         attempt = create_attempt(request.user, quiz, len(attempts) + 1)
         if not attempt: return error_response('empty_quiz', 'Ce quiz ne contient aucune question.', 400)

@@ -1,0 +1,36 @@
+{
+  "verified_at": "2026-10-26T14:35:26.712918+00:00",
+  "backend": "edu/.local/publication/backend",
+  "branch": "Syrine",
+  "env_file": "backend/.env",
+  "key_variable": "GEMINI_API_KEY",
+  "key_present": true,
+  "model": "gemini-3.1-flash-lite",
+  "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent",
+  "request_format": {
+    "method": "POST",
+    "json_mime_type": "application/json",
+    "structured_json_schema": true,
+    "separate_system_instruction": true,
+    "thinking_level": "LOW"
+  },
+  "timeout_seconds": 30.0,
+  "real_requests": 1,
+  "upstream_http_status": 200,
+  "endpoint_status": 200,
+  "validated_proposals": 1,
+  "elapsed_seconds": 1.91,
+  "network_error_observed": false,
+  "reported_503_reproduced": false,
+  "reported_503_current_root_cause_confirmed": false,
+  "identified_code_issue": "Network exceptions and provider unavailability used the same code and message; key rejection and request configuration were also conflated.",
+  "correction": "Separate safe error categories and log only internal category plus upstream HTTP status; no provider retry, no model or key configuration changes.",
+  "sensitive_values_logged": false,
+  "question_data_unchanged": true,
+  "tests": {
+    "command": "python backend/manage.py test quizzes.test_gemini --noinput",
+    "passed": 25,
+    "failed": 0
+  },
+  "no_commit_push_or_merge": true
+}

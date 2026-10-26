@@ -1,3 +1,4 @@
+import { t, n, LanguageNotice } from "./i18n";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { allPages, query } from "../api/client";
@@ -49,40 +50,45 @@ export default function QuizList() {
   }
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">QUIZ ET PROGRESSION · PREMIÈRE ÉTAPE</p>
+          <p className="eyebrow">{t("QUIZ ET PROGRESSION · PREMIÈRE ÉTAPE")}</p>
           <h1>
             {admin
-              ? "Gestion des quiz"
+              ? t("Gestion des quiz")
               : student
-                ? "Quiz de mes groupes"
-                : "Mes quiz"}
+                ? t("Quiz de mes groupes")
+                : t("Mes quiz")}
           </h1>
           <p>
             {student
-              ? "Choisissez un quiz de vos groupes, répondez à votre rythme et consultez votre correction après soumission."
-              : "Concevez des QCM, organisez vos questions et publiez des contenus prêts à partager."}
+              ? t(
+                  "Choisissez un quiz de vos groupes, répondez à votre rythme et consultez votre correction après soumission.",
+                )
+              : t(
+                  "Concevez des QCM, organisez vos questions et publiez des contenus prêts à partager.",
+                )}
           </p>
         </div>
         {!student && (
           <Link className="btn_one" to={base + "/nouveau"}>
-            Créer un quiz +
+            {t("Créer un quiz + ")}
           </Link>
         )}
         {student && (
           <Link className="text-button" to="/espace/tentatives">
-            Mes tentatives et corrections ↗
+            {t("Mes tentatives et corrections ↗ ")}
           </Link>
         )}
       </div>
       <section
         className="panel quiz-filters"
-        aria-label="Rechercher et filtrer les quiz"
+        aria-label={t("Rechercher et filtrer les quiz")}
       >
         <div className="filters">
           <Field
-            label="Rechercher par titre"
+            label={t("Rechercher par titre")}
             type="search"
             value={q}
             maxLength={150}
@@ -93,45 +99,45 @@ export default function QuizList() {
           />
           {!student && (
             <Select
-              label="Statut"
+              label={t("Statut")}
               value={status}
               onChange={(e) => {
                 setStatus(e.target.value);
                 setPage(1);
               }}
             >
-              <option value="">Tous les statuts</option>
+              <option value="">{t("Tous les statuts")}</option>
               {Object.entries(quizStatuses).map(([key, label]) => (
                 <option key={key} value={key}>
-                  {label}
+                  {t(label)}
                 </option>
               ))}
             </Select>
           )}
           <Select
-            label="Niveau"
+            label={t("Niveau")}
             value={level}
             onChange={(e) => {
               setLevel(e.target.value);
               setPage(1);
             }}
           >
-            <option value="">Tous les niveaux</option>
+            <option value="">{t("Tous les niveaux")}</option>
             {Object.entries(levels).map(([key, label]) => (
               <option key={key} value={key}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </Select>
           <Select
-            label="Groupe"
+            label={t("Groupe")}
             value={group}
             onChange={(e) => {
               setGroup(e.target.value);
               setPage(1);
             }}
           >
-            <option value="">Tous mes groupes</option>
+            <option value="">{t("Tous mes groupes")}</option>
             {groups
               .filter((g) => !student || !g.archived)
               .map((g) => (
@@ -142,14 +148,14 @@ export default function QuizList() {
           </Select>
           {admin && (
             <Select
-              label="Enseignant"
+              label={t("Enseignant")}
               value={teacher}
               onChange={(e) => {
                 setTeacher(e.target.value);
                 setPage(1);
               }}
             >
-              <option value="">Tous les enseignants</option>
+              <option value="">{t("Tous les enseignants")}</option>
               {teachers.map((t) => (
                 <option value={t.id} key={t.id}>
                   {t.first_name} {t.last_name}
@@ -160,7 +166,7 @@ export default function QuizList() {
         </div>
         {filtered && (
           <button className="text-button" onClick={reset}>
-            Réinitialiser les filtres
+            {t("Réinitialiser les filtres ")}
           </button>
         )}
       </section>
@@ -170,10 +176,11 @@ export default function QuizList() {
       ) : data?.results.length ? (
         <>
           <p className="field-help" role="status">
-            {data.count} quiz{" "}
+            {n(data.count)}
+            {t(" quiz")}{" "}
             {filtered
-              ? "correspondent à vos filtres"
-              : "disponibles dans votre espace"}
+              ? t("correspondent à vos filtres")
+              : t("disponibles dans votre espace")}
             .
           </p>
           <div className="quiz-card-grid">
@@ -188,15 +195,17 @@ export default function QuizList() {
                 </h2>
                 <p className="quiz-description">
                   {quiz.description ||
-                    "Un quiz pour consolider les apprentissages de votre groupe."}
+                    t(
+                      "Un quiz pour consolider les apprentissages de votre groupe.",
+                    )}
                 </p>
                 <QuizSummary quiz={quiz} />
                 <Link className="btn_one" to={base + "/" + quiz.id}>
                   {student
-                    ? "Voir la présentation"
+                    ? t("Voir la présentation")
                     : quiz.status === "DRAFT"
-                      ? "Gérer les questions"
-                      : "Consulter le quiz"}{" "}
+                      ? t("Gérer les questions")
+                      : t("Consulter le quiz")}{" "}
                   ↗
                 </Link>
                 <QuizActions quiz={quiz} onDone={reload} />
@@ -211,30 +220,34 @@ export default function QuizList() {
             headingLevel={2}
             title={
               filtered
-                ? "Aucun résultat"
+                ? t("Aucun résultat")
                 : student
-                  ? "Aucun quiz pour le moment"
-                  : "Votre premier quiz vous attend"
+                  ? t("Aucun quiz pour le moment")
+                  : t("Votre premier quiz vous attend")
             }
           >
             {filtered
-              ? "Aucun résultat pour ces critères. Essayez une autre recherche ou réinitialisez les filtres."
+              ? t(
+                  "Aucun résultat pour ces critères. Essayez une autre recherche ou réinitialisez les filtres.",
+                )
               : student
-                ? "Aucun quiz publié pour vos groupes actifs pour le moment."
-                : "Votre premier quiz commence ici. Préparez un brouillon et ajoutez vos questions, à votre rythme."}
+                ? t("Aucun quiz publié pour vos groupes actifs pour le moment.")
+                : t(
+                    "Votre premier quiz commence ici. Préparez un brouillon et ajoutez vos questions, à votre rythme.",
+                  )}
           </Empty>
           <div className="quiz-empty-action">
             {filtered ? (
               <button className="btn_one" onClick={reset}>
-                Afficher tous les quiz
+                {t("Afficher tous les quiz ")}
               </button>
             ) : !student ? (
               <Link className="btn_one" to={base + "/nouveau"}>
-                Créer mon premier quiz +
+                {t("Créer mon premier quiz + ")}
               </Link>
             ) : (
               <Link className="text-button" to="/espace/groupes">
-                Voir mes groupes ↗
+                {t("Voir mes groupes ↗ ")}
               </Link>
             )}
           </div>

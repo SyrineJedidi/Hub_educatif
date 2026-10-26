@@ -1,6 +1,7 @@
+import { t, n, LanguageNotice } from "./i18n";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { allPages, date, query } from "../api/client";
+import { allPages, date, query, ApiError } from "../api/client";
 import { useResource } from "../hooks/useResource";
 import type { Group, Page, User } from "../api/types";
 import {
@@ -18,6 +19,8 @@ import type { ManagedResult } from "./resultTypes";
 import { personName, percentageLabel } from "./resultTypes";
 import type { Quiz } from "./types";
 import "./quiz.css";
+import { ManagerFeedback } from "./Feedback";
+import { quizLanguage } from "./i18n";
 
 export default function StudentResults() {
   const { id } = useParams();
@@ -33,8 +36,14 @@ export default function StudentResults() {
     [groups, setGroups] = useState<Group[]>([]),
     [teachers, setTeachers] = useState<User[]>([]),
     [filterError, setFilterError] = useState<unknown>();
+  const [exporting, setExporting] = useState(false);
   useEffect(() => {
     let active = true;
+    allPages<Quiz>("quizzes/")
+      .then((items) => {
+        if (active) setQuizzes(items);
+      })
+      .catch(setFilterError);
     if (admin)
       Promise.all([
         allPages<Quiz>("quizzes/"),
@@ -67,59 +76,114 @@ export default function StudentResults() {
     setter(value);
     setPage(1);
   }
+  async function exportPDF() {
+    if (exporting || !(id || quiz)) return;
+    setExporting(true);
+    setFilterError(undefined);
+    try {
+      const response = await fetch(
+        `/api/quizzes/${id || quiz}/grades.pdf?lang=${quizLanguage()}`,
+        { credentials: "same-origin" },
+      );
+      if (!response.ok) {
+        const body = await response.json();
+        throw new ApiError(
+          response.status,
+          body.error?.message || t("Export impossible."),
+        );
+      }
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "notes-quiz.pdf";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    } catch (error) {
+      setFilterError(error);
+    } finally {
+      setExporting(false);
+    }
+  }
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">SUIVRE LES APPRENTISSAGES</p>
-          <h1>Résultats des étudiants</h1>
+          <p className="eyebrow">{t("SUIVRE LES APPRENTISSAGES")}</p>
+          <h1>{t("Résultats des étudiants")}</h1>
           <p>
             {data?.quiz && !error
               ? data.quiz.title
               : admin
-                ? "Consultez les tentatives de tous les quiz."
-                : "Consultez les tentatives des étudiants de vos quiz."}
+                ? t("Consultez les tentatives de tous les quiz.")
+                : t("Consultez les tentatives des étudiants de vos quiz.")}
           </p>
         </div>
         <Link
           className="text-button"
           to={id ? `${base}/quiz/${id}` : `${base}/quiz`}
         >
-          {id ? "Revenir au quiz" : "Revenir aux quiz"} ↗
+          {id ? t("Revenir au quiz") : t("Revenir aux quiz")} ↗
         </Link>
       </div>
+      <div className="actions">
+        <button
+          className="btn_one"
+          disabled={exporting || !(id || quiz)}
+          onClick={() => void exportPDF()}
+        >
+          {exporting ? t("Export en cours…") : t("Exporter les notes en PDF")}
+        </button>
+        {!id && !quiz && (
+          <p>{t("Choisissez un quiz pour exporter les notes.")}</p>
+        )}
+      </div>
+      {!id && !admin && (
+        <Select
+          label={t("Quiz")}
+          value={quiz}
+          onChange={(e) => filter(setQuiz, e.target.value)}
+        >
+          <option value="">{t("Tous les quiz")}</option>
+          {quizzes.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.title}
+            </option>
+          ))}
+        </Select>
+      )}
       {id && (
         <p>
           <Link className="text-button" to={`${base}/resultats-quiz`}>
             {admin
-              ? "Tous les résultats des quiz"
-              : "Résultats de tous mes quiz"}{" "}
+              ? t("Tous les résultats des quiz")
+              : t("Résultats de tous mes quiz")}{" "}
             ↗
           </Link>
         </p>
       )}
       <section
         className="panel quiz-filters"
-        aria-label="Rechercher et filtrer les résultats"
+        aria-label={t("Rechercher et filtrer les résultats")}
       >
         <div className="filters">
           <Field
-            label="Rechercher un étudiant"
+            label={t("Rechercher un étudiant")}
             type="search"
-            placeholder="Nom ou prénom"
+            placeholder={t("Nom ou prénom")}
             maxLength={200}
             value={search}
             onChange={(event) => filter(setSearch, event.target.value)}
           />
           <Select
-            label="Statut de la tentative"
+            label={t("Statut de la tentative")}
             value={status}
             onChange={(event) => filter(setStatus, event.target.value)}
           >
-            <option value="">Tous les statuts</option>
+            <option value="">{t("Tous les statuts")}</option>
             {Object.entries(attemptLabels).map(([key, label]) => (
               <option key={key} value={key}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </Select>
@@ -127,11 +191,11 @@ export default function StudentResults() {
             <>
               {!id && (
                 <Select
-                  label="Quiz"
+                  label={t("Quiz")}
                   value={quiz}
                   onChange={(event) => filter(setQuiz, event.target.value)}
                 >
-                  <option value="">Tous les quiz</option>
+                  <option value="">{t("Tous les quiz")}</option>
                   {quizzes.map((quiz) => (
                     <option key={quiz.id} value={quiz.id}>
                       {quiz.title}
@@ -140,11 +204,11 @@ export default function StudentResults() {
                 </Select>
               )}
               <Select
-                label="Groupe"
+                label={t("Groupe")}
                 value={group}
                 onChange={(event) => filter(setGroup, event.target.value)}
               >
-                <option value="">Tous les groupes</option>
+                <option value="">{t("Tous les groupes")}</option>
                 {groups.map((group) => (
                   <option key={group.id} value={group.id}>
                     {group.name}
@@ -152,11 +216,11 @@ export default function StudentResults() {
                 ))}
               </Select>
               <Select
-                label="Enseignant"
+                label={t("Enseignant")}
                 value={teacher}
                 onChange={(event) => filter(setTeacher, event.target.value)}
               >
-                <option value="">Tous les enseignants</option>
+                <option value="">{t("Tous les enseignants")}</option>
                 {teachers.map((teacher) => (
                   <option key={teacher.id} value={teacher.id}>
                     {personName(teacher)}
@@ -178,7 +242,7 @@ export default function StudentResults() {
               setPage(1);
             }}
           >
-            Réinitialiser les filtres
+            {t("Réinitialiser les filtres ")}
           </button>
         )}
         <Alert error={filterError} />
@@ -189,45 +253,52 @@ export default function StudentResults() {
         <section className="panel">
           <Alert error={error} />
           <button className="text-button" onClick={reload}>
-            Réessayer le chargement
+            {t("Réessayer le chargement ")}
           </button>
         </section>
       ) : (
         <section className="panel">
           <div className="panel-heading">
-            <h2>{data.count} tentative(s)</h2>
+            <h2>
+              {n(data.count)}
+              {t(" tentative(s)")}
+            </h2>
             <button className="text-button" onClick={reload}>
-              Actualiser les résultats
+              {t("Actualiser les résultats ")}
             </button>
           </div>
           {data.results.length ? (
             <div
               className="table-scroll quiz-results-scroll"
               role="region"
-              aria-label="Tentatives des étudiants"
+              aria-label={t("Tentatives des étudiants")}
               tabIndex={0}
             >
               <table className="quiz-results-table">
                 <caption>
-                  Tentatives commencées et résultats des étudiants
+                  {t("Tentatives commencées et résultats des étudiants ")}
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col">Étudiant</th>
-                    {!id && <th scope="col">Quiz</th>}
-                    <th scope="col">Groupe</th>
-                    <th scope="col">Tentative</th>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Début</th>
-                    <th scope="col">Score</th>
-                    <th scope="col">Consultation</th>
+                    <th scope="col">{t("Étudiant")}</th>
+                    {!id && <th scope="col">{t("Quiz")}</th>}
+                    <th scope="col">{t("Groupe")}</th>
+                    <th scope="col" className="quiz-number-cell">
+                      {t("Tentative")}
+                    </th>
+                    <th scope="col">{t("Statut")}</th>
+                    <th scope="col">{t("Début")}</th>
+                    <th scope="col" className="quiz-score-cell">
+                      {t("Score")}
+                    </th>
+                    <th scope="col">{t("Consultation")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.results.map((attempt) => (
                     <tr key={attempt.id}>
                       <th scope="row">
-                        {personName(attempt.student) || "Étudiant"}
+                        {personName(attempt.student) || t("Étudiant")}
                       </th>
                       {!id && (
                         <td>
@@ -240,22 +311,26 @@ export default function StudentResults() {
                         </td>
                       )}
                       <td>{attempt.learning_group.name}</td>
-                      <td>N° {attempt.number}</td>
+                      <td className="quiz-number-cell">
+                        {t("N° ")}
+                        {n(attempt.number)}
+                      </td>
                       <td>
-                        <Badge>{attemptLabels[attempt.status]}</Badge>
+                        <Badge>{t(attemptLabels[attempt.status])}</Badge>
                       </td>
                       <td>{date(attempt.started_at)}</td>
-                      <td>
+                      <td className="quiz-score-cell">
                         {attempt.status === "IN_PROGRESS" ? (
-                          <span>En cours</span>
+                          <span>{t("En cours")}</span>
                         ) : (
                           <>
                             <strong>
-                              {attempt.points_earned} / {attempt.total_points}
+                              {n(attempt.points_earned)} /{" "}
+                              {n(attempt.total_points)}
                             </strong>
                             <small className="quiz-result-owner">
                               {attempt.percentage === null
-                                ? "Résultat indisponible"
+                                ? t("Résultat indisponible")
                                 : percentageLabel(attempt.percentage)}
                             </small>
                           </>
@@ -266,7 +341,7 @@ export default function StudentResults() {
                           className="text-button"
                           to={`${base}/resultats-quiz/${attempt.id}`}
                         >
-                          Voir les réponses
+                          {t("Voir les réponses ")}
                         </Link>
                       </td>
                     </tr>
@@ -277,17 +352,24 @@ export default function StudentResults() {
           ) : (
             <Empty
               title={
-                filtered ? "Aucun résultat" : "Aucune tentative pour le moment"
+                filtered
+                  ? t("Aucun résultat")
+                  : t("Aucune tentative pour le moment")
               }
             >
               {filtered
-                ? "Aucune tentative ne correspond à vos filtres. Modifiez la recherche ou réinitialisez les filtres."
-                : "Les étudiants apparaîtront ici dès qu’ils commenceront une tentative."}
+                ? t(
+                    "Aucune tentative ne correspond à vos filtres. Modifiez la recherche ou réinitialisez les filtres.",
+                  )
+                : t(
+                    "Les étudiants apparaîtront ici dès qu’ils commenceront une tentative.",
+                  )}
             </Empty>
           )}
           <Pagination page={page} count={data.count} onChange={setPage} />
         </section>
       )}
+      {(id || quiz) && <ManagerFeedback quizId={(id || quiz)!} />}
     </div>
   );
 }

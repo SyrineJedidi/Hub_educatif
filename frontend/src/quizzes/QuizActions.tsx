@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
@@ -19,7 +20,7 @@ export default function QuizActions({
     <>
       <div className="actions quiz-actions">
         <Link className="text-button" to={base + "/" + quiz.id + "/resultats"}>
-          Résultats des étudiants
+          {t("Résultats des étudiants ")}
         </Link>
         {quiz.status === "DRAFT" ? (
           <>
@@ -27,10 +28,10 @@ export default function QuizActions({
               className="text-button"
               to={base + "/" + quiz.id + "/modifier"}
             >
-              Modifier le brouillon
+              {t("Modifier le brouillon ")}
             </Link>
             <button className="text-button" onClick={() => setAction("delete")}>
-              Supprimer le brouillon
+              {t("Supprimer le brouillon ")}
             </button>
           </>
         ) : (
@@ -39,14 +40,14 @@ export default function QuizActions({
               className="text-button"
               to={base + "/" + quiz.id + "/dupliquer"}
             >
-              Dupliquer en brouillon
+              {t("Dupliquer en brouillon ")}
             </Link>
             {quiz.status === "PUBLISHED" && (
               <button
                 className="text-button"
                 onClick={() => setAction("archive")}
               >
-                Archiver
+                {t("Archiver ")}
               </button>
             )}
           </>
@@ -56,21 +57,25 @@ export default function QuizActions({
         <Modal
           title={
             action === "delete"
-              ? "Supprimer ce brouillon ?"
-              : "Archiver ce quiz ?"
+              ? t("Supprimer ce brouillon ?")
+              : t("Archiver ce quiz ?")
           }
           onClose={() => setAction(null)}
         >
           <p className="intro">
             {action === "delete"
-              ? "Le brouillon et toutes ses questions seront supprimés. Cette action est définitive."
-              : "Le quiz et ses questions seront conservés. Il ne sera plus visible aux étudiants."}
+              ? t(
+                  "Le brouillon et toutes ses questions seront supprimés. Cette action est définitive.",
+                )
+              : t(
+                  "Le quiz et ses questions seront conservés. Il ne sera plus visible aux étudiants.",
+                )}
           </p>
           <Form
             label={
               action === "delete"
-                ? "Confirmer la suppression"
-                : "Confirmer l’archivage"
+                ? t("Confirmer la suppression")
+                : t("Confirmer l’archivage")
             }
             onSubmit={() =>
               api(

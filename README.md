@@ -4,7 +4,7 @@ Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes l
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question sont disponibles : conception, génération locale de propositions, passage, correction, calendrier, progression, export PDF et retours étudiants. Les autres modules et les statistiques avancées restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md).
 
 ## Travail en équipe
 
@@ -124,3 +124,7 @@ Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).
 Module Quiz–Question : [gestion des quiz](docs/QUIZ.md), [validations](docs/QUIZ-VALIDATION.md), [passage et correction](docs/QUIZ-PASSAGE.md). Branche de livraison : `Syrine`, destinée à une Pull Request vers `main`. Le périmètre actuel et les contrôles de publication sont décrits dans [docs/PUBLICATION-SYRINE.md](docs/PUBLICATION-SYRINE.md).
 
 Consultation des résultats des étudiants, réservée à l’enseignant propriétaire et à l’administrateur : [docs/QUIZ-RESULTATS.md](docs/QUIZ-RESULTATS.md).
+
+Génération locale de propositions depuis un texte de cours, avec révision et confirmation avant ajout : [IA locale — Qwen3 via Ollama](docs/QUIZ-OLLAMA.md).
+
+Calendrier, priorités, progression, export PDF, retours et interface FR/EN/AR : [compléments du module Quiz](docs/QUIZ-PROGRESSION.md).

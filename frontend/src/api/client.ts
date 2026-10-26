@@ -1,3 +1,4 @@
+import { locale } from '../quizzes/i18n';
 let csrfToken = "";
 export class ApiError extends Error {
   constructor(
@@ -59,7 +60,7 @@ export async function api<T>(
   return data as T;
 }
 export const date = (value: string) =>
-  new Intl.DateTimeFormat("fr-FR", {
+  new Intl.DateTimeFormat(locale(), {
     dateStyle: "medium",
     timeStyle: "short",
     timeZone: "Africa/Tunis",

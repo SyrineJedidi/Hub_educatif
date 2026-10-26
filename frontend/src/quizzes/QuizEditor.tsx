@@ -1,3 +1,4 @@
+import { t, LanguageNotice } from "./i18n";
 import { useParams } from "react-router-dom";
 import { useResource } from "../hooks/useResource";
 import { Loading, Alert } from "../components/UI";
@@ -12,20 +13,25 @@ export default function QuizEditor({
   const { id } = useParams();
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">ATELIER PÉDAGOGIQUE</p>
+          <p className="eyebrow">{t("ATELIER PÉDAGOGIQUE")}</p>
           <h1>
             {duplicate
-              ? "Dupliquer le quiz"
+              ? t("Dupliquer le quiz")
               : id
-                ? "Modifier le brouillon"
-                : "Créer un quiz"}
+                ? t("Modifier le brouillon")
+                : t("Créer un quiz")}
           </h1>
           <p>
             {duplicate
-              ? "Reprenez les questions et leurs points dans un nouveau brouillon indépendant."
-              : "Préparez votre contenu ; la publication restera une action distincte."}
+              ? t(
+                  "Reprenez les questions et leurs points dans un nouveau brouillon indépendant.",
+                )
+              : t(
+                  "Préparez votre contenu ; la publication restera une action distincte.",
+                )}
           </p>
         </div>
       </div>

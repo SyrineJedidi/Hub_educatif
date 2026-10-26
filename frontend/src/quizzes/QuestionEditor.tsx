@@ -1,3 +1,4 @@
+import { t, n, LanguageNotice } from "./i18n";
 import { useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/client";
@@ -18,13 +19,14 @@ export default function QuestionEditor() {
   } = useResource<Quiz>("quizzes/" + id + "/");
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">QCM À RÉPONSE UNIQUE</p>
+          <p className="eyebrow">{t("QCM À RÉPONSE UNIQUE")}</p>
           <h1>
-            {questionId ? "Modifier la question" : "Ajouter une question"}
+            {questionId ? t("Modifier la question") : t("Ajouter une question")}
           </h1>
-          <p>Quatre propositions distinctes, une seule bonne réponse.</p>
+          <p>{t("Quatre propositions distinctes, une seule bonne réponse.")}</p>
         </div>
       </div>
       {loading ? (
@@ -110,27 +112,30 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
     <>
       <UnsavedChanges dirty={dirty} ignore={saved} />
       <section className="panel quiz-context">
-        <p className="eyebrow">VOTRE BROUILLON</p>
+        <p className="eyebrow">{t("VOTRE BROUILLON")}</p>
         <h2>{quiz.title}</h2>
         <p>
-          {quiz.learning_group_name} · {quiz.question_count} questions ·{" "}
-          {quiz.total_points} points
+          {quiz.learning_group_name} · {n(quiz.question_count)}
+          {t(" questions ·")} {n(quiz.total_points)}
+          {t(" points ")}
         </p>
       </section>
       <Form
         {...validation.formProps}
         onSubmit={submit}
-        label={question ? "Enregistrer la question" : "Ajouter au brouillon"}
+        label={
+          question ? t("Enregistrer la question") : t("Ajouter au brouillon")
+        }
       >
         <p className="field-help">
-          Tous les champs affichés sont obligatoires, y compris l’explication
-          dès l’enregistrement du brouillon. La position suivante est proposée
-          automatiquement.
+          {t(
+            "Tous les champs affichés sont obligatoires, y compris l’explication dès l’enregistrement du brouillon. La position suivante est proposée automatiquement. ",
+          )}
         </p>
         <section className="panel">
-          <h2>L’énoncé</h2>
+          <h2>{t("L’énoncé")}</h2>
           <Textarea
-            label="Énoncé de la question"
+            label={t("Énoncé de la question")}
             name="statement"
             rows={4}
             required
@@ -142,10 +147,11 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
         </section>
         <section className="panel">
           <fieldset className="quiz-answer-fieldset">
-            <legend>Les quatre propositions</legend>
+            <legend>{t("Les quatre propositions")}</legend>
             <p className="field-help">
-              Chaque proposition doit être différente. Cochez exactement une
-              bonne réponse.
+              {t(
+                "Chaque proposition doit être différente. Cochez exactement une bonne réponse. ",
+              )}
             </p>
             <div className="quiz-answer-grid">
               {(["a", "b", "c", "d"] as const).map((letter) => {
@@ -168,7 +174,7 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
                       {letter.toUpperCase()}
                     </span>
                     <Textarea
-                      label={"Proposition " + letter.toUpperCase()}
+                      label={t("Proposition ") + letter.toUpperCase()}
                       name={field}
                       required
                       maxLength={500}
@@ -194,7 +200,8 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
                             : undefined
                         }
                       />{" "}
-                      {letter.toUpperCase()} est la bonne réponse
+                      {letter.toUpperCase()}
+                      {t(" est la bonne réponse ")}
                     </label>
                   </div>
                 );
@@ -212,9 +219,9 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
           </fieldset>
         </section>
         <section className="panel">
-          <h2>La correction et les points</h2>
+          <h2>{t("La correction et les points")}</h2>
           <Textarea
-            label="Explication de correction"
+            label={t("Explication de correction")}
             name="explanation"
             required
             rows={4}
@@ -223,12 +230,13 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
             error={errors.explanation}
           />
           <p className="field-help">
-            Expliquez la correction dès l’enregistrement du brouillon. Les
-            extraits de code, accents, apostrophes et symboles sont autorisés.
+            {t(
+              "Expliquez la correction dès l’enregistrement du brouillon. Les extraits de code, accents, apostrophes et symboles sont autorisés. ",
+            )}
           </p>
           <div className="form-grid">
             <Field
-              label="Points de la question"
+              label={t("Points de la question")}
               name="points"
               type="number"
               min={1}
@@ -240,7 +248,7 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
               error={errors.points}
             />
             <Field
-              label="Position dans le quiz"
+              label={t("Position dans le quiz")}
               name="position"
               type="number"
               min={1}
@@ -253,12 +261,13 @@ function QuestionForm({ quiz, question }: { quiz: Quiz; question?: Question }) {
             />
           </div>
           <p className="field-help">
-            La position suivante est proposée automatiquement. Vous pourrez
-            déplacer les questions depuis la liste.
+            {t(
+              "La position suivante est proposée automatiquement. Vous pourrez déplacer les questions depuis la liste. ",
+            )}
           </p>
         </section>
         <div className="quiz-form-cancel">
-          <Link to={base + "/" + quiz.id}>Annuler</Link>
+          <Link to={base + "/" + quiz.id}>{t("Annuler")}</Link>
         </div>
       </Form>
     </>

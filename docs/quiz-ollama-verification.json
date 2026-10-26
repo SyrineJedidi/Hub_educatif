@@ -1,0 +1,84 @@
+{
+  "verified_at": "2026-10-26T15:24:15.841243+00:00",
+  "branch": "Syrine",
+  "backend_environment": "Windows Python, no Docker or WSL",
+  "configuration": {
+    "base_url": "http://127.0.0.1:11434",
+    "model": "qwen3:8b",
+    "timeout_seconds": 180,
+    "api_key_required": false
+  },
+  "real_server": {
+    "version": "0.40.10",
+    "model_native_context_tokens": 40960,
+    "thinking_false_supported": true,
+    "quantization": "Q4_K_M"
+  },
+  "request": {
+    "method": "POST",
+    "path": "/api/chat",
+    "stream": false,
+    "think": false,
+    "format": "JSON Schema",
+    "read_output_from": "message.content",
+    "automatic_retries": 0,
+    "maximum_context_tokens": 16384
+  },
+  "backend_tests": {
+    "command": "python backend/manage.py test quizzes --noinput",
+    "passed": 101,
+    "failed": 0,
+    "existing_module_tests": 72,
+    "generation_tests": 29,
+    "provider_simulated": true
+  },
+  "django_check": "passed",
+  "migration_drift": false,
+  "new_migrations_for_ollama": false,
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "build": "passed"
+  },
+  "browser": [
+    {
+      "spec": "generation",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T15:18:58.491Z",
+        "duration": 21725.747,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "ollama-live",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T15:19:25.911Z",
+        "duration": 34185.449,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ],
+  "real_generation": {
+    "executed": true,
+    "model": "qwen3:8b",
+    "generation_seconds": 25.568,
+    "generated": 3,
+    "saved_after_confirmation": 2,
+    "saved_before_confirmation": 0,
+    "status": "DRAFT",
+    "direct_browser_calls_to_ollama": 0,
+    "javascript_errors": [],
+    "database_isolated": true
+  },
+  "accessibility_axe_violations": 0,
+  "general_browser_suite_rerun": false,
+  "commit_push_merge": false
+}

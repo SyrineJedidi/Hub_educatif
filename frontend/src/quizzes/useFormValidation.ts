@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useEffect, useRef, useState } from "react";
 import type { FocusEvent } from "react";
 import { ApiError } from "../api/client";
@@ -59,7 +60,11 @@ export function useFormValidation(
     setErrors(issues);
     if (Object.keys(issues).length) {
       focusError();
-      throw new ApiError(400, "Veuillez corriger les champs indiqués.", issues);
+      throw new ApiError(
+        400,
+        t("Veuillez corriger les champs indiqués."),
+        issues,
+      );
     }
   }
   function serverErrors(error: unknown) {

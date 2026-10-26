@@ -1,0 +1,62 @@
+[
+  {
+    "spec": "quizzes",
+    "exit_code": 0,
+    "stats": {
+      "startTime": "2026-10-26T17:56:11.607Z",
+      "duration": 32073.539,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  {
+    "spec": "attempts",
+    "exit_code": 0,
+    "stats": {
+      "startTime": "2026-10-26T17:56:49.377Z",
+      "duration": 25852.374,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  {
+    "spec": "student-results",
+    "exit_code": 0,
+    "stats": {
+      "startTime": "2026-10-26T17:57:21.005Z",
+      "duration": 12325.096,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  {
+    "spec": "quiz-completion",
+    "exit_code": 0,
+    "stats": {
+      "startTime": "2026-10-26T17:57:38.313Z",
+      "duration": 17962.282,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  {
+    "spec": "generation",
+    "exit_code": 0,
+    "stats": {
+      "startTime": "2026-10-26T17:58:01.999Z",
+      "duration": 16686.744000000002,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+]

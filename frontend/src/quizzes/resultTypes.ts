@@ -1,3 +1,4 @@
+import { locale } from "./i18n";
 import type { AttemptQuestion, AttemptSummary, Choice } from "./attemptTypes";
 export interface Person {
   id: string;
@@ -22,5 +23,5 @@ export interface ManagedResultDetail extends ManagedResult {
 export const personName = (person: Person) =>
   `${person.last_name} ${person.first_name}`.trim();
 export const percentageLabel = (value: number) =>
-  new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(value) +
+  new Intl.NumberFormat(locale(), { maximumFractionDigits: 2 }).format(value) +
   " %";

@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-10-26T12:58:20.463Z",
+  "timestamp": "2026-10-26T18:35:19.801Z",
   "url": "http://127.0.0.1:5181/espace/quiz/nouveau",
   "toolOptions": {
     "reporter": "v1"
@@ -860,6 +860,32 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -912,7 +938,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -998,6 +1024,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1034,7 +1078,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1382,6 +1426,24 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1418,7 +1480,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1502,6 +1564,38 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1566,7 +1660,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1664,6 +1758,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1700,7 +1812,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1838,6 +1950,12 @@
                   ]
                 },
                 {
+                  "html": "<h2>Disponibilité du quiz</h2>",
+                  "target": [
+                    "section:nth-child(5) > h2"
+                  ]
+                },
+                {
                   "html": "<h2>Visibilité et diffusion</h2>",
                   "target": [
                     ".quiz-form-cancel > section > h2"
@@ -1889,7 +2007,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -1933,9 +2051,59 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#4a5355",
+                "bgColor": "#ffffff",
+                "contrastRatio": 7.89,
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 7.89"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            ".quiz-language > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#000000",
+                "bgColor": "#ffffff",
+                "contrastRatio": 21,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 21"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
           ]
         },
         {
@@ -2008,7 +2176,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -2108,7 +2276,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -2133,7 +2301,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span>",
+          "html": "<span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span>",
           "target": [
             ".front-profile-name"
           ]
@@ -2168,16 +2336,41 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#566179",
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 5.85,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.85"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".quiz-language-notice"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
-                "fontSize": "7.5pt (10px)",
+                "contrastRatio": 7,
+                "fontSize": "8.3pt (11px)",
                 "fontWeight": "bold",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
@@ -2218,7 +2411,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "11.3pt (15px)",
@@ -2243,22 +2436,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires. Choisissez explicitement une durée limitée ou sans limite de temps.</p>",
+          "html": "<p class=\"field-help\">Les dates sont facultatives. Les autres champs sont obligatoires. Choisissez explicitement une durée limitée ou sans limite de temps. </p>",
           "target": [
             "form > .field-help"
           ]
@@ -2293,22 +2486,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Un titre clair et une courte présentation pour situer les apprentissages.</p>",
+          "html": "<p class=\"field-help\">Un titre clair et une courte présentation pour situer les apprentissages. </p>",
           "target": [
             "section:nth-child(2) > .field-help"
           ]
@@ -2344,15 +2537,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
@@ -2444,21 +2637,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -2468,22 +2661,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Seuls les groupes actifs affectés à l’enseignant peuvent recevoir ce quiz.</p>",
+          "html": "<p class=\"field-help\">Seuls les groupes actifs affectés à l’enseignant peuvent recevoir ce quiz. </p>",
           "target": [
             "section:nth-child(3) > .field-help"
           ]
@@ -2544,15 +2737,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
@@ -2594,15 +2787,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
@@ -2644,15 +2837,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
@@ -2683,9 +2876,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_c_\">Durée en minutes</label>",
+          "html": "<label for=\"_r_e_\">Durée en minutes</label>",
           "target": [
-            "label[for=\"_r_c_\"]"
+            "label[for=\"_r_e_\"]"
           ]
         },
         {
@@ -2694,23 +2887,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
           ]
         },
         {
@@ -2718,24 +2911,199 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">La durée et le nombre de tentatives autorisées s’appliquent aux passages des étudiants.</p>",
+          "html": "<p class=\"field-help\">La durée et le nombre de tentatives autorisées s’appliquent aux passages des étudiants. </p>",
           "target": [
             "section:nth-child(4) > .field-help"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "19.5pt (26px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2>Disponibilité du quiz</h2>",
+          "target": [
+            "section:nth-child(5) > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p>Dates facultatives, fuseau Africa/Tunis (UTC+01:00). Sans dates, le fonctionnement actuel est conservé.</p>",
+          "target": [
+            "section:nth-child(5) > p:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label for=\"_r_a_\">Ouverture (facultatif)</label>",
+          "target": [
+            "label[for=\"_r_a_\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "11.3pt (15px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label for=\"_r_b_\">Fermeture (facultatif)</label>",
+          "target": [
+            "label[for=\"_r_b_\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#0b104a",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
+                "fontSize": "11.3pt (15px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.68"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#566179",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.2,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.2"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-help\">Au départ, l’échéance est la plus proche entre la durée autorisée et la fermeture. Les dates sont verrouillées après publication.</p>",
+          "target": [
+            "section:nth-child(5) > .field-help"
           ]
         },
         {
@@ -2768,22 +3136,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
+                "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
-                "contrastRatio": 7.89,
+                "contrastRatio": 17.68,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.89"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Enregistrez ce quiz en brouillon pour le garder dans votre espace et celui de l’administrateur, sans l’afficher aux étudiants.</p>",
+          "html": "<p>Enregistrez ce quiz en brouillon pour le garder dans votre espace et celui de l’administrateur, sans l’afficher aux étudiants. </p>",
           "target": [
             ".quiz-form-cancel > section > p:nth-child(2)"
           ]
@@ -2793,22 +3161,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
+                "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
-                "contrastRatio": 7.89,
+                "contrastRatio": 17.68,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.89"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Quand les questions sont prêtes, choisissez « Publier le quiz » depuis la prévisualisation pour le rendre visible aux étudiants actuellement inscrits dans le groupe sélectionné.</p>",
+          "html": "<p>Quand les questions sont prêtes, choisissez « Publier le quiz » depuis la prévisualisation pour le rendre visible aux étudiants actuellement inscrits dans le groupe sélectionné. </p>",
           "target": [
             ".quiz-form-cancel > section > p:nth-child(3)"
           ]
@@ -2818,24 +3186,24 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
+                "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
-                "contrastRatio": 7.89,
+                "contrastRatio": 17.68,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.89"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Après publication, l’action « Archiver » le masque aux étudiants tout en le conservant pour vous et l’administrateur.</p>",
+          "html": "<p>Après publication, l’action « Archiver » le masque aux étudiants tout en le conservant pour vous et l’administrateur. </p>",
           "target": [
-            "p:nth-child(4)"
+            ".quiz-form-cancel > section > p:nth-child(4)"
           ]
         },
         {
@@ -2843,16 +3211,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
+                "contrastRatio": 7,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
@@ -2871,7 +3239,7 @@
                 "fgColor": "#ffffff",
                 "bgColor": "#525fe1",
                 "contrastRatio": 5.14,
-                "fontSize": "12.0pt (16px)",
+                "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2958,7 +3326,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -3108,7 +3476,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -3133,7 +3501,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -3158,7 +3526,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -3308,7 +3676,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -3420,7 +3788,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -3508,7 +3876,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -3571,7 +3939,7 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "_r_c_",
+              "data": "_r_e_",
               "relatedNodes": [],
               "impact": "critical",
               "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
@@ -3580,9 +3948,45 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "_r_a_",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "_r_b_",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
           ]
         }
       ]
@@ -3668,6 +4072,24 @@
           "html": "<h2>Les paramètres pédagogiques</h2>",
           "target": [
             "section:nth-child(4) > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2>Disponibilité du quiz</h2>",
+          "target": [
+            "section:nth-child(5) > h2"
           ]
         },
         {
@@ -3787,6 +4209,31 @@
               "data": null,
               "relatedNodes": [
                 {
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+                  "target": [
+                    ".quiz-language"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
                   "html": "<label for=\"_r_4_\">Titre du quiz</label>",
                   "target": [
                     "label[for=\"_r_4_\"]"
@@ -3848,7 +4295,7 @@
             }
           ],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -3937,9 +4384,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_c_\">Durée en minutes</label>",
+                  "html": "<label for=\"_r_e_\">Durée en minutes</label>",
                   "target": [
-                    "label[for=\"_r_c_\"]"
+                    "label[for=\"_r_e_\"]"
                   ]
                 }
               ],
@@ -3948,9 +4395,59 @@
             }
           ],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_a_\">Ouverture (facultatif)</label>",
+                  "target": [
+                    "label[for=\"_r_a_\"]"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_b_\">Fermeture (facultatif)</label>",
+                  "target": [
+                    "label[for=\"_r_b_\"]"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
           ]
         }
       ]
@@ -3974,31 +4471,37 @@
                 "headingOrder": [
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(1) > div > h1:nth-child(2)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > div > h1:nth-child(2)"
                     ],
                     "level": 1
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > form > section:nth-child(2) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(3) > form > section:nth-child(2) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > form > section:nth-child(3) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(3) > form > section:nth-child(3) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > form > section:nth-child(4) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(3) > form > section:nth-child(4) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > form > div:nth-child(5) > section:nth-child(1) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(3) > form > section:nth-child(5) > h2:nth-child(1)"
+                    ],
+                    "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(3) > form > div:nth-child(6) > section:nth-child(1) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
@@ -4093,6 +4596,24 @@
           "html": "<h2>Les paramètres pédagogiques</h2>",
           "target": [
             "section:nth-child(4) > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2>Disponibilité du quiz</h2>",
+          "target": [
+            "section:nth-child(5) > h2"
           ]
         },
         {
@@ -4217,7 +4738,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -4254,7 +4775,7 @@
             }
           ],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -4272,6 +4793,24 @@
       "help": "Form elements should have a visible label",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/label-title-only?application=playwright",
       "nodes": [
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
         {
           "any": [],
           "all": [],
@@ -4321,7 +4860,7 @@
             }
           ],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -4393,9 +4932,45 @@
             }
           ],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
           ]
         }
       ]
@@ -4533,9 +5108,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_c_\">Durée en minutes</label>",
+                  "html": "<label for=\"_r_e_\">Durée en minutes</label>",
                   "target": [
-                    "label[for=\"_r_c_\"]"
+                    "label[for=\"_r_e_\"]"
                   ]
                 }
               ],
@@ -4554,9 +5129,79 @@
             }
           ],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "explicit-label",
+              "data": {
+                "explicitLabel": "Ouverture (facultatif)"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_a_\">Ouverture (facultatif)</label>",
+                  "target": [
+                    "label[for=\"_r_a_\"]"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an explicit <label>"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "explicit-label",
+              "data": {
+                "explicitLabel": "Fermeture (facultatif)"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_b_\">Fermeture (facultatif)</label>",
+                  "target": [
+                    "label[for=\"_r_b_\"]"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an explicit <label>"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
           ]
         }
       ]
@@ -4784,7 +5429,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -5069,7 +5714,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -5128,7 +5773,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -5369,7 +6014,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -5395,7 +6040,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -5421,7 +6066,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -5603,7 +6248,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -5709,7 +6354,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -5727,7 +6372,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -5745,7 +6390,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -5901,6 +6546,60 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<summary>Mes activités <span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".front-dropdown:nth-child(3) > summary"
@@ -5937,7 +6636,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -5973,9 +6672,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option>",
+          "html": "<option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option>",
           "target": [
-            "option[value=\"6adf4e611b6ec3fc3e239351\"]"
+            "option[value=\"6adf9d5b03a203b474cf1d8e\"]"
           ]
         },
         {
@@ -6155,7 +6854,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -6228,7 +6927,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -6271,6 +6970,126 @@
           "html": "<div class=\"container-fluid hub-header\">",
           "target": [
             ".container-fluid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+          "target": [
+            ".quiz-language"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            ".quiz-language > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
           ]
         },
         {
@@ -6368,7 +7187,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -6508,7 +7327,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -6528,7 +7347,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -6548,7 +7367,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span>",
+          "html": "<span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span>",
           "target": [
             ".front-profile-name"
           ]
@@ -6788,6 +7607,26 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".quiz-language-notice"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<div class=\"page-heading\"><div><p class=\"eyebrow\">ATELIER PÉDAGOGIQUE</p><h1>Créer un quiz</h1><p>Préparez votre contenu ; la publication restera une action distincte.</p></div></div>",
           "target": [
             ".page-heading"
@@ -6890,7 +7729,7 @@
           "impact": null,
           "html": "<div>",
           "target": [
-            ".quiz-module > div:nth-child(2)"
+            ".quiz-module > div:nth-child(3)"
           ]
         },
         {
@@ -6928,7 +7767,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires. Choisissez explicitement une durée limitée ou sans limite de temps.</p>",
+          "html": "<p class=\"field-help\">Les dates sont facultatives. Les autres champs sont obligatoires. Choisissez explicitement une durée limitée ou sans limite de temps. </p>",
           "target": [
             "form > .field-help"
           ]
@@ -6988,7 +7827,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Un titre clair et une courte présentation pour situer les apprentissages.</p>",
+          "html": "<p class=\"field-help\">Un titre clair et une courte présentation pour situer les apprentissages. </p>",
           "target": [
             "section:nth-child(2) > .field-help"
           ]
@@ -7208,7 +8047,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -7248,9 +8087,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option>",
+          "html": "<option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option>",
           "target": [
-            "option[value=\"6adf4e611b6ec3fc3e239351\"]"
+            "option[value=\"6adf9d5b03a203b474cf1d8e\"]"
           ]
         },
         {
@@ -7268,7 +8107,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Seuls les groupes actifs affectés à l’enseignant peuvent recevoir ce quiz.</p>",
+          "html": "<p class=\"field-help\">Seuls les groupes actifs affectés à l’enseignant peuvent recevoir ce quiz. </p>",
           "target": [
             "section:nth-child(3) > .field-help"
           ]
@@ -7330,7 +8169,7 @@
           "impact": null,
           "html": "<div class=\"form-grid\">",
           "target": [
-            ".form-grid"
+            "section:nth-child(4) > .form-grid"
           ]
         },
         {
@@ -7350,7 +8189,7 @@
           "impact": null,
           "html": "<div class=\"field\">",
           "target": [
-            ".field:nth-child(1)"
+            "section:nth-child(4) > .form-grid > .field:nth-child(1)"
           ]
         },
         {
@@ -7490,7 +8329,7 @@
           "impact": null,
           "html": "<div class=\"field\"><label for=\"_r_8_\">Tentatives autorisées</label><input id=\"_r_8_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"max_attempts\"></div>",
           "target": [
-            ".form-grid > .field:nth-child(2)"
+            "section:nth-child(4) > .form-grid > .field:nth-child(2)"
           ]
         },
         {
@@ -7668,7 +8507,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_c_\">Durée en minutes</label><input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\"></div>",
+          "html": "<div class=\"field\"><label for=\"_r_e_\">Durée en minutes</label><input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\"></div>",
           "target": [
             ".form-grid > .field:nth-child(4)"
           ]
@@ -7688,9 +8527,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_c_\">Durée en minutes</label>",
+          "html": "<label for=\"_r_e_\">Durée en minutes</label>",
           "target": [
-            "label[for=\"_r_c_\"]"
+            "label[for=\"_r_e_\"]"
           ]
         },
         {
@@ -7708,9 +8547,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_c_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
+          "html": "<input id=\"_r_e_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"10\" name=\"duration_minutes\">",
           "target": [
-            "#_r_c_"
+            "#_r_e_"
           ]
         },
         {
@@ -7728,9 +8567,229 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">La durée et le nombre de tentatives autorisées s’appliquent aux passages des étudiants.</p>",
+          "html": "<p class=\"field-help\">La durée et le nombre de tentatives autorisées s’appliquent aux passages des étudiants. </p>",
           "target": [
             "section:nth-child(4) > .field-help"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"panel\">",
+          "target": [
+            "section:nth-child(5)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2>Disponibilité du quiz</h2>",
+          "target": [
+            "section:nth-child(5) > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p>Dates facultatives, fuseau Africa/Tunis (UTC+01:00). Sans dates, le fonctionnement actuel est conservé.</p>",
+          "target": [
+            "section:nth-child(5) > p:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"form-grid\">",
+          "target": [
+            "section:nth-child(5) > .form-grid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"field\"><label for=\"_r_a_\">Ouverture (facultatif)</label><input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\"></div>",
+          "target": [
+            "section:nth-child(5) > .form-grid > .field:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label for=\"_r_a_\">Ouverture (facultatif)</label>",
+          "target": [
+            "label[for=\"_r_a_\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_a_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"opens_at\">",
+          "target": [
+            "#_r_a_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"field\"><label for=\"_r_b_\">Fermeture (facultatif)</label><input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\"></div>",
+          "target": [
+            "section:nth-child(5) > .form-grid > .field:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label for=\"_r_b_\">Fermeture (facultatif)</label>",
+          "target": [
+            "label[for=\"_r_b_\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_b_\" class=\"form-control\" type=\"datetime-local\" value=\"\" name=\"closes_at\">",
+          "target": [
+            "#_r_b_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-help\">Au départ, l’échéance est la plus proche entre la durée autorisée et la fermeture. Les dates sont verrouillées après publication.</p>",
+          "target": [
+            "section:nth-child(5) > .field-help"
           ]
         },
         {
@@ -7808,7 +8867,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Enregistrez ce quiz en brouillon pour le garder dans votre espace et celui de l’administrateur, sans l’afficher aux étudiants.</p>",
+          "html": "<p>Enregistrez ce quiz en brouillon pour le garder dans votre espace et celui de l’administrateur, sans l’afficher aux étudiants. </p>",
           "target": [
             ".quiz-form-cancel > section > p:nth-child(2)"
           ]
@@ -7828,7 +8887,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Quand les questions sont prêtes, choisissez « Publier le quiz » depuis la prévisualisation pour le rendre visible aux étudiants actuellement inscrits dans le groupe sélectionné.</p>",
+          "html": "<p>Quand les questions sont prêtes, choisissez « Publier le quiz » depuis la prévisualisation pour le rendre visible aux étudiants actuellement inscrits dans le groupe sélectionné. </p>",
           "target": [
             ".quiz-form-cancel > section > p:nth-child(3)"
           ]
@@ -7848,9 +8907,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Après publication, l’action « Archiver » le masque aux étudiants tout en le conservant pour vous et l’administrateur.</p>",
+          "html": "<p>Après publication, l’action « Archiver » le masque aux étudiants tout en le conservant pour vous et l’administrateur. </p>",
           "target": [
-            "p:nth-child(4)"
+            ".quiz-form-cancel > section > p:nth-child(4)"
           ]
         },
         {
@@ -8088,7 +9147,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -8328,7 +9387,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul></div>",
+          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer"
           ]
@@ -8368,7 +9427,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -8388,7 +9447,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -8408,7 +9467,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -8428,7 +9487,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -8448,7 +9507,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -8468,7 +9527,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -8488,7 +9547,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -8708,7 +9767,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div></div>",
+          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5)"
           ]
@@ -8728,7 +9787,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div>",
+          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer"
           ]
@@ -8768,7 +9827,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -8917,6 +9976,48 @@
         {
           "any": [
             {
+              "id": "implicit-label",
+              "data": {
+                "implicitLabel": "Langue de l’interfaceLangue de l’interface"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+                  "target": [
+                    ".quiz-language"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an implicit (wrapped) <label>"
+            },
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select[aria-label=\"Langue de l’interface\"]"
+          ]
+        },
+        {
+          "any": [
+            {
               "id": "explicit-label",
               "data": {
                 "explicitLabel": "Groupe pédagogique"
@@ -8944,7 +10045,7 @@
             }
           ],
           "impact": null,
-          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf4e611b6ec3fc3e239351\">Python · Atelier quiz 1793019489243 · QZ-1793019489243</option></select>",
+          "html": "<select id=\"_r_6_\" class=\"form-control\" name=\"learning_group_id\" required=\"\"><option value=\"\">Choisir un groupe actif</option><option value=\"6adf9d5b03a203b474cf1d8e\">Python · Atelier quiz 1793039707862 · QZ-1793039707862</option></select>",
           "target": [
             "#_r_6_"
           ]
@@ -9095,7 +10196,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]

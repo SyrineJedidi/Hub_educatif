@@ -1,3 +1,4 @@
+import { t } from "../quizzes/i18n";
 import { useEffect, useId, useRef, useState } from "react";
 import type {
   ReactNode,
@@ -24,22 +25,27 @@ export function Alert({
     >
       {error instanceof ApiError ? (
         <>
-          {error.message}
+          {t(error.message)}
           {Object.entries(error.fields).map(([k, v]) => (
             <p key={k}>
-              {labels[k] || k} : {Array.isArray(v) ? v.join(" ") : v}
+              {t(labels[k] || k)} :{" "}
+              {Array.isArray(v) ? v.map((item) => t(item)).join(" ") : t(v)}
             </p>
           ))}
         </>
       ) : error instanceof Error ? (
-        error.message
+        t(error.message)
       ) : (
-        String(error || success)
+        t(String(error || success))
       )}
     </div>
   );
 }
 const labels: Record<string, string> = {
+  rating: "Appréciation",
+  comment: "Commentaire",
+  opens_at: "Ouverture",
+  closes_at: "Fermeture",
   title: "Titre",
   learning_group_id: "Groupe pédagogique",
   statement: "Énoncé",
@@ -78,7 +84,7 @@ export function Field({
   const id = useId();
   return (
     <div className="field">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{t(label)}</label>
       <input
         id={id}
         className="form-control"
@@ -88,7 +94,7 @@ export function Field({
       />
       {error && (
         <p id={id + "-error"} className="field-help notice-error">
-          {error}
+          {t(error)}
         </p>
       )}
     </div>
@@ -107,7 +113,7 @@ export function Select({
   const id = useId();
   return (
     <div className="field">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{t(label)}</label>
       <select
         id={id}
         className="form-control"
@@ -119,15 +125,15 @@ export function Select({
       </select>
       {error && (
         <p id={id + "-error"} className="field-help notice-error">
-          {error}
+          {t(error)}
         </p>
       )}
     </div>
   );
 }
 export function Empty({
-  children = "Aucune donnée à afficher pour le moment.",
-  title = "Tout commence ici",
+  children = t("Aucune donnée à afficher pour le moment."),
+  title = t("Tout commence ici"),
   headingLevel = 3,
 }: {
   children?: ReactNode;
@@ -138,7 +144,7 @@ export function Empty({
   return (
     <div className="empty">
       <span className="ti-folder" aria-hidden="true" />
-      <Heading>{title}</Heading>
+      <Heading>{t(title)}</Heading>
       <p>{children}</p>
     </div>
   );
@@ -146,12 +152,16 @@ export function Empty({
 export function Loading() {
   return (
     <p className="loading" role="status">
-      Chargement en cours…
+      {t("Chargement en cours… ")}
     </p>
   );
 }
 export function Badge({ children }: { children: ReactNode }) {
-  return <span className="status-badge">{children}</span>;
+  return (
+    <span className="status-badge">
+      {typeof children === "string" ? t(children) : children}
+    </span>
+  );
 }
 export function Pagination({
   page,
@@ -163,15 +173,18 @@ export function Pagination({
   onChange: (p: number) => void;
 }) {
   return count > 20 ? (
-    <nav aria-label="Pagination" className="pagination-hub">
+    <nav aria-label={t("Pagination")} className="pagination-hub">
       <button disabled={page <= 1} onClick={() => onChange(page - 1)}>
-        Précédent
+        {t("Précédent ")}
       </button>
       <span>
-        Page {page} sur {Math.ceil(count / 20)}
+        {t("Page ")}
+        {page}
+        {t(" sur ")}
+        {Math.ceil(count / 20)}
       </span>
       <button disabled={page * 20 >= count} onClick={() => onChange(page + 1)}>
-        Suivant
+        {t("Suivant ")}
       </button>
     </nav>
   ) : null;
@@ -199,8 +212,12 @@ export function Modal({
   return (
     <dialog ref={ref} aria-labelledby={id} onCancel={onClose}>
       <div className="modal-title">
-        <h2 id={id}>{title}</h2>
-        <button className="icon-button" onClick={onClose} aria-label="Fermer">
+        <h2 id={id}>{t(title)}</h2>
+        <button
+          className="icon-button"
+          onClick={onClose}
+          aria-label={t("Fermer")}
+        >
           ×
         </button>
       </div>
@@ -211,7 +228,7 @@ export function Modal({
 export function Form({
   onSubmit,
   children,
-  label = "Enregistrer",
+  label = t("Enregistrer"),
   onSuccess,
   noValidate = false,
   onBlur,
@@ -241,7 +258,7 @@ export function Form({
     const form = new FormData(e.currentTarget);
     try {
       await onSubmit(form);
-      setSuccess("Enregistrement effectué.");
+      setSuccess(t("Enregistrement effectué."));
       onSuccess?.();
     } catch (e) {
       setError(e);
@@ -268,7 +285,7 @@ export function Form({
       <Alert error={error} success={success} />
       {children}
       <button className="btn_one" disabled={busy}>
-        {busy ? "Veuillez patienter…" : label}
+        {busy ? t("Veuillez patienter…") : t(label)}
       </button>
     </form>
   );
@@ -300,7 +317,7 @@ export function Textarea({
   const id = useId();
   return (
     <div className="field">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{t(label)}</label>
       <textarea
         id={id}
         className="form-control"
@@ -310,7 +327,7 @@ export function Textarea({
       />
       {error && (
         <p id={id + "-error"} className="field-help notice-error">
-          {error}
+          {t(error)}
         </p>
       )}
     </div>

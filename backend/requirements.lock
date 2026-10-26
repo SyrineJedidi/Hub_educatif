@@ -9,3 +9,8 @@ pymongo==4.19.0
 python-dotenv==1.2.4
 sqlparse==0.6.0
 tzdata==2026.5
+
+fpdf2==2.8.9
+uharfbuzz==0.57.0
+defusedxml==0.7.1
+fonttools==4.67.0

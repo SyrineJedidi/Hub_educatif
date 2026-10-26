@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
+OLLAMA_BASE_URL = os.getenv('OLLAMA_BASE_URL', 'http://127.0.0.1:11434')
+OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'qwen3:8b')
+OLLAMA_TIMEOUT_SECONDS = os.getenv('OLLAMA_TIMEOUT_SECONDS', '180')
 DEBUG = os.getenv('DJANGO_DEBUG', 'true').lower() == 'true'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 if not SECRET_KEY:

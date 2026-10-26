@@ -1,3 +1,4 @@
+import { t, n, LanguageNotice } from "./i18n";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api, ApiError } from "../api/client";
@@ -19,7 +20,7 @@ export default function AttemptPage() {
     <div>
       <Alert error={error} />
       <button className="text-button" onClick={reload}>
-        Réessayer le chargement
+        {t("Réessayer le chargement ")}
       </button>
     </div>
   ) : (
@@ -144,76 +145,91 @@ function AttemptRunner({ initial }: { initial: Attempt }) {
   }
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <UnsavedChanges dirty={queue.dirty || submitting} ignore={completed} />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">TENTATIVE {initial.number} · À VOTRE RYTHME</p>
+          <p className="eyebrow">
+            {t("TENTATIVE ")}
+            {n(initial.number)}
+            {t(" · À VOTRE RYTHME")}
+          </p>
           <h1>{initial.quiz_title}</h1>
           <p>
-            Choisissez une réponse par question. Chaque sélection est
-            enregistrée dès confirmation du serveur.
+            {t(
+              "Choisissez une réponse par question. Chaque sélection est enregistrée dès confirmation du serveur. ",
+            )}
           </p>
         </div>
         <Link className="text-button" to="/espace/tentatives">
-          Mes tentatives ↗
+          {t("Mes tentatives ↗ ")}
         </Link>
       </div>
       <Alert error={error} />
       {(queue.conflict || conflict) && (
         <div className="notice notice-error" role="alert">
           <p>
-            Les réponses ont changé dans une autre fenêtre. Vérifiez les
-            réponses du serveur avant de continuer.
+            {t(
+              "Les réponses ont changé dans une autre fenêtre. Vérifiez les réponses du serveur avant de continuer. ",
+            )}
           </p>
           <button
             className="text-button"
             onClick={() => window.location.reload()}
           >
-            Recharger les réponses du serveur
+            {t("Recharger les réponses du serveur ")}
           </button>
         </div>
       )}
       <section
         className="panel quiz-attempt-progress"
-        aria-label="Progression de la tentative"
+        aria-label={t("Progression de la tentative")}
       >
         <div>
           <strong>
-            {answered} / {initial.questions.length} questions répondues
+            {n(answered)} / {n(initial.questions.length)}
+            {t(" questions répondues ")}
           </strong>
           <progress
-            aria-label="Questions répondues"
+            aria-label={t("Questions répondues")}
             value={answered}
             max={initial.questions.length}
           />
         </div>
         {remaining !== null ? (
-          <p className="quiz-timer" role="timer" aria-label="Temps restant">
-            Temps restant :{" "}
+          <p
+            className="quiz-timer"
+            role="timer"
+            aria-label={t("Temps restant")}
+          >
+            {t("Temps restant :")}{" "}
             <strong>
-              {Math.floor(remaining / 60)}:
-              {String(remaining % 60).padStart(2, "0")}
+              {n(Math.floor(remaining / 60))}:
+              {n(remaining % 60).padStart(2, n(0))}
             </strong>
           </p>
         ) : (
-          <p>Durée illimitée</p>
+          <p>{t("Durée illimitée")}</p>
         )}
         <p role="status">
           {queue.dirty
-            ? "Des réponses restent à synchroniser. Elles ne sont pas encore toutes enregistrées."
+            ? t(
+                "Des réponses restent à synchroniser. Elles ne sont pas encore toutes enregistrées.",
+              )
             : answered
-              ? "Toutes vos réponses sélectionnées sont enregistrées."
-              : "Aucune réponse sélectionnée."}
+              ? t("Toutes vos réponses sélectionnées sont enregistrées.")
+              : t("Aucune réponse sélectionnée.")}
         </p>
         {remaining === 0 && (
           <p className="notice">
-            Le temps est écoulé. Vérification de la tentative auprès du serveur…
-            Seules les réponses enregistrées avant l’échéance seront corrigées.
+            {t(
+              "Le temps est écoulé. Vérification de la tentative auprès du serveur… Seules les réponses enregistrées avant l’échéance seront corrigées. ",
+            )}
           </p>
         )}
         {!!error && (
           <button className="text-button" onClick={() => void refresh()}>
-            Vérifier l’état de la tentative
+            {t("Vérifier l’état de la tentative ")}
           </button>
         )}
       </section>
@@ -223,7 +239,9 @@ function AttemptRunner({ initial }: { initial: Attempt }) {
           <section className="panel quiz-question" key={question.id}>
             <fieldset className="quiz-answer-fieldset" disabled={blocked}>
               <legend>
-                Question {index + 1} · {question.points} point(s)
+                {t("Question ")}
+                {n(index + 1)} · {n(question.points)}
+                {t(" point(s) ")}
               </legend>
               <p className="quiz-statement">{question.statement}</p>
               <div className="quiz-answer-grid">
@@ -251,67 +269,74 @@ function AttemptRunner({ initial }: { initial: Attempt }) {
             </fieldset>
             <div className="quiz-save-status" role="status" aria-live="polite">
               {answer?.state === "saved" ? (
-                "Enregistré"
+                t("Enregistré")
               ) : answer?.state === "saving" || answer?.state === "pending" ? (
-                "Enregistrement…"
+                t("Enregistrement…")
               ) : answer?.state === "error" ? (
                 <>
                   <span className="notice-error">
-                    {answer.error} Votre sélection n’est pas confirmée.
+                    {answer.error}
+                    {t(" Votre sélection n’est pas confirmée. ")}
                   </span>
                   {!queue.conflict && !blocked && (
                     <button
                       className="text-button"
                       onClick={() => void queue.retry()}
                     >
-                      Réessayer l’enregistrement
+                      {t("Réessayer l’enregistrement ")}
                     </button>
                   )}
                 </>
               ) : (
-                "Pas encore de réponse."
+                t("Pas encore de réponse.")
               )}
             </div>
           </section>
         );
       })}
       <section className="panel">
-        <h2>Terminer votre tentative</h2>
+        <h2>{t("Terminer votre tentative")}</h2>
         <p>
-          Vérifiez vos choix avant de soumettre. Les questions sans réponse
-          valent zéro point.
+          {t(
+            "Vérifiez vos choix avant de soumettre. Les questions sans réponse valent zéro point. ",
+          )}
         </p>
         <button
           className="btn_one"
           disabled={blocked}
           onClick={() => setConfirm(true)}
         >
-          Terminer ma tentative
+          {t("Terminer ma tentative ")}
         </button>
       </section>
       {confirm && (
         <Modal
-          title="Soumettre votre tentative ?"
+          title={t("Soumettre votre tentative ?")}
           onClose={() => setConfirm(false)}
         >
           <p>
-            Il reste {initial.questions.length - answered} question(s) sans
-            réponse.
+            {t("Il reste ")}
+            {n(initial.questions.length - answered)}
+            {t(" question(s) sans réponse. ")}
           </p>
           <p>
             {queue.dirty
-              ? "Les réponses en attente doivent être enregistrées avant la soumission. En cas d’erreur, la tentative restera ouverte."
-              : "Toutes vos sélections sont enregistrées. Après soumission, elles ne seront plus modifiables."}
+              ? t(
+                  "Les réponses en attente doivent être enregistrées avant la soumission. En cas d’erreur, la tentative restera ouverte.",
+                )
+              : t(
+                  "Toutes vos sélections sont enregistrées. Après soumission, elles ne seront plus modifiables.",
+                )}
           </p>
           {queue.conflict || conflict ? (
             <button
               className="text-button"
               onClick={() => window.location.reload()}
             >
-              Recharger les réponses du serveur
+              {t("Recharger les réponses du serveur ")}
             </button>
           ) : (
-            <Form label="Enregistrer et soumettre" onSubmit={submit} />
+            <Form label={t("Enregistrer et soumettre")} onSubmit={submit} />
           )}
         </Modal>
       )}

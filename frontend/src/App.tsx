@@ -2,6 +2,7 @@ import QuizList from "./quizzes/QuizList";
 import QuizDetail from "./quizzes/QuizDetail";
 import QuizEditor from "./quizzes/QuizEditor";
 import QuestionEditor from "./quizzes/QuestionEditor";
+import GenerateQuestions from "./quizzes/GenerateQuestions";
 import QuizPreview from "./quizzes/QuizPreview";
 import {
   QuizManagerRoute,
@@ -13,7 +14,8 @@ import AttemptResult from "./quizzes/AttemptResult";
 import StudentAttempts from "./quizzes/StudentAttempts";
 import StudentResults from "./quizzes/StudentResults";
 import StudentResultDetail from "./quizzes/StudentResultDetail";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
+import { useQuizLanguage } from "./quizzes/i18n";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/FrontOfficeLayout";
 import ProtectedLearningLayout from "./layouts/ProtectedLearningLayout";
@@ -37,6 +39,11 @@ function WorkspaceIndex() {
   return user ? <Navigate to={destination(user)} replace /> : null;
 }
 export default function App() {
+  const language = useQuizLanguage();
+  useLayoutEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  }, [language]);
   const { pathname } = useLocation();
   const previousPath = useRef(pathname);
   useEffect(() => {
@@ -79,6 +86,7 @@ export default function App() {
           </Route>
           <Route path="modules/quiz" element={<QuizModuleEntry />} />
           <Route element={<QuizManagerRoute />}>
+            <Route path="quiz/:id/generer" element={<GenerateQuestions />} />
             <Route path="quiz/:id/resultats" element={<StudentResults />} />
             <Route path="resultats-quiz" element={<StudentResults />} />
             <Route
@@ -119,6 +127,7 @@ export default function App() {
         <Route path="quiz/:id" element={<QuizDetail />} />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
         <Route element={<QuizManagerRoute />}>
+          <Route path="quiz/:id/generer" element={<GenerateQuestions />} />
           <Route path="quiz/:id/resultats" element={<StudentResults />} />
           <Route path="resultats-quiz" element={<StudentResults />} />
           <Route

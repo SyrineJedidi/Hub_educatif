@@ -13,6 +13,7 @@ import {
   statuses,
 } from "../components/UI";
 import SessionForm from "./SessionForm";
+import { QuizPriorities } from "../quizzes/Progress";
 export default function LearningHome() {
   const { user } = useAuth();
   const teacher = user!.role === "TEACHER";
@@ -55,6 +56,7 @@ export default function LearningHome() {
         </div>
         <img src="/assets/img/home-img2.png" alt="" />
       </section>
+      {!teacher && <QuizPriorities />}
       <section className="learning-access" aria-label="Accès à vos activités">
         {[
           [

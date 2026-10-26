@@ -53,10 +53,10 @@ def quiz_values(request, data, instance=None, duplicate=False):
     except NotFound:
         raise ValidationError({'learning_group_id': ['Sélectionnez un groupe actif autorisé existant.']})
     candidate = Quiz(teacher=teacher, learning_group=group)
-    for field in ('title', 'description', 'level', 'duration_minutes', 'max_attempts'):
+    for field in ('title', 'description', 'level', 'duration_minutes', 'max_attempts', 'opens_at', 'closes_at'):
         setattr(candidate, field, attrs.get(field, getattr(instance, field) if instance else getattr(candidate, field)))
     model_errors(candidate)
-    return {**{f: getattr(candidate, f) for f in ('title', 'description', 'level', 'duration_minutes', 'max_attempts')}, 'teacher': teacher, 'learning_group': group}
+    return {**{f: getattr(candidate, f) for f in ('title', 'description', 'level', 'duration_minutes', 'max_attempts', 'opens_at', 'closes_at')}, 'teacher': teacher, 'learning_group': group}
 
 
 def publication_blockers(quiz):

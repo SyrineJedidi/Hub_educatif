@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useEffect } from "react";
 import { flushSync } from "react-dom";
 import { useBlocker } from "react-router-dom";
@@ -33,17 +34,18 @@ export default function UnsavedChanges({
     }
   }
   return blocker.state === "blocked" ? (
-    <Modal title="Quitter sans enregistrer ?" onClose={stay}>
+    <Modal title={t("Quitter sans enregistrer ?")} onClose={stay}>
       <p className="intro">
-        Vos modifications n’ont pas encore été enregistrées. Voulez-vous les
-        abandonner ?
+        {t(
+          "Vos modifications n’ont pas encore été enregistrées. Voulez-vous les abandonner ? ",
+        )}
       </p>
       <div className="actions">
         <button className="btn_one" onClick={stay}>
-          Continuer la saisie
+          {t("Continuer la saisie ")}
         </button>
         <button className="text-button" onClick={() => blocker.proceed()}>
-          Abandonner les modifications
+          {t("Abandonner les modifications ")}
         </button>
       </div>
     </Modal>

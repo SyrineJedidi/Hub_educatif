@@ -1,3 +1,4 @@
+import { t } from "./i18n";
 import { useRef, useState } from "react";
 import { api, ApiError } from "../api/client";
 import type { Attempt, Choice, SavedAnswer } from "./attemptTypes";
@@ -77,7 +78,7 @@ export function useAnswerQueue(
           entry.error =
             error instanceof Error
               ? error.message
-              : "La réponse n’a pas pu être enregistrée.";
+              : t("La réponse n’a pas pu être enregistrée.");
           if (error instanceof ApiError && error.code === "answer_conflict") {
             conflictRef.current = true;
             setConflict(true);
@@ -117,7 +118,9 @@ export function useAnswerQueue(
     if (dirty() || conflictRef.current)
       throw new ApiError(
         409,
-        "Certaines réponses ne sont pas synchronisées. La tentative n’a pas été soumise. Réessayez l’enregistrement ou rechargez les réponses en cas de conflit.",
+        t(
+          "Certaines réponses ne sont pas synchronisées. La tentative n’a pas été soumise. Réessayez l’enregistrement ou rechargez les réponses en cas de conflit.",
+        ),
       );
     return Object.fromEntries(
       Object.entries(records.current)

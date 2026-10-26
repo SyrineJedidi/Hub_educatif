@@ -1,3 +1,4 @@
+import { t, n, LanguageNotice } from "./i18n";
 import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api } from "../api/client";
@@ -23,16 +24,17 @@ export default function QuizDetail() {
   if (!quiz) return <Alert error={error} />;
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
           <p className="eyebrow">
-            {student ? "DÉCOUVRIR LE QUIZ" : "VOTRE ATELIER DE QUESTIONS"}
+            {student ? t("DÉCOUVRIR LE QUIZ") : t("VOTRE ATELIER DE QUESTIONS")}
           </p>
           <h1>{quiz.title}</h1>
           <p>{quiz.learning_group_name}</p>
         </div>
         <Link className="text-button" to={base}>
-          Tous les quiz ↗
+          {t("Tous les quiz ↗ ")}
         </Link>
       </div>
       <section className="panel quiz-introduction">
@@ -49,23 +51,31 @@ export default function QuizDetail() {
                 className="btn_one"
                 to={base + "/" + quiz.id + "/previsualisation"}
               >
-                Prévisualiser ↗
+                {t("Prévisualiser ↗ ")}
               </Link>
+              {quiz.status === "DRAFT" && (
+                <Link
+                  className="text-button"
+                  to={base + "/" + quiz.id + "/generer"}
+                >
+                  {t("Générer des questions avec l’IA ")}
+                </Link>
+              )}
               {quiz.status === "DRAFT" && (
                 <Link
                   className="text-button"
                   to={base + "/" + quiz.id + "/questions/nouvelle"}
                 >
-                  Ajouter une question +
+                  {t("Ajouter une question + ")}
                 </Link>
               )}
             </div>
             <QuizActions quiz={quiz} onDone={reload} />
             {quiz.status !== "DRAFT" && (
               <p className="notice">
-                Ce quiz est verrouillé. Ses questions sont conservées et ne
-                peuvent plus être modifiées. Vous pouvez le dupliquer en
-                brouillon.
+                {t(
+                  "Ce quiz est verrouillé. Ses questions sont conservées et ne peuvent plus être modifiées. Vous pouvez le dupliquer en brouillon. ",
+                )}
               </p>
             )}
           </>
@@ -115,7 +125,9 @@ function QuestionManager({
   return (
     <section className="quiz-question-section">
       <div className="panel-heading">
-        <h2>{editable ? "Questions du brouillon" : "Questions du quiz"}</h2>
+        <h2>
+          {editable ? t("Questions du brouillon") : t("Questions du quiz")}
+        </h2>
         <button
           className="text-button"
           onClick={() => {
@@ -123,7 +135,7 @@ function QuestionManager({
             onUpdate();
           }}
         >
-          Actualiser les questions
+          {t("Actualiser les questions ")}
         </button>
       </div>
       <Alert error={error || actionError} />
@@ -139,27 +151,29 @@ function QuestionManager({
                   to={base + "/" + quiz.id + "/questions/" + q.id + "/modifier"}
                   className="text-button"
                 >
-                  Modifier la question {q.position}
+                  {t("Modifier la question ")}
+                  {n(q.position)}
                 </Link>
                 <button className="text-button" onClick={() => setSelected(q)}>
-                  Supprimer la question {q.position}
+                  {t("Supprimer la question ")}
+                  {n(q.position)}
                 </button>
                 <div className="actions">
                   <button
                     className="quiz-order-button"
                     disabled={busy || index === 0}
                     onClick={() => void move(index, -1)}
-                    aria-label={"Monter la question " + q.position}
+                    aria-label={t("Monter la question ") + n(q.position)}
                   >
-                    ↑ Monter
+                    {t("↑ Monter ")}
                   </button>
                   <button
                     className="quiz-order-button"
                     disabled={busy || index === questions.length - 1}
                     onClick={() => void move(index, 1)}
-                    aria-label={"Descendre la question " + q.position}
+                    aria-label={t("Descendre la question ") + n(q.position)}
                   >
-                    ↓ Descendre
+                    {t("↓ Descendre ")}
                   </button>
                 </div>
               </div>
@@ -169,8 +183,9 @@ function QuestionManager({
       ) : (
         <section className="panel">
           <Empty>
-            Ajoutez votre première question. Un quiz doit contenir au moins une
-            question pour être publié.
+            {t(
+              "Ajoutez votre première question. Un quiz doit contenir au moins une question pour être publié. ",
+            )}
           </Empty>
           {editable && (
             <div className="quiz-empty-action">
@@ -178,7 +193,7 @@ function QuestionManager({
                 className="btn_one"
                 to={base + "/" + quiz.id + "/questions/nouvelle"}
               >
-                Ajouter ma première question +
+                {t("Ajouter ma première question + ")}
               </Link>
             </div>
           )}
@@ -186,15 +201,16 @@ function QuestionManager({
       )}
       {selected && (
         <Modal
-          title={"Supprimer la question " + selected.position + " ?"}
+          title={t("Supprimer la question ") + n(selected.position) + " ?"}
           onClose={() => setSelected(null)}
         >
           <p className="intro">
-            La question sera supprimée de ce brouillon. Les autres questions
-            seront conservées.
+            {t(
+              "La question sera supprimée de ce brouillon. Les autres questions seront conservées. ",
+            )}
           </p>
           <Form
-            label="Confirmer la suppression"
+            label={t("Confirmer la suppression")}
             onSubmit={() =>
               api(
                 "quizzes/" + quiz.id + "/questions/" + selected.id + "/",

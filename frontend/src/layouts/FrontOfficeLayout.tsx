@@ -1,8 +1,10 @@
+import { t } from "../quizzes/i18n";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth, destination } from "../auth/AuthContext";
 import { Alert, statuses } from "../components/UI";
 import "../styles/front-office.css";
+import { LanguageSelect } from "../quizzes/i18n";
 export function Brand() {
   return (
     <Link
@@ -28,10 +30,10 @@ export default function FrontOfficeLayout() {
   const base = user?.role === "ADMIN" ? "/administration" : "/espace";
   const spaceLabel =
     user?.role === "TEACHER"
-      ? "Espace enseignant"
+      ? t("Espace enseignant")
       : user?.role === "ADMIN"
-        ? "Administration"
-        : "Mon espace";
+        ? t("Administration")
+        : t("Mon espace");
   const closeMenus = () =>
     header.current
       ?.querySelectorAll("details[open]")
@@ -61,7 +63,7 @@ export default function FrontOfficeLayout() {
   return (
     <div className="front-office">
       <a className="skip-link" href="#main">
-        Aller au contenu
+        {t("Aller au contenu ")}
       </a>
       <header
         ref={header}
@@ -84,12 +86,13 @@ export default function FrontOfficeLayout() {
         }}
       >
         <div className="container-fluid hub-header">
+          <LanguageSelect />
           <Brand />
           <nav
             ref={nav}
             id="public-nav"
             className={open ? "public-nav open" : "public-nav"}
-            aria-label="Navigation principale"
+            aria-label={t("Navigation principale")}
             onClick={(e) => {
               if ((e.target as HTMLElement).closest("a")) {
                 setOpen(false);
@@ -98,7 +101,7 @@ export default function FrontOfficeLayout() {
             }}
           >
             <NavLink to="/" end>
-              Accueil
+              {t("Accueil ")}
             </NavLink>
             {user ? (
               <>
@@ -106,39 +109,41 @@ export default function FrontOfficeLayout() {
                 {user.role !== "ADMIN" && (
                   <details className="front-dropdown">
                     <summary>
-                      Mes activités <span aria-hidden="true">⌄</span>
+                      {t("Mes activités ")}
+                      <span aria-hidden="true">⌄</span>
                     </summary>
                     <div>
                       <NavLink to="/espace/quiz">
                         {user.role === "TEACHER"
-                          ? "Mes quiz"
-                          : "Quiz de mes groupes"}
+                          ? t("Mes quiz")
+                          : t("Quiz de mes groupes")}
                       </NavLink>
-                      <NavLink to="/espace/groupes">Mes groupes</NavLink>
+                      <NavLink to="/espace/groupes">{t("Mes groupes")}</NavLink>
                       <NavLink to="/espace/seances">
                         {user.role === "TEACHER"
-                          ? "Séances et feuilles d’appel"
-                          : "Mes séances"}
+                          ? t("Séances et feuilles d’appel")
+                          : t("Mes séances")}
                       </NavLink>
                       <NavLink to="/espace/assiduite">
                         {user.role === "TEACHER"
-                          ? "Assiduité de mes groupes"
-                          : "Mon assiduité"}
+                          ? t("Assiduité de mes groupes")
+                          : t("Mon assiduité")}
                       </NavLink>
                     </div>
                   </details>
                 )}
                 <details className="front-dropdown">
                   <summary>
-                    Les modules <span aria-hidden="true">⌄</span>
+                    {t("Les modules ")}
+                    <span aria-hidden="true">⌄</span>
                   </summary>
                   <div>
                     {[
-                      ["cours", "Cours et ressources"],
-                      ["resumes", "Résumés et illustrations"],
-                      ["assistant", "Assistant pédagogique"],
-                      ["quiz", "Quiz et progression"],
-                      ["coaching", "Planification et coaching"],
+                      ["cours", t("Cours et ressources")],
+                      ["resumes", t("Résumés et illustrations")],
+                      ["assistant", t("Assistant pédagogique")],
+                      ["quiz", t("Quiz et progression")],
+                      ["coaching", t("Planification et coaching")],
                     ].map(([slug, label]) => (
                       <Link
                         key={slug}
@@ -150,11 +155,11 @@ export default function FrontOfficeLayout() {
                             : "/modules/" + slug
                         }
                       >
-                        {label}
+                        {t(label)}
                         <small>
                           {slug === "quiz"
-                            ? "Quiz, tentatives et correction"
-                            : "En préparation"}
+                            ? t("Quiz, tentatives et correction")
+                            : t("En préparation")}
                         </small>
                       </Link>
                     ))}
@@ -163,14 +168,15 @@ export default function FrontOfficeLayout() {
               </>
             ) : (
               <>
-                <a href="/#parcours">Notre approche</a>
-                <a href="/#modules">Les modules</a>
+                <a href="/#parcours">{t("Notre approche")}</a>
+                <a href="/#modules">{t("Les modules")}</a>
                 <a href="/#nexora">Nexora</a>
                 <Link className="header-btn" to="/connexion">
-                  Connexion
+                  {t("Connexion ")}
                 </Link>
                 <Link className="btn_one" to="/inscription">
-                  S’inscrire <span aria-hidden="true">↗</span>
+                  {t("S’inscrire ")}
+                  <span aria-hidden="true">↗</span>
                 </Link>
               </>
             )}
@@ -179,7 +185,10 @@ export default function FrontOfficeLayout() {
             <details className="profile-menu front-profile">
               <summary
                 aria-label={
-                  "Menu de profil de " + user.first_name + " " + user.last_name
+                  t("Menu de profil de ") +
+                  user.first_name +
+                  " " +
+                  user.last_name
                 }
               >
                 <span className="avatar">
@@ -191,7 +200,7 @@ export default function FrontOfficeLayout() {
                 </span>
                 <span className="front-profile-name">
                   {user.first_name} {user.last_name}
-                  <small>{statuses[user.role]}</small>
+                  <small>{t(statuses[user.role])}</small>
                 </span>
                 <span aria-hidden="true">⌄</span>
               </summary>
@@ -203,10 +212,10 @@ export default function FrontOfficeLayout() {
                     closeMenus();
                   }}
                 >
-                  Mon profil
+                  {t("Mon profil ")}
                 </Link>
                 <button onClick={() => void logout().catch(setError)}>
-                  Se déconnecter
+                  {t("Se déconnecter ")}
                 </button>
               </div>
             </details>
@@ -218,7 +227,8 @@ export default function FrontOfficeLayout() {
             aria-controls="public-nav"
             onClick={toggleNavigation}
           >
-            Menu <span aria-hidden="true">☰</span>
+            {t("Menu ")}
+            <span aria-hidden="true">☰</span>
           </button>
         </div>
       </header>
@@ -247,48 +257,51 @@ export function Footer() {
               <div className="single_footer">
                 <Brand />
                 <p>
-                  Vos cours prennent vie. Votre potentiel aussi. Un projet
-                  académique porté par l’équipe Nexora.
+                  {t(
+                    "Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. ",
+                  )}
                 </p>
               </div>
             </div>
             <div className="col-lg-2 col-sm-6">
               <div className="single_footer">
-                <h2>Votre espace</h2>
+                <h2>{t("Votre espace")}</h2>
                 <ul>
                   <li>
                     <Link to={user ? destination(user) : "/connexion"}>
-                      {user ? "Mon espace" : "Se connecter"}
+                      {user ? t("Mon espace") : t("Se connecter")}
                     </Link>
                   </li>
                   <li>
                     <Link to={user ? base + "/profil" : "/inscription"}>
-                      {user ? "Mon profil" : "Créer un compte"}
+                      {user ? t("Mon profil") : t("Créer un compte")}
                     </Link>
                   </li>
                   <li>
-                    <Link to="/mot-de-passe-oublie">Mot de passe oublié</Link>
+                    <Link to="/mot-de-passe-oublie">
+                      {t("Mot de passe oublié")}
+                    </Link>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="col-lg-2 col-sm-6">
               <div className="single_footer">
-                <h2>Au quotidien</h2>
+                <h2>{t("Au quotidien")}</h2>
                 <ul>
                   <li>
                     <Link to={user ? learning + "/groupes" : learning}>
-                      Mes groupes
+                      {t("Mes groupes ")}
                     </Link>
                   </li>
                   <li>
                     <Link to={user ? learning + "/seances" : learning}>
-                      Mes séances
+                      {t("Mes séances ")}
                     </Link>
                   </li>
                   <li>
                     <Link to={user ? learning + "/assiduite" : learning}>
-                      Mon assiduité
+                      {t("Mon assiduité ")}
                     </Link>
                   </li>
                 </ul>
@@ -296,16 +309,18 @@ export function Footer() {
             </div>
             <div className="col-lg-3 col-sm-6">
               <div className="single_footer">
-                <h2>Apprendre autrement</h2>
+                <h2>{t("Apprendre autrement")}</h2>
                 <ul>
                   <li>
-                    <Link to="/modules/cours">Cours et ressources</Link>
+                    <Link to="/modules/cours">{t("Cours et ressources")}</Link>
                   </li>
                   <li>
-                    <Link to="/modules/assistant">Assistant pédagogique</Link>
+                    <Link to="/modules/assistant">
+                      {t("Assistant pédagogique")}
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/modules/quiz">Quiz et progression</Link>
+                    <Link to="/modules/quiz">{t("Quiz et progression")}</Link>
                   </li>
                 </ul>
               </div>
@@ -314,8 +329,9 @@ export function Footer() {
               <div className="single_footer">
                 <h2>Nexora</h2>
                 <p>
-                  Cinq membres, une ambition : rapprocher apprentissage et
-                  accompagnement.
+                  {t(
+                    "Cinq membres, une ambition : rapprocher apprentissage et accompagnement. ",
+                  )}
                 </p>
               </div>
             </div>
@@ -327,8 +343,9 @@ export function Footer() {
           <p>
             Hub Éducatif Multimodal · Équipe Nexora
             <br />
-            Template © 2024 <a href="https://bestwpware.com/">Bestwpware</a> ·
-            Distribution <a href="https://themewagon.com/">ThemeWagon</a>
+            Template © 2024 <a href="https://bestwpware.com/">Bestwpware</a>
+            {t(" · Distribution ")}
+            <a href="https://themewagon.com/">ThemeWagon</a>
           </p>
         </div>
       </div>
