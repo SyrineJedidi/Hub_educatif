@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth, destination } from "../auth/AuthContext";
 import { Alert, statuses } from "../components/UI";
+import { planningHome } from "../planning/usePlanningContext";
 import "../styles/front-office.css";
 export function Brand() {
   return (
@@ -114,6 +115,11 @@ export default function FrontOfficeLayout() {
                           ? "Mes quiz"
                           : "Quiz de mes groupes"}
                       </NavLink>
+                      <NavLink to={planningHome(user.role)}>
+                        {user.role === "TEACHER"
+                          ? "Suivi des révisions"
+                          : "Mon planning"}
+                      </NavLink>
                       <NavLink to="/espace/groupes">Mes groupes</NavLink>
                       <NavLink to="/espace/seances">
                         {user.role === "TEACHER"
@@ -147,14 +153,18 @@ export default function FrontOfficeLayout() {
                             ? user.role === "ADMIN"
                               ? "/administration/quiz"
                               : "/espace/quiz"
-                            : "/modules/" + slug
+                            : slug === "coaching"
+                              ? planningHome(user.role)
+                              : "/modules/" + slug
                         }
                       >
                         {label}
                         <small>
                           {slug === "quiz"
                             ? "Quiz, tentatives et correction"
-                            : "En préparation"}
+                            : slug === "coaching"
+                              ? "Objectifs, plannings et suivi"
+                              : "En préparation"}
                         </small>
                       </Link>
                     ))}
@@ -306,6 +316,11 @@ export function Footer() {
                   </li>
                   <li>
                     <Link to="/modules/quiz">Quiz et progression</Link>
+                  </li>
+                  <li>
+                    <Link to="/modules/coaching">
+                      Planification et coaching
+                    </Link>
                   </li>
                 </ul>
               </div>

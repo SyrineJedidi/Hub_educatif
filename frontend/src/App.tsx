@@ -13,6 +13,18 @@ import AttemptResult from "./quizzes/AttemptResult";
 import StudentAttempts from "./quizzes/StudentAttempts";
 import StudentResults from "./quizzes/StudentResults";
 import StudentResultDetail from "./quizzes/StudentResultDetail";
+import {
+  PlanningCoachRoute,
+  PlanningModuleEntry,
+  PlanningStudentRoute,
+} from "./planning/PlanningRoutes";
+import PlanningDashboard from "./planning/PlanningDashboard";
+import ObjectivesPage from "./planning/ObjectivesPage";
+import AvailabilityPage from "./planning/AvailabilityPage";
+import PlansPage from "./planning/PlansPage";
+import PlanDetail from "./planning/PlanDetail";
+import CoachStudents from "./planning/CoachStudents";
+import CoachStudentDetail from "./planning/CoachStudentDetail";
 import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/FrontOfficeLayout";
@@ -61,6 +73,7 @@ export default function App() {
           element={<AuthPage mode="reset" />}
         />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
+        <Route path="modules/coaching" element={<PlanningModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -101,6 +114,24 @@ export default function App() {
             />
             <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
           </Route>
+          <Route path="modules/coaching" element={<PlanningModuleEntry />} />
+          <Route element={<PlanningStudentRoute />}>
+            <Route path="planning" element={<PlanningDashboard />} />
+            <Route path="planning/objectifs" element={<ObjectivesPage />} />
+            <Route
+              path="planning/disponibilites"
+              element={<AvailabilityPage />}
+            />
+            <Route path="planning/plannings" element={<PlansPage />} />
+            <Route path="planning/plannings/:id" element={<PlanDetail />} />
+          </Route>
+          <Route element={<PlanningCoachRoute />}>
+            <Route path="suivi-revisions" element={<CoachStudents />} />
+            <Route
+              path="suivi-revisions/:studentId"
+              element={<CoachStudentDetail />}
+            />
+          </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
           <Route path="groupes/:id" element={<GroupDetail />} />
@@ -137,6 +168,14 @@ export default function App() {
             element={<QuestionEditor />}
           />
           <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
+        </Route>
+        <Route path="modules/coaching" element={<PlanningModuleEntry />} />
+        <Route element={<PlanningCoachRoute />}>
+          <Route path="suivi-revisions" element={<CoachStudents />} />
+          <Route
+            path="suivi-revisions/:studentId"
+            element={<CoachStudentDetail />}
+          />
         </Route>
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />

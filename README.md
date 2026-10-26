@@ -4,7 +4,7 @@ Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes l
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité, le module Quiz–Question (conception, passage, reprise et correction automatique) et le module Planification des révisions et coaching (objectifs, échéances, disponibilités, plannings calculés par règles ou proposés par Gemini, suivi enseignant) sont disponibles. Les autres modules et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [la planification des révisions](docs/PLANNING.md).
 
 ## Travail en équipe
 
@@ -81,13 +81,24 @@ Base de développement : `nexora_hub`. Tests Django : `test_nexora_hub_isolated`
 
 Le backend email local est **console** : demander un lien sur `/mot-de-passe-oublie`, puis consulter le terminal Django. Le lien n’apparaît jamais dans la réponse API. Il expire après une heure et après son utilisation ; se connecter entre sa génération et son utilisation peut aussi l’invalider (comportement du générateur Django). Les variables SMTP sont décrites dans `backend/.env.example`. Les tests emploient le backend mémoire, sans email réel. L’inscription ne dépend pas d’une vérification d’email ; les adresses restent non vérifiées.
 
+## Planification des révisions et IA Gemini
+
+Le module de planification fonctionne sans configuration : l’IA est désactivée par défaut et les plannings sont alors calculés par règles. Pour proposer les programmes avec Gemini, ajouter dans `backend/.env` puis redémarrer Django :
+
+```dotenv
+GEMINI_PROVIDER=gemini
+GEMINI_API_KEY=votre-clé
+```
+
+`GEMINI_PROVIDER` accepte `disabled` (défaut), `fake` (démonstration sans appel réseau) ou `gemini`. Variables facultatives : `GEMINI_MODEL` (`gemini-3.5-flash-lite`), `GEMINI_FALLBACK_MODEL` (`gemini-3.1-flash-lite`, essayé une fois après un HTTP 429), `GEMINI_TIMEOUT_SECONDS` (`60`), `PLANNING_AI_DAILY_LIMIT` (`10` générations IA par étudiant et par jour) et `PLANNING_AI_DAILY_BUDGET` (`400` pour tout le serveur). Elles figurent dans `backend/.env.example`. La clé n’est jamais versionnée ni journalisée ; un quota atteint ou un service indisponible donne un planning calculé par règles, avec le motif affiché. Les tests n’appellent jamais Gemini. Détails : [docs/PLANNING.md](docs/PLANNING.md).
+
 ## Vérifications
 
 ```powershell
 # À la racine ; MongoDB doit être démarré
 .\backend\.venv\Scripts\python.exe backend\manage.py check
 .\backend\.venv\Scripts\python.exe backend\manage.py makemigrations --check --dry-run
-.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance,quizzes backend\manage.py test accounts quizzes --noinput
+.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance,quizzes,planning,ai backend\manage.py test accounts quizzes planning --noinput
 .\backend\.venv\Scripts\python.exe -m coverage report --omit="*/migrations/*,*/tests/*,*/tests.py,*/management/*"
 
 Set-Location frontend
@@ -105,7 +116,8 @@ Pour reproduire les parcours Chromium et les captures comparées, voir [docs/TES
 - Séances, dates et chevauchements, annulation avec conservation de l’historique.
 - Appel en brouillon puis validation, copie historique des participants, corrections motivées et refus des versions obsolètes.
 - Statistiques autorisées par rôle, filtres et CSV protégé contre les formules.
-- Pages « Fonctionnalité en préparation » pour les cinq modules futurs.
+- Planification des révisions : objectifs, échéances, créneaux hebdomadaires, plannings générés par règles ou avec Gemini (repli automatique sur les règles), suivi quotidien des tâches, export iCalendar et suivi en lecture seule par l’enseignant et l’administrateur.
+- Pages « Fonctionnalité en préparation » pour les modules encore à venir (cours, résumés, assistant).
 
 Séparation des interfaces et captures : [docs/FRONT_OFFICE.md](docs/FRONT_OFFICE.md).
 
@@ -124,3 +136,5 @@ Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).
 Module Quiz–Question : [gestion des quiz](docs/QUIZ.md), [validations](docs/QUIZ-VALIDATION.md), [passage et correction](docs/QUIZ-PASSAGE.md). Branche de livraison : `Syrine`, destinée à une Pull Request vers `main`. Le périmètre actuel et les contrôles de publication sont décrits dans [docs/PUBLICATION-SYRINE.md](docs/PUBLICATION-SYRINE.md).
 
 Consultation des résultats des étudiants, réservée à l’enseignant propriétaire et à l’administrateur : [docs/QUIZ-RESULTATS.md](docs/QUIZ-RESULTATS.md).
+
+Module Planification des révisions et coaching (branche `feature/planning-coaching`) : [docs/PLANNING.md](docs/PLANNING.md). En production, la clé Gemini reste dans `backend/.env` du serveur ; sans elle, le module fonctionne entièrement par règles.

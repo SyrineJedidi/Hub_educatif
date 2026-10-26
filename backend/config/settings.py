@@ -13,7 +13,7 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split('
 INSTALLED_APPS = [
     'config.apps.MongoAuthConfig', 'config.apps.MongoContentTypesConfig',
     'django.contrib.sessions', 'django.contrib.staticfiles',
-    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes',
+    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes', 'planning',
 ]
 MIGRATION_MODULES = {'auth': 'mongo_migrations.auth', 'contenttypes': 'mongo_migrations.contenttypes'}
 DATABASE_ROUTERS = ['django_mongodb_backend.routers.MongoRouter']
@@ -82,3 +82,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = '/static/'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024
+# Gemini: 'disabled' (default), 'fake' (local demos and tests) or 'gemini'.
+GEMINI_PROVIDER = (os.getenv('GEMINI_PROVIDER') or 'disabled').strip().lower()
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.getenv('GEMINI_MODEL') or 'gemini-3.5-flash-lite'
+GEMINI_FALLBACK_MODEL = os.getenv('GEMINI_FALLBACK_MODEL') or 'gemini-3.1-flash-lite'
+GEMINI_TIMEOUT_SECONDS = int(os.getenv('GEMINI_TIMEOUT_SECONDS') or '60')
+PLANNING_AI_DAILY_LIMIT = int(os.getenv('PLANNING_AI_DAILY_LIMIT') or '10')
+PLANNING_AI_DAILY_BUDGET = int(os.getenv('PLANNING_AI_DAILY_BUDGET') or '400')

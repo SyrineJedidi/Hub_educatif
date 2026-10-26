@@ -49,12 +49,40 @@ La liste doit correspondre exactement aux participants historiques, sans doublon
 
 Erreurs : `{"error":{"code":"…","message":"…","fields":{…}}}`. Codes HTTP : 400 validation, 401 session absente/expirée, 403 permissions ou CSRF, 404 identifiant absent/invalide, 409 concurrence, 429 limitation. Les serializers rejettent les champs inconnus ; aucune attribution ADMIN depuis une inscription publique. Le rôle enseignant est maintenant accessible au choix à l’inscription. L’API d’administration refuse d’attribuer ADMIN à un autre compte.
 
+## Planification des révisions et coaching
+
+Règles, formats de réponse et génération Gemini : [PLANNING.md](PLANNING.md). Les routes `student/planning/…` sont réservées au rôle STUDENT, qui ne voit que ses propres données (404 sinon). Les routes `planning/students/…` sont réservées aux rôles TEACHER et ADMIN et n’acceptent que GET.
+
+| Route `/api/…` | Méthodes | Accès / fonction |
+| --- | --- | --- |
+| `student/planning/goals/` | GET, POST | Objectifs, filtre `status` ; title, description, learning_group_id (groupe actuel), target_date, priority, estimated_hours |
+| `student/planning/goals/{id}/` | GET, PATCH, DELETE | PATCH partiel, avec status ; suppression refusée si des tâches utilisent l’objectif |
+| `student/planning/deadlines/` | GET, POST | Échéances triées par date, filtre `upcoming=true\|false` ; title, kind, due_at (futur), goal_id, notes |
+| `student/planning/deadlines/{id}/` | GET, PATCH, DELETE | PATCH partiel ; la suppression détache les tâches liées |
+| `student/planning/availability/` | GET, POST | Créneaux hebdomadaires et `weekly_minutes` ; weekday 0–6, start_time, end_time au quart d’heure |
+| `student/planning/availability/{id}/` | PATCH, DELETE | PATCH partiel |
+| `student/planning/groups/` | GET | Groupes de l’inscription en cours, pour le formulaire d’objectif |
+| `student/planning/context/` | GET | Données prises en compte par la génération et état de l’IA (quota restant) |
+| `student/planning/dashboard/` | GET | Planning actif, tâches du jour et des 7 jours suivants, avancement, série, échéances |
+| `student/planning/plans/` | GET | Plannings paginés, filtres `status`, `page` |
+| `student/planning/plans/generate/` | POST | start_date, end_date (1 à 28 jours, à partir d’aujourd’hui), mode `ai` ou `rules`, title facultatif ; 201 brouillon |
+| `student/planning/plans/{id}/` | GET, PATCH, DELETE | Détail avec conseils et tâches ; PATCH title ; suppression d’un brouillon ou d’un planning archivé |
+| `student/planning/plans/{id}/activate/` | POST | Corps `{}` ; archive le planning actif précédent |
+| `student/planning/plans/{id}/archive/` | POST | Corps `{}` ; planning en lecture seule |
+| `student/planning/plans/{id}/ics/` | GET | Fichier iCalendar `planning-{id}.ics` |
+| `student/planning/plans/{id}/tasks/` | POST | Tâche manuelle : title, description, goal_id, deadline_id, starts_at, ends_at |
+| `student/planning/tasks/{id}/` | PATCH, DELETE | PATCH partiel ; status TODO, DONE ou SKIPPED dans un planning actif uniquement |
+| `planning/students/` | GET | Élèves suivis, filtres `group`, `q`, `page` ; enseignant : inscriptions en cours dans ses groupes non archivés ; administrateur : tous les étudiants |
+| `planning/students/{id}/` | GET | Avancement, objectifs, échéances à venir et planning actif d’un élève suivi, sans email |
+
+La génération ne renvoie jamais 429 : quota IA atteint ou service indisponible, le planning est calculé par règles et `fallback_reason` explique pourquoi. Un planning archivé est en lecture seule (`fields.status`).
+
 ## Espaces React
 
 - Public : `/`, `/connexion`, `/inscription`, `/mot-de-passe-oublie`, `/reinitialiser-mot-de-passe?token=…`, `/modules/{slug}`, 404.
-- Étudiant : `/espace/etudiant`, `/espace/profil`, `/espace/groupes`, `/espace/groupes/{id}`, `/espace/seances`, `/espace/seances/{id}`, `/espace/assiduite`.
-- Enseignant : `/espace/enseignant`, mêmes pages de profil/groupes/séances/statistiques, plus `/espace/seances/{id}/appel`.
-- Administrateur : `/administration`, `/administration/utilisateurs`, `/administration/groupes`, `/administration/groupes/{id}`, `/administration/seances`, `/administration/seances/{id}`, `/administration/seances/{id}/appel`, `/administration/assiduite`, `/administration/profil`.
-- Modules futurs : `{base}/modules/{cours|resumes|assistant|quiz|coaching}`. Ils sont explicitement en préparation.
+- Étudiant : `/espace/etudiant`, `/espace/profil`, `/espace/groupes`, `/espace/groupes/{id}`, `/espace/seances`, `/espace/seances/{id}`, `/espace/assiduite`, `/espace/planning`, `/espace/planning/objectifs`, `/espace/planning/disponibilites`, `/espace/planning/plannings`, `/espace/planning/plannings/{id}`.
+- Enseignant : `/espace/enseignant`, mêmes pages de profil/groupes/séances/statistiques, plus `/espace/seances/{id}/appel`, `/espace/suivi-revisions` et `/espace/suivi-revisions/{id}`.
+- Administrateur : `/administration`, `/administration/utilisateurs`, `/administration/groupes`, `/administration/groupes/{id}`, `/administration/seances`, `/administration/seances/{id}`, `/administration/seances/{id}/appel`, `/administration/assiduite`, `/administration/profil`, `/administration/suivi-revisions`, `/administration/suivi-revisions/{id}`.
+- Modules en préparation : `{base}/modules/{cours|resumes|assistant}`. `{base}/modules/quiz` et `{base}/modules/coaching` dirigent vers l’espace du rôle, ou vers la connexion sans session.
 
 Le backend contrôle toujours les droits : masquer un bouton dans React n’est jamais la seule protection.

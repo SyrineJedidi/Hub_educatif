@@ -27,6 +27,7 @@ export function Categories() {
               ["Cours et ressources", "/modules/cours"],
               ["Assistant pédagogique", "/modules/assistant"],
               ["Quiz et progression", "/modules/quiz"],
+              ["Planification et coaching", "/modules/coaching"],
             ].map(([label, path], i) => (
               <li key={label}>
                 <Link to={path}>

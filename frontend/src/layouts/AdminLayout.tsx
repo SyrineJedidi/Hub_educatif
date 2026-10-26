@@ -35,6 +35,7 @@ export default function AdminLayout() {
     [base + "/assiduite", "ti-bar-chart", "Assiduité"],
     [base + "/quiz", "ti-help-alt", "Quiz"],
     [base + "/resultats-quiz", "ti-bar-chart", "Résultats des quiz"],
+    [base + "/suivi-revisions", "ti-agenda", "Suivi des révisions"],
   ];
   links.splice(1, 0, [base + "/utilisateurs", "ti-user", "Utilisateurs"]);
   return (
@@ -78,7 +79,6 @@ export default function AdminLayout() {
             ["cours", "Cours et ressources"],
             ["resumes", "Résumés et illustrations"],
             ["assistant", "Assistant pédagogique"],
-            ["coaching", "Planification et coaching"],
           ].map(([slug, title]) => (
             <NavLink
               key={slug}
