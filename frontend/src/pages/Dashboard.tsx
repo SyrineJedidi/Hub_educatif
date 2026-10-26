@@ -53,7 +53,7 @@ export default function Dashboard() {
             Voir mes séances ↗
           </Link>
         </div>
-        <img src="/assets/img/home-img2.png" alt="" />
+        <img src="/assets/img/home-img2.webp" alt="" />
       </section>
       <div className="metric-grid">
         {[

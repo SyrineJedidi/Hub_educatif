@@ -1,0 +1,403 @@
+/* Pilotage IA — tableau de bord des générations (back-office). */
+.ai-dashboard {
+  --chart: #17786a;
+}
+.dash-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.dash-heading h1 {
+  font-size: clamp(28px, 3.4vw, 36px);
+  font-weight: 650;
+  color: #1f3b36;
+  margin-bottom: 8px;
+}
+.dash-heading p:not(.eyebrow) {
+  font-size: 14px;
+  color: #55635f;
+  max-width: 640px;
+}
+.dash-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dash-controls .sheets-segmented {
+  margin: 0;
+}
+.dash-config {
+  list-style: none;
+  padding: 12px 16px;
+  margin: 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  background: #fff;
+  border: 1px solid #ecdfcb;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #55635f;
+}
+.dash-config li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.dash-config strong {
+  color: #1f3b36;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 20px;
+}
+.kpi {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ecdfcb;
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  min-width: 0;
+}
+.kpi dt > span {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #d9f2ec;
+  color: #0f5c52;
+}
+.kpi dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #55635f;
+  padding-right: 40px;
+}
+.kpi .kpi-value {
+  margin: 6px 0 4px;
+  font-family: Jost, sans-serif;
+  font-size: 30px;
+  font-weight: 650;
+  color: #1f3b36;
+  line-height: 1.15;
+}
+.kpi .kpi-hint {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #55635f;
+  margin: 0;
+}
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.dash-card {
+  background: #fff;
+  border: 1px solid #ecdfcb;
+  border-radius: 16px;
+  padding: 22px 24px;
+  min-width: 0;
+}
+.dash-card.wide {
+  grid-column: 1 / -1;
+}
+.dash-card h2,
+.chart figcaption {
+  font-family: Jost, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f3b36;
+  margin: 0 0 16px;
+}
+.dash-note {
+  font-size: 12px;
+  color: #55635f;
+  margin: 12px 0 0;
+}
+.dash-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f6e57;
+  font-size: 14px;
+}
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+/* Bar chart: thin marks, rounded data ends, recessive grid, hover/focus tooltip. */
+.chart {
+  margin: 0;
+}
+.chart-plot {
+  position: relative;
+  height: 220px;
+  margin-left: 26px;
+  padding-bottom: 26px;
+}
+.chart-grid span {
+  position: absolute;
+  left: -26px;
+  right: 0;
+  border-top: 1px solid #faede7;
+  font-size: 11px;
+  color: #55635f;
+  line-height: 0;
+}
+.chart-grid {
+  position: absolute;
+  inset: 0 0 26px 0;
+}
+.chart-bars {
+  position: absolute;
+  inset: 0 0 0 0;
+  list-style: none;
+  padding: 0 0 26px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: 2px;
+}
+.chart-bars li {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  outline-offset: 2px;
+}
+.chart-bars li:hover,
+.chart-bars li:focus-visible {
+  background: #fef4f0;
+  border-radius: 6px;
+}
+.chart-bar {
+  width: min(60%, 26px);
+  min-height: 0;
+  background: var(--chart);
+  border-radius: 4px 4px 0 0;
+}
+.chart-label {
+  position: absolute;
+  bottom: -22px;
+  font-size: 11px;
+  color: #55635f;
+  white-space: nowrap;
+}
+.chart-tip {
+  position: absolute;
+  bottom: calc(100% - 8px);
+  z-index: 3;
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #1f3b36;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px #1f3b3640;
+  pointer-events: none;
+}
+.chart-tip small {
+  color: #8ee4d0;
+}
+.chart-table {
+  margin-top: 14px;
+  font-size: 13px;
+}
+.chart-table summary {
+  cursor: pointer;
+  color: #0f5c52;
+  font-weight: 600;
+}
+.chart-table table {
+  margin-top: 10px;
+  max-width: 320px;
+}
+.chart-table td,
+.chart-table th {
+  padding: 6px 10px;
+}
+.inline-bar {
+  display: inline-block;
+  vertical-align: middle;
+  width: 90px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 4px;
+  background: #fef0ea;
+  overflow: hidden;
+}
+.inline-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--chart);
+}
+.latency th,
+.latency td {
+  padding: 10px 8px;
+  white-space: nowrap;
+}
+.latency tbody th {
+  background: none;
+  color: #1f3b36;
+  font-size: 14px;
+}
+.rating-bars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.rating-bars li {
+  display: grid;
+  grid-template-columns: 44px 1fr 30px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.rating-bars .inline-bar {
+  width: 100%;
+  margin: 0;
+  height: 12px;
+}
+.rating-label {
+  color: #1f3b36;
+  font-weight: 600;
+}
+.quality-list {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+.quality-list > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+}
+.quality-list dt {
+  font-weight: 600;
+  color: #1f3b36;
+  font-size: 14px;
+}
+.quality-list dd {
+  margin: 0;
+  font-family: Jost, sans-serif;
+  font-size: 20px;
+  font-weight: 650;
+  color: #0f5c52;
+}
+.quality-list .quality-help {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #55635f;
+  margin: 0;
+}
+.error-list {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  color: #18463b;
+}
+.jobs-table {
+  min-width: 860px;
+}
+.jobs-table td,
+.jobs-table th {
+  padding: 12px 10px;
+  font-size: 13px;
+  min-width: 0;
+}
+.cell-title {
+  max-width: 220px;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+  color: #1f3b36;
+}
+.cell-error {
+  display: block;
+  margin-top: 4px;
+  color: #1c6554;
+  max-width: 240px;
+  white-space: normal;
+}
+.job-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #d9f2ec;
+  color: #0f5c52;
+  white-space: nowrap;
+}
+.job-chip.status-succeeded {
+  background: #e5f6f2;
+  color: #1f6e57;
+}
+.job-chip.status-failed {
+  background: #def9f3;
+  color: #1c6554;
+}
+@media (max-width: 1199px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-bars li:nth-child(odd) .chart-label {
+    display: none;
+  }
+}
+@media (max-width: 575px) {
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .kpi {
+    padding: 14px;
+  }
+  .kpi dt > span {
+    display: none;
+  }
+  .kpi dt {
+    padding-right: 0;
+  }
+  .kpi .kpi-value {
+    font-size: 24px;
+  }
+  .dash-card {
+    padding: 18px 16px;
+  }
+  .latency .inline-bar {
+    display: none;
+  }
+  .latency th,
+  .latency td {
+    padding: 8px 6px;
+  }
+}

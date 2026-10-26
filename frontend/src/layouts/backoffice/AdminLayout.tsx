@@ -1,19 +1,62 @@
-import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import { useAuth, destination } from "../auth/AuthContext";
-import { Alert, Loading, statuses } from "../components/UI";
-import { Brand } from "./FrontOfficeLayout";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
+import AccessDenied from "../../pages/AccessDenied";
+import { Alert, Loading } from "../../components/UI";
+import BackOfficeShell from "./BackOfficeShell";
+import { modulePaths } from "../../revisions/hooks/useSheetContext";
+const base = "/administration";
+const revisions = modulePaths("ADMIN");
+const sections = [
+  {
+    title: "Pilotage",
+    links: [
+      { to: base, icon: "ti-dashboard", label: "Tableau de bord", end: true },
+      { to: base + "/utilisateurs", icon: "ti-user", label: "Utilisateurs" },
+      { to: base + "/roles", icon: "ti-key", label: "Rôles et permissions" },
+    ],
+  },
+  {
+    title: "Organisation pédagogique",
+    links: [
+      { to: base + "/groupes", icon: "ti-folder", label: "Groupes" },
+      { to: base + "/seances", icon: "ti-calendar", label: "Séances" },
+      { to: base + "/assiduite", icon: "ti-bar-chart", label: "Assiduité" },
+    ],
+  },
+  {
+    title: "Quiz et progression",
+    links: [
+      { to: base + "/quiz", icon: "ti-help-alt", label: "Quiz" },
+      { to: base + "/resultats-quiz", icon: "ti-stats-up", label: "Résultats des quiz" },
+    ],
+  },
+  {
+    title: "Résumés et illustrations",
+    links: [
+      { to: revisions.home, icon: "ti-layout-grid2", label: "Vue d’ensemble" },
+      { to: revisions.sheets, icon: "ti-files", label: "Gestion des fiches" },
+      { to: revisions.workshop, icon: "ti-wand", label: "Atelier IA" },
+      { to: revisions.library, icon: "ti-gallery", label: "Médiathèque" },
+      { to: revisions.followUp, icon: "ti-stats-up", label: "Suivi des étudiants" },
+      { to: revisions.journal, icon: "ti-list", label: "Journal des générations" },
+      { to: revisions.stats, icon: "ti-pulse", label: "Pilotage de l’IA" },
+    ],
+  },
+  {
+    title: "Bientôt dans le hub",
+    links: [
+      { to: base + "/modules/cours", icon: "ti-blackboard", label: "Cours et ressources", soon: true },
+      { to: base + "/modules/assistant", icon: "ti-comments", label: "Assistant pédagogique", soon: true },
+      { to: base + "/modules/coaching", icon: "ti-target", label: "Planification", soon: true },
+    ],
+  },
+  {
+    title: "Compte",
+    links: [{ to: base + "/profil", icon: "ti-id-badge", label: "Mon profil" }],
+  },
+];
 export default function AdminLayout() {
-  const { user, loading, error, refresh, logout } = useAuth(),
-    { pathname } = useLocation();
-  const [open, setOpen] = useState(false),
-    [logoutError, setLogoutError] = useState<unknown>();
-  const sidebarRef = useRef<HTMLElement>(null),
-    toggleRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (open)
-      sidebarRef.current?.querySelector<HTMLAnchorElement>("nav a")?.focus();
-  }, [open]);
+  const { user, loading, error, refresh } = useAuth();
   if (loading) return <Loading />;
   if (error)
     return (
@@ -25,124 +68,7 @@ export default function AdminLayout() {
       </div>
     );
   if (!user) return <Navigate to="/connexion" replace />;
-  if (user.role !== "ADMIN") return <Navigate to={destination(user)} replace />;
-  const base = "/administration",
-    home = destination(user);
-  const links = [
-    [home, "ti-layout-grid2", "Tableau de bord"],
-    [base + "/groupes", "ti-folder", "Mes groupes"],
-    [base + "/seances", "ti-calendar", "Séances"],
-    [base + "/assiduite", "ti-bar-chart", "Assiduité"],
-    [base + "/quiz", "ti-help-alt", "Quiz"],
-    [base + "/resultats-quiz", "ti-bar-chart", "Résultats des quiz"],
-  ];
-  links.splice(1, 0, [base + "/utilisateurs", "ti-user", "Utilisateurs"]);
-  return (
-    <div className="workspace">
-      <a className="skip-link" href="#main">
-        Aller au contenu
-      </a>
-      <aside
-        ref={sidebarRef}
-        id="workspace-nav"
-        className={"sidebar " + (open ? "open" : "")}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            setOpen(false);
-            toggleRef.current?.focus();
-          }
-        }}
-      >
-        <Brand />
-        <p className="sidebar-label">ADMINISTRATION</p>
-        <nav aria-label="Navigation de votre espace">
-          {links.map(([path, icon, label]) => (
-            <NavLink
-              onClick={() => setOpen(false)}
-              key={path}
-              to={path}
-              end={path === home}
-            >
-              <span className={icon} aria-hidden="true" />
-              {label}
-            </NavLink>
-          ))}
-          <NavLink to={base + "/profil"} onClick={() => setOpen(false)}>
-            <span className="ti-id-badge" aria-hidden="true" />
-            Mon profil
-          </NavLink>
-        </nav>
-        <p className="sidebar-label">BIENTÔT DANS LE HUB</p>
-        <nav aria-label="Modules en préparation">
-          {[
-            ["cours", "Cours et ressources"],
-            ["resumes", "Résumés et illustrations"],
-            ["assistant", "Assistant pédagogique"],
-            ["coaching", "Planification et coaching"],
-          ].map(([slug, title]) => (
-            <NavLink
-              key={slug}
-              to={base + "/modules/" + slug}
-              onClick={() => setOpen(false)}
-            >
-              {title}
-              <span className="soon-dot" aria-label="En préparation" />
-            </NavLink>
-          ))}
-        </nav>
-        <div className="sidebar-note">
-          <span className="ti-light-bulb" aria-hidden="true" />
-          <h3>Avançons ensemble</h3>
-          <p>Un espace pour apprendre, un collectif pour progresser.</p>
-          <Link to="/">Découvrir le Hub ↗</Link>
-        </div>
-      </aside>
-      <div className="workspace-body">
-        <header className="workspace-top">
-          <button
-            ref={toggleRef}
-            aria-controls="workspace-nav"
-            className="mobile-toggle"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            Menu ☰
-          </button>
-          <p>
-            Hub Éducatif Multimodal{" "}
-            <span className="top-divider">/ Administration</span>
-          </p>
-          <details className="profile-menu">
-            <summary>
-              <span className="avatar">
-                {user.avatar ? (
-                  <img src={user.avatar} alt="" />
-                ) : (
-                  user.first_name.charAt(0) + user.last_name.charAt(0)
-                )}
-              </span>
-              <span>
-                {user.first_name} {user.last_name}
-                <small>{statuses[user.role]}</small>
-              </span>
-              <span aria-hidden="true">⌄</span>
-            </summary>
-            <div>
-              <Link to={base + "/profil"}>Mon profil</Link>
-              <button onClick={() => void logout().catch(setLogoutError)}>
-                Se déconnecter
-              </button>
-            </div>
-          </details>
-        </header>
-        <main id="main" className="workspace-main" key={pathname} tabIndex={-1}>
-          <Alert error={logoutError} />
-          <Outlet />
-        </main>
-        <footer className="workspace-footer">
-          Nexora · Hub Éducatif Multimodal · Template Eduleb / Bestwpware
-        </footer>
-      </div>
-    </div>
-  );
+  if (user.role !== "ADMIN")
+    return <AccessDenied area="Le back-office d’administration" />;
+  return <BackOfficeShell area="Administration" sections={sections} siteLink="/" />;
 }

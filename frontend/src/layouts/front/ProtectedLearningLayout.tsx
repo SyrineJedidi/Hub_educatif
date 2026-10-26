@@ -1,6 +1,16 @@
+import { Suspense } from "react";
 import { Navigate, Outlet, useLocation, Link } from "react-router-dom";
-import { useAuth, destination } from "../auth/AuthContext";
-import { Alert, Loading } from "../components/UI";
+import { useAuth, destination } from "../../auth/AuthContext";
+import { Alert, Loading } from "../../components/UI";
+const sections: Record<string, string> = {
+  fiches: "Fiches de révision",
+  quiz: "Quiz",
+  "resultats-quiz": "Résultats des quiz",
+  seances: "Séances",
+  assiduite: "Assiduité",
+  groupes: "Groupes",
+  profil: "Mon profil",
+};
 export default function ProtectedLearningLayout() {
   const { user, loading, error, refresh } = useAuth(),
     { pathname } = useLocation();
@@ -28,6 +38,7 @@ export default function ProtectedLearningLayout() {
     return <Navigate to={destination(user)} replace />;
   if (user.role === "STUDENT" && pathname.endsWith("/appel"))
     return <Navigate to={pathname.slice(0, -6)} replace />;
+  const section = sections[pathname.split("/")[2]];
   return (
     <>
       <div className="learning-trail">
@@ -38,13 +49,21 @@ export default function ProtectedLearningLayout() {
             <Link to={destination(user)}>
               {user.role === "TEACHER" ? "Espace enseignant" : "Mon espace"}
             </Link>
+            {section && (
+              <>
+                <span aria-hidden="true"> / </span>
+                <span aria-current="page">{section}</span>
+              </>
+            )}
           </nav>
           <span>Vos cours prennent vie. Votre potentiel aussi.</span>
         </div>
       </div>
       <div className="front-study">
         <div className="container">
-          <Outlet />
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </>

@@ -1,8 +1,13 @@
+import { Suspense } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import { useAuth, destination } from "../auth/AuthContext";
-import { Alert, statuses } from "../components/UI";
-import "../styles/front-office.css";
+import { useAuth, destination } from "../../auth/AuthContext";
+import { Alert, Loading, statuses } from "../../components/UI";
+import "../../styles/front/front-office.css";
+import "../../styles/front/portal.css";
+import "../../styles/front/front-theme.css";
+import "../../styles/front/aurora.css";
+import { useTemplate } from "../template";
 export function Brand() {
   return (
     <Link
@@ -10,14 +15,24 @@ export function Brand() {
       to="/"
       aria-label="Hub Éducatif Multimodal — accueil"
     >
-      <span className="ti-book" aria-hidden="true" />
+      <span className="brand-mark" aria-hidden="true">
+        <span className="ti-book" />
+      </span>
       <span>
-        Hub Éducatif<small>Multimodal · Nexora</small>
+        Hub Éducatif Multimodal<small>Apprendre, réviser, progresser</small>
       </span>
     </Link>
   );
 }
+const modules = [
+  ["cours", "Cours et ressources", "En préparation"],
+  ["resumes", "Résumés et illustrations", "Fiches, résumés IA et illustrations"],
+  ["assistant", "Assistant pédagogique", "En préparation"],
+  ["quiz", "Quiz et progression", "Quiz, tentatives et correction"],
+  ["coaching", "Planification et coaching", "En préparation"],
+];
 export default function FrontOfficeLayout() {
+  useTemplate("front");
   const { user, logout } = useAuth();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false),
@@ -26,11 +41,17 @@ export default function FrontOfficeLayout() {
     toggle = useRef<HTMLButtonElement>(null),
     nav = useRef<HTMLElement>(null);
   const base = user?.role === "ADMIN" ? "/administration" : "/espace";
+  const backOffice =
+    user?.role === "ADMIN"
+      ? "/administration"
+      : user?.role === "TEACHER"
+        ? "/gestion"
+        : "";
   const spaceLabel =
     user?.role === "TEACHER"
       ? "Espace enseignant"
       : user?.role === "ADMIN"
-        ? "Administration"
+        ? "Tableau de bord"
         : "Mon espace";
   const closeMenus = () =>
     header.current
@@ -66,10 +87,7 @@ export default function FrontOfficeLayout() {
       <header
         ref={header}
         id="navigation"
-        className={
-          "navbar-light bg-faded site-navigation front-header" +
-          (user ? " is-connected" : "")
-        }
+        className={"portal-header" + (user ? " is-connected" : "")}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
             const detail = (e.target as HTMLElement).closest("details[open]");
@@ -83,79 +101,138 @@ export default function FrontOfficeLayout() {
           }
         }}
       >
-        <div className="container-fluid hub-header">
+        <div className="portal-utility">
+          <div className="container">
+            <p>
+              <span className="ti-world" aria-hidden="true" /> Plateforme
+              pédagogique · Équipe Nexora — ESPRIT
+            </p>
+            <p className="portal-utility-right">
+              Année universitaire 2026 – 2027
+              {user && <span className="portal-role">{statuses[user.role]}</span>}
+            </p>
+          </div>
+        </div>
+        <div className="container portal-bar">
           <Brand />
-          <nav
-            ref={nav}
-            id="public-nav"
-            className={open ? "public-nav open" : "public-nav"}
-            aria-label="Navigation principale"
-            onClick={(e) => {
-              if ((e.target as HTMLElement).closest("a")) {
-                setOpen(false);
-                closeMenus();
-              }
-            }}
-          >
+          <div className="portal-bar-actions">
+            {user ? (
+              <>
+                {backOffice && (
+                  <Link className="portal-backoffice" to={backOffice}>
+                    <span className="ti-settings" aria-hidden="true" />{" "}
+                    Back-office
+                  </Link>
+                )}
+                <details className="profile-menu front-profile">
+                  <summary
+                    aria-label={
+                      "Menu de profil de " + user.first_name + " " + user.last_name
+                    }
+                  >
+                    <span className="avatar">
+                      {user.avatar ? (
+                        <img src={user.avatar} alt="" />
+                      ) : (
+                        user.first_name.charAt(0) + user.last_name.charAt(0)
+                      )}
+                    </span>
+                    <span className="front-profile-name">
+                      {user.first_name} {user.last_name}
+                      <small>{statuses[user.role]}</small>
+                    </span>
+                    <span aria-hidden="true" className="ti-angle-down" />
+                  </summary>
+                  <div>
+                    <Link
+                      to={base + "/profil"}
+                      onClick={() => {
+                        setOpen(false);
+                        closeMenus();
+                      }}
+                    >
+                      Mon profil
+                    </Link>
+                    <button onClick={() => void logout().catch(setError)}>
+                      Se déconnecter
+                    </button>
+                  </div>
+                </details>
+              </>
+            ) : (
+              <>
+                <Link className="portal-login" to="/connexion">
+                  <span className="ti-user" aria-hidden="true" /> Connexion
+                </Link>
+                <Link className="portal-signup" to="/inscription">
+                  Créer un compte
+                </Link>
+              </>
+            )}
+            <button
+              ref={toggle}
+              className="mobile-toggle"
+              aria-expanded={open}
+              aria-controls="public-nav"
+              onClick={toggleNavigation}
+            >
+              <span className="ti-menu" aria-hidden="true" /> Menu
+            </button>
+          </div>
+        </div>
+        <nav
+          ref={nav}
+          id="public-nav"
+          className={"portal-nav" + (open ? " open" : "")}
+          aria-label="Navigation principale"
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest("a")) {
+              setOpen(false);
+              closeMenus();
+            }
+          }}
+        >
+          <div className="container">
             <NavLink to="/" end>
               Accueil
             </NavLink>
             {user ? (
               <>
-                <NavLink to={destination(user)}>{spaceLabel}</NavLink>
-                {user.role !== "ADMIN" && (
-                  <details className="front-dropdown">
-                    <summary>
-                      Mes activités <span aria-hidden="true">⌄</span>
-                    </summary>
-                    <div>
-                      <NavLink to="/espace/quiz">
-                        {user.role === "TEACHER"
-                          ? "Mes quiz"
-                          : "Quiz de mes groupes"}
-                      </NavLink>
-                      <NavLink to="/espace/groupes">Mes groupes</NavLink>
-                      <NavLink to="/espace/seances">
-                        {user.role === "TEACHER"
-                          ? "Séances et feuilles d’appel"
-                          : "Mes séances"}
-                      </NavLink>
-                      <NavLink to="/espace/assiduite">
-                        {user.role === "TEACHER"
-                          ? "Assiduité de mes groupes"
-                          : "Mon assiduité"}
-                      </NavLink>
-                    </div>
-                  </details>
+                <NavLink to={destination(user)} end>
+                  {spaceLabel}
+                </NavLink>
+                {user.role === "ADMIN" ? (
+                  <>
+                    <NavLink to="/administration/resumes">
+                      Résumés et illustrations
+                    </NavLink>
+                    <NavLink to="/administration/quiz">Quiz</NavLink>
+                    <NavLink to="/administration/seances">Séances</NavLink>
+                    <NavLink to="/administration/utilisateurs">
+                      Utilisateurs
+                    </NavLink>
+                  </>
+                ) : (
+                  <>
+                    <NavLink to="/espace/fiches">Fiches de révision</NavLink>
+                    <NavLink to="/espace/quiz">Quiz</NavLink>
+                    <NavLink to="/espace/seances">
+                      {user.role === "TEACHER" ? "Séances et appel" : "Mes séances"}
+                    </NavLink>
+                    <NavLink to="/espace/assiduite">Assiduité</NavLink>
+                    <NavLink to="/espace/groupes">Groupes</NavLink>
+                  </>
                 )}
                 <details className="front-dropdown">
                   <summary>
-                    Les modules <span aria-hidden="true">⌄</span>
+                    Tous les modules{" "}
+                    <span aria-hidden="true" className="ti-angle-down" />
                   </summary>
                   <div>
-                    {[
-                      ["cours", "Cours et ressources"],
-                      ["resumes", "Résumés et illustrations"],
-                      ["assistant", "Assistant pédagogique"],
-                      ["quiz", "Quiz et progression"],
-                      ["coaching", "Planification et coaching"],
-                    ].map(([slug, label]) => (
-                      <Link
-                        key={slug}
-                        to={
-                          slug === "quiz"
-                            ? user.role === "ADMIN"
-                              ? "/administration/quiz"
-                              : "/espace/quiz"
-                            : "/modules/" + slug
-                        }
-                      >
+                    {modules.map(([slug, label, help]) => (
+                      <Link key={slug} to={"/modules/" + slug}>
                         {label}
-                        <small>
-                          {slug === "quiz"
-                            ? "Quiz, tentatives et correction"
-                            : "En préparation"}
-                        </small>
+                        <small>{help}</small>
                       </Link>
                     ))}
                   </div>
@@ -165,62 +242,11 @@ export default function FrontOfficeLayout() {
               <>
                 <a href="/#parcours">Notre approche</a>
                 <a href="/#modules">Les modules</a>
-                <a href="/#nexora">Nexora</a>
-                <Link className="header-btn" to="/connexion">
-                  Connexion
-                </Link>
-                <Link className="btn_one" to="/inscription">
-                  S’inscrire <span aria-hidden="true">↗</span>
-                </Link>
+                <a href="/#nexora">L’équipe Nexora</a>
               </>
             )}
-          </nav>
-          {user && (
-            <details className="profile-menu front-profile">
-              <summary
-                aria-label={
-                  "Menu de profil de " + user.first_name + " " + user.last_name
-                }
-              >
-                <span className="avatar">
-                  {user.avatar ? (
-                    <img src={user.avatar} alt="" />
-                  ) : (
-                    user.first_name.charAt(0) + user.last_name.charAt(0)
-                  )}
-                </span>
-                <span className="front-profile-name">
-                  {user.first_name} {user.last_name}
-                  <small>{statuses[user.role]}</small>
-                </span>
-                <span aria-hidden="true">⌄</span>
-              </summary>
-              <div>
-                <Link
-                  to={base + "/profil"}
-                  onClick={() => {
-                    setOpen(false);
-                    closeMenus();
-                  }}
-                >
-                  Mon profil
-                </Link>
-                <button onClick={() => void logout().catch(setError)}>
-                  Se déconnecter
-                </button>
-              </div>
-            </details>
-          )}
-          <button
-            ref={toggle}
-            className="mobile-toggle"
-            aria-expanded={open}
-            aria-controls="public-nav"
-            onClick={toggleNavigation}
-          >
-            Menu <span aria-hidden="true">☰</span>
-          </button>
-        </div>
+          </div>
+        </nav>
       </header>
       {!!error && (
         <div className="container">
@@ -228,7 +254,9 @@ export default function FrontOfficeLayout() {
         </div>
       )}
       <main id="main" tabIndex={-1}>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
       </main>
       <Footer />
     </div>
@@ -239,7 +267,7 @@ export function Footer() {
   const base = user?.role === "ADMIN" ? "/administration" : "/espace";
   const learning = user ? base : "/connexion";
   return (
-    <footer>
+    <footer className="portal-footer">
       <div className="footer section-padding">
         <div className="container">
           <div className="row">
@@ -302,6 +330,9 @@ export function Footer() {
                     <Link to="/modules/cours">Cours et ressources</Link>
                   </li>
                   <li>
+                    <Link to="/modules/resumes">Résumés et illustrations</Link>
+                  </li>
+                  <li>
                     <Link to="/modules/assistant">Assistant pédagogique</Link>
                   </li>
                   <li>
@@ -325,7 +356,7 @@ export function Footer() {
       <div className="foot_copy">
         <div className="footer_copyright">
           <p>
-            Hub Éducatif Multimodal · Équipe Nexora
+            Hub Éducatif Multimodal · Équipe Nexora — ESPRIT
             <br />
             Template © 2024 <a href="https://bestwpware.com/">Bestwpware</a> ·
             Distribution <a href="https://themewagon.com/">ThemeWagon</a>
