@@ -1,0 +1,12 @@
+{
+  "archive": "eduleb-v1.0.0.zip",
+  "sha256": "7e5c9c12f1133d24e9917a953d0e9a203ef27586a111468501a8a7561bfa4e36",
+  "entries": 159,
+  "license_entries": [],
+  "reference_html_sha256": "d97fdfd1d154a315f3079b5dfef8b3b6089a2a10417d4275ed5c23c8002b0e6b",
+  "git": "No .git in edu; parent repository untouched",
+  "sources": [
+    "Existing original HTML/CSS/assets",
+    "Reviewed authentication foundation from adjacent eduleb-v1.0.0/backend; email verification removed, sessions and permissions extended"
+  ]
+}

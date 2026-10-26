@@ -1,88 +1,10 @@
-<div align="center">
+# Hub Éducatif Multimodal — Nexora
 
-# Nexora — Hub Éducatif Multimodal
+Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes les pages étudiant/enseignant partagent le front-office Eduleb : header horizontal, menu mobile, avatar et footer. Le back-office React avec sidebar est exclusivement réservé à l’administrateur sous `/administration/*`. Les fichiers HTML et `assets/` à la racine restent les références originales. Le README original est conservé dans `docs/EDULEB_ORIGINAL_README.md`.
 
-### Vos cours prennent vie. Votre potentiel aussi.
+React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-Plateforme éducative intégrant l’intelligence artificielle pour accompagner la compréhension des cours, l’entraînement et l’organisation des révisions.
-
-**React · Django · MongoDB · Intelligence artificielle**
-
-Projet académique — ESPRIT · 5e année TWIN  
-Équipe Nexora · 5 membres
-
-**Statut : en cours de développement**
-
-</div>
-
----
-
-## Présentation
-
-Le Hub Éducatif Multimodal permet de transformer des supports pédagogiques PDF et audio en ressources d’apprentissage interactives.
-
-La plateforme vise à centraliser les cours, les résumés, les illustrations, les échanges avec un assistant pédagogique, les quiz et les plannings de révision.
-
-## Objectifs
-
-- Faciliter la compréhension des contenus pédagogiques.
-- Réduire le temps consacré à préparer les supports de révision.
-- Permettre de poser des questions par écrit ou par voix.
-- Évaluer les acquis grâce à des quiz et des corrections expliquées.
-- Organiser les révisions selon les objectifs et les disponibilités.
-- Proposer une interface accessible, responsive et cohérente.
-
-## Utilisateurs et rôles prévus
-
-| Rôle | Actions principales |
-|---|---|
-| Étudiant | Consulter ses ressources, utiliser l’assistant, passer des quiz et organiser ses révisions. |
-| Enseignant | Gérer les contenus pédagogiques, vérifier les contenus générés et suivre les résultats des étudiants. |
-| Administrateur | Administrer les comptes, les rôles et les accès à la plateforme. |
-
-Les autorisations seront contrôlées côté serveur pour chaque fonctionnalité.
-
-## Modules fonctionnels prévus
-
-| Module | Fonctionnalités | Intégration IA |
-|---|---|---|
-| Cours et ressources | Gestion des cours et chapitres, import PDF/audio, classement et recherche. | Transcription des cours audio avec Whisper. |
-| Résumés et illustrations | Gestion des résumés, fiches de révision et illustrations pédagogiques. | Génération de textes avec Gemini et d’illustrations avec un modèle disponible sur Hugging Face. |
-| Assistant pédagogique | Questions écrites et vocales, conversations et historique. | Réponses fondées sur les cours avec Gemini et transcription vocale avec Whisper. |
-| Quiz et progression | Gestion des quiz, questions, tentatives, corrections et résultats. | Génération de questions et d’explications avec Gemini. |
-| Planification et coaching | Objectifs, disponibilités, échéances et séances de révision. | Proposition de plannings personnalisés avec Gemini. |
-
-### Fonctionnalités transversales
-
-- Authentification et gestion des profils.
-- Gestion des rôles et permissions.
-- Groupes, inscriptions, séances et assiduité.
-- Navigation et composants graphiques communs.
-
-La répartition de ces tâches communes sera confirmée avec l’équipe et l’enseignant.
-
-## Architecture prévue
-
-- **React** : interfaces utilisateur et interactions.
-- **Django et Django REST Framework** : API, validations, permissions et logique métier.
-- **MongoDB** : stockage des données applicatives.
-- **Stockage de fichiers** : conservation des PDF, fichiers audio et illustrations.
-- **Services IA** : appels effectués depuis le backend Django.
-
-Le frontend communique avec Django via une API REST.
-Django gère l’accès aux données et aux services IA.
-
-Le connecteur Django–MongoDB et les versions des dépendances seront documentés lors de l’initialisation technique.
-
-## Organisation cible du dépôt
-
-| Dossier | Contenu prévu |
-|---|---|
-| `frontend/` | Application React, pages et composants partagés. |
-| `backend/` | Projet Django, applications métier, API et tests. |
-| `docs/` | Architecture, installation, évaluation IA et déploiement. |
-
-Cette structure sera mise en place pendant l’initialisation du projet.
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Les cinq modules pédagogiques et IA qui y sont décrits restent prévus ; seul le socle commun utilisateurs/groupes/assiduité est livré ici.
 
 ## Travail en équipe
 
@@ -123,77 +45,78 @@ git push -u origin feature/quiz-progression
 
 Si la branche existe déjà, la sélectionner au lieu de la recréer.
 
-## Installation et démarrage
+## Démarrage local — Windows PowerShell
 
-L’initialisation technique est en cours.
+Pré-requis : Python 3.13, Node.js 22.12 ou ultérieur et MongoDB accessible via `mongod` dans le PATH. Les vérifications de cette livraison ont utilisé Python 3.13.15, Node 22.23.2 et MongoDB 6.0. Docker n’est pas requis.
 
-Après acceptation de l’invitation GitHub, chaque membre peut récupérer
-l’URL HTTPS du dépôt depuis le bouton **Code**, puis le cloner :
+Depuis la racine de votre clone du dépôt :
 
-```bash
-git clone <URL_HTTPS_DU_DEPOT>
-cd Hub_educatif
+```powershell
+python -m venv backend\.venv
+.\backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.lock
+.\backend\.venv\Scripts\python.exe scripts\init_env.py
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Mongo.ps1
+.\backend\.venv\Scripts\python.exe backend\manage.py migrate --noinput
+.\backend\.venv\Scripts\python.exe backend\manage.py create_admin --email admin@votre-domaine.tn --first-name Votre --last-name Nom
+.\backend\.venv\Scripts\python.exe backend\manage.py runserver 127.0.0.1:8000
 ```
 
-Les versions requises, les commandes d’installation, la configuration
-de MongoDB et les commandes de démarrage seront ajoutées après
-vérification sur la base commune.
+Le mot de passe administrateur est demandé de manière masquée et validé par Django. Aucun mot de passe par défaut. Un `.env` existant n’est jamais écrasé par `init_env.py`. Les environnements locaux et le fichier `.env` ne sont pas versionnés : exécutez ces commandes après clonage, puis créez votre administrateur unique. La commande refuse d’en créer un deuxième.
 
-## Configuration et secrets
+Dans un second terminal :
 
-- Conserver les secrets et clés API dans des variables d’environnement.
-- Ne jamais publier les fichiers `.env` contenant de vraies valeurs.
-- Fournir des fichiers `.env.example` sans secrets.
-- Ne jamais exposer la clé Gemini dans le frontend.
-- Exclure de Git les dépendances, environnements virtuels et fichiers générés.
-- Conserver les fichiers de verrouillage des dépendances pour faciliter une installation reproductible.
+```powershell
+Set-Location frontend
+npm.cmd ci
+npm.cmd run dev
+```
 
-## Qualité et validation
+Ouvrir **http://127.0.0.1:5173/**. Le proxy Vite relaie `/api/` vers Django ; aucune session dans localStorage. Utiliser le même nom d’hôte pendant un parcours. Les séances sont affichées en **Africa/Tunis**, indépendamment du fuseau de Windows.
 
-Les objectifs de validation comprennent :
+## MongoDB et emails
 
-- Des opérations CRUD fonctionnelles et des contrôles de saisie cohérents.
-- Des tests unitaires et des tests d’intégration/API.
-- Des vérifications explicites des permissions.
-- Un rapport de couverture des tests.
-- Une navigation au clavier et un focus visible.
-- Des formulaires correctement étiquetés et des contrastes vérifiés.
-- Une interface responsive.
-- Une intégration commune et un déploiement vérifié.
+Le script démarre un replica set **nexora**, lié uniquement à `127.0.0.1:27019`, dans `.local/mongo`. Il vérifie l’identité d’une instance déjà présente sur ce port avant toute initialisation. Il ne touche pas aux instances sur 27017/27018. Fermer Django et Vite avec Ctrl+C ; pour arrêter MongoDB proprement, exécuter `scripts/stop_mongo.py` avec le Python du projet. Le script d’arrêt vérifie aussi l’identité du replica set et du dossier de données.
 
-Les commandes de test et les résultats seront documentés
-au fur et à mesure de leur mise en place.
+Base de développement : `nexora_hub`. Tests Django : `test_nexora_hub_isolated`. Tests navigateur actuels : `test_nexora_roles_browser_isolated` ; l’ancienne base `test_nexora_browser_isolated` est conservée intacte. Les tests Django recréent uniquement leur base dédiée. Les tests navigateur ajoutent des données identifiées par un suffixe aléatoire ; ils n’effacent aucune donnée existante. Ne configurez jamais les tests pour une base de production.
 
-## Évaluation des fonctionnalités IA
+Le backend email local est **console** : demander un lien sur `/mot-de-passe-oublie`, puis consulter le terminal Django. Le lien n’apparaît jamais dans la réponse API. Il expire après une heure et après son utilisation ; se connecter entre sa génération et son utilisation peut aussi l’invalider (comportement du générateur Django). Les variables SMTP sont décrites dans `backend/.env.example`. Les tests emploient le backend mémoire, sans email réel. L’inscription ne dépend pas d’une vérification d’email ; les adresses restent non vérifiées.
 
-Chaque intégration IA devra être accompagnée de :
+## Vérifications
 
-- Un cas d’usage clairement défini.
-- Une gestion des erreurs et des limites d’utilisation.
-- Un retour visuel pendant le traitement.
-- Une vérification de la pertinence des contenus générés.
-- Des mesures réelles de qualité et de temps de réponse.
-- Un traitement en arrière-plan si les appels sont longs.
+```powershell
+# À la racine ; MongoDB doit être démarré
+.\backend\.venv\Scripts\python.exe backend\manage.py check
+.\backend\.venv\Scripts\python.exe backend\manage.py makemigrations --check --dry-run
+.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance backend\manage.py test accounts --noinput
+.\backend\.venv\Scripts\python.exe -m coverage report --omit="*/migrations/*,*/tests/*,*/management/*"
 
-Les questions générées pour les quiz devront être vérifiées
-par l’enseignant avant publication.
+Set-Location frontend
+npm.cmd run build
+npm.cmd audit
+```
 
-## Feuille de route
+Pour reproduire les parcours Chromium et les captures comparées, voir [docs/TESTS.md](docs/TESTS.md). Les résultats réellement obtenus sont consignés dans [docs/VERIFICATIONS.md](docs/VERIFICATIONS.md).
 
-- [ ] Initialiser le dépôt et les accès de l’équipe.
-- [ ] Intégrer le template React et la structure Django.
-- [ ] Configurer les données et l’authentification commune.
-- [ ] Développer les cinq modules métier.
-- [ ] Intégrer et évaluer les fonctionnalités IA.
-- [ ] Vérifier les tests, la sécurité et l’accessibilité.
-- [ ] Intégrer et déployer la plateforme.
-- [ ] Finaliser la documentation et préparer la soutenance.
+## Fonctionnalités
 
-## Équipe
+- Sessions Django, CSRF sur toutes les écritures, limitation des tentatives, réinitialisation, profil et avatar validé/réencodé.
+- Inscription avec choix Étudiant/Enseignant ; rôle ADMIN interdit en inscription publique. Administrateur unique protégé par un index MongoDB ; gestion globale, désactivation et dépendances de rôles conservées.
+- Groupes, affectations, périodes d’inscription successives sans chevauchement, archivage et suppression des groupes sans dépendance.
+- Séances, dates et chevauchements, annulation avec conservation de l’historique.
+- Appel en brouillon puis validation, copie historique des participants, corrections motivées et refus des versions obsolètes.
+- Statistiques autorisées par rôle, filtres et CSV protégé contre les formules.
+- Pages « Fonctionnalité en préparation » pour les cinq modules futurs.
 
-**Nexora — ESPRIT**
+Séparation des interfaces et captures : [docs/FRONT_OFFICE.md](docs/FRONT_OFFICE.md).
 
-Les noms, profils GitHub et responsabilités des cinq membres seront
-ajoutés après confirmation de la répartition.
+Documentation : [API et rôles](docs/API.md), [architecture et conventions](docs/ARCHITECTURE.md), [références et licences](docs/THIRD_PARTY.md).
 
+## Limites et configuration restante
 
+Le code est intégré au dépôt partagé à partir d’un clone dédié. Le dépôt Git parent du profil Windows n’a pas été modifié. La publication GitHub ne constitue pas un déploiement de l’application. Les protections sont présentes dans l’API ; les modèles importés directement dans un shell sont réservés aux opérations techniques maîtrisées.
+
+Le serveur Django de développement et le replica set mono-nœud lié à localhost servent à l’exécution locale. Une production nécessite une clé secrète propre, HTTPS, `DJANGO_DEBUG=false`, hôtes/origines explicites, MongoDB authentifié avec sauvegardes, SMTP choisi et un serveur adapté. Le routage du frontend doit réécrire ses routes vers `index.html` et relayer `/api/` sans mise en cache des réponses privées.
+
+L’archive mentionne MIT dans son README mais ne contient pas le texte intégral de la licence. Les crédits sont préservés ; l’autorisation d’utilisation des photographies n’est pas déduite de cette seule mention. Les polices Google restent chargées à distance, comme dans le template.
+
+Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).

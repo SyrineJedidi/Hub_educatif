@@ -1,0 +1,11 @@
+asgiref==3.13.0
+coverage==7.17.0
+Django==5.2.18
+django-mongodb-backend==5.2.4
+djangorestframework==3.16.1
+dnspython==2.9.0
+pillow==13.0.0
+pymongo==4.19.0
+python-dotenv==1.2.4
+sqlparse==0.6.0
+tzdata==2026.5

@@ -1,0 +1,4 @@
+[run]
+source = accounts,classrooms,attendance
+[report]
+omit = */migrations/*,*/tests/*,*/management/*

@@ -1,0 +1,23 @@
+﻿Name                                Stmts   Miss  Cover
+-------------------------------------------------------
+backend\accounts\__init__.py            0      0   100%
+backend\accounts\errors.py             18      3    83%
+backend\accounts\models.py             51      0   100%
+backend\accounts\permissions.py        14      0   100%
+backend\accounts\serializers.py        68      2    97%
+backend\accounts\services.py           28      2    93%
+backend\accounts\views.py             197     23    88%
+backend\attendance\__init__.py          0      0   100%
+backend\attendance\models.py           32      0   100%
+backend\attendance\serializers.py      49      1    98%
+backend\attendance\services.py         66      4    94%
+backend\attendance\urls.py              3      0   100%
+backend\attendance\views.py           113     11    90%
+backend\classrooms\__init__.py          0      0   100%
+backend\classrooms\models.py           20      0   100%
+backend\classrooms\serializers.py      47      2    96%
+backend\classrooms\services.py         61      3    95%
+backend\classrooms\urls.py              3      0   100%
+backend\classrooms\views.py            80     14    82%
+-------------------------------------------------------
+TOTAL                                 850     65    92%

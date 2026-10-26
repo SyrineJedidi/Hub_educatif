@@ -1,0 +1,23 @@
+{
+  "correction": "Front-office Eduleb commun aux pages publiques et pédagogiques ; back-office ADMIN uniquement",
+  "verified_route_viewport_combinations": 54,
+  "student_pages": 8,
+  "teacher_pages": 9,
+  "admin_pages": 10,
+  "viewports": [
+    "1440x1000",
+    "390x844"
+  ],
+  "reload_each_page": true,
+  "pedagogical_sidebar_in_dom": false,
+  "backend_tests_passed": 34,
+  "backend_code_changed": false,
+  "typescript": "passed on final source",
+  "initial_vite_build": "passed",
+  "layout_browser_suite": "passed in 56.8 seconds (59.6 including runner)",
+  "existing_business_scenario": "passed on new layouts in earlier combined run (18.9 seconds)",
+  "public_visual_suite": "passed on new layout in earlier combined run (23.3 seconds)",
+  "layout_axe_reports": 6,
+  "layout_axe_violations": 0,
+  "final_combined_rerun": "not executed: automatic approval review could not complete due to usage limit; final direct student-call route assertion added to test after last run has not been replayed"
+}

@@ -1,0 +1,380 @@
+[
+  {
+    "route": "/espace/etudiant",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes/6aded9e04bdd772a914c1a12",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/assiduite",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/profil",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/modules/quiz",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/etudiant",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes/6aded9e04bdd772a914c1a12",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/assiduite",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/profil",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/modules/quiz",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/enseignant",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes/6aded9e04bdd772a914c1a12",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/assiduite",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/profil",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/modules/quiz",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16/appel",
+    "width": 1440,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/enseignant",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/groupes/6aded9e04bdd772a914c1a12",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/assiduite",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/profil",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/modules/quiz",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/espace/seances/6aded9e04bdd772a914c1a16/appel",
+    "width": 390,
+    "layout": "front-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/groupes",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/groupes/6aded9e04bdd772a914c1a12",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances/6aded9e04bdd772a914c1a16",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/assiduite",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/profil",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/modules/quiz",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances/6aded9e04bdd772a914c1a16/appel",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/utilisateurs",
+    "width": 1440,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/groupes",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/groupes/6aded9e04bdd772a914c1a12",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances/6aded9e04bdd772a914c1a16",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/assiduite",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/profil",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/modules/quiz",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/seances/6aded9e04bdd772a914c1a16/appel",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  },
+  {
+    "route": "/administration/utilisateurs",
+    "width": 390,
+    "layout": "back-office",
+    "reload": true,
+    "overflow": false
+  }
+]

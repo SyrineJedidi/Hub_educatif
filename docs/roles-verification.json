@@ -1,0 +1,20 @@
+{
+  "public_roles": [
+    "STUDENT",
+    "TEACHER"
+  ],
+  "public_role_required": true,
+  "public_admin_allowed": false,
+  "admin_database_constraint": "unique_admin_account",
+  "max_admin_accounts": 1,
+  "development_admin_count": 0,
+  "backend_tests": 39,
+  "backend_failures": 0,
+  "browser_tests": 4,
+  "browser_failures": 0,
+  "browser_duration_seconds": 86.5,
+  "build": "passed",
+  "django_check": "0 issues",
+  "migrations": "applied; no drift",
+  "database_preexisting_accounts_changed": false
+}

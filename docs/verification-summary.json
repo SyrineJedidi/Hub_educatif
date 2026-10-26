@@ -1,0 +1,15 @@
+{
+  "backend_tests": 34,
+  "backend_failures": 0,
+  "coverage_percent": 93,
+  "browser_tests": 2,
+  "browser_failures": 0,
+  "axe_reports": 9,
+  "axe_violations": 0,
+  "npm_vulnerabilities": 0,
+  "django_check": "0 issues",
+  "migration_drift": "none",
+  "frontend_build": "passed",
+  "original_index_unchanged": true,
+  "assets_unchanged": true
+}

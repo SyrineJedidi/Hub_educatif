@@ -1,0 +1,10 @@
+﻿# Références, crédits et licences
+
+- Template Eduleb original : [ThemeWagon](https://themewagon.com/themes/eduleb/), auteur crédité [Bestwpware](https://bestwpware.com/), distribution ThemeWagon. Le commentaire CSS original indique également `theme_ocean`. Ces mentions restent dans les sources et le footer.
+- Le README original indique une licence MIT, mais l’archive `eduleb-v1.0.0.zip` inspectée ne contient aucun fichier de licence intégral. Cela ne permet pas d’inventer une autorisation sur chaque photographie, illustration ou dépendance. Faire confirmer les conditions avant une redistribution/publication hors du cadre de travail. Voir `inspection.json` et `EDULEB_ORIGINAL_README.md`.
+- Polices originales DM Sans et Jost, chargées depuis Google Fonts comme dans l’original. Aucun remplacement par Inter ou Poppins.
+- Bootstrap CSS et icônes Themify fournis avec Eduleb, conservés avec leurs fichiers. Les scripts jQuery du template sont présents dans les assets de référence, mais ne sont chargés par aucune page React.
+- Images originales utilisées comme illustrations, sans faux témoignages, partenaires, enseignants nommés ou statistiques publiques. Les cartes de rôles précisent que les photos ne représentent pas les membres de Nexora.
+- Les migrations contrib auth/contenttypes et une première base de code d’authentification ont été examinées puis reprises du dossier voisin de l’ancienne implémentation. Leur comportement a été adapté et testé : suppression du prérequis de vérification email, rôles en majuscules, invalidation des sessions, contrôles d’affectations et nouvelles fonctionnalités métier. Aucun de ses anciens styles n’est repris.
+
+L’identité de l’accueil conserve les classes, assets, fonds, typographies et palette d’Eduleb. Les sections partenaires/témoignages/articles ont été adaptées en bénéfices, engagements et étapes d’utilisation, sans prétendre à des faits ou avis réels. Le champ de recherche de cours est devenu une entrée vers l’inscription, les cours étant encore en préparation. Le logo est une signature textuelle et une icône du template.

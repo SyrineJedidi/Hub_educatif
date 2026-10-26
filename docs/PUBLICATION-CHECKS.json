@@ -1,0 +1,33 @@
+{
+  "candidate_files": 418,
+  "bytes": 59490840,
+  "local_secrets_scanned": 2,
+  "secret_findings": [],
+  "environment_examples": [
+    "backend/.env.example",
+    "frontend/.env.example"
+  ],
+  "excluded": [
+    ".env",
+    "node_modules",
+    ".venv",
+    ".local",
+    "media",
+    "dist",
+    "__pycache__",
+    "test-results",
+    "logs",
+    "local databases",
+    "temporary files"
+  ],
+  "backend_tests": 39,
+  "backend_failures": 0,
+  "browser_tests": 4,
+  "browser_failures": 0,
+  "browser_seconds": 112.3,
+  "react_build": "passed",
+  "django_check": "passed",
+  "migration_drift": "none",
+  "remote_base": "fa33b72",
+  "publication_repository": "https://github.com/SyrineJedidi/Hub_educatif.git"
+}
