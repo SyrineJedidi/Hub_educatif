@@ -1,5 +1,6 @@
 import json
 import secrets
+import re
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from accounts.models import User
@@ -8,7 +9,7 @@ class Command(BaseCommand):
     help = 'Créer des comptes navigateur isolés sans écraser les données ; réutiliser l’administrateur unique.'
     def handle(self,*args,**options):
         database=settings.DATABASES['default']['NAME']
-        if database not in {'test_nexora_browser_isolated','test_nexora_roles_browser_isolated'}:
+        if database not in {'test_nexora_browser_isolated','test_nexora_roles_browser_isolated'} and not re.fullmatch(r'test_nexora_quiz_[a-z0-9_]{1,24}', database):
             raise CommandError('Utilisez une configuration de test navigateur isolée.')
         root=settings.BASE_DIR.parent/'.local'
         root.mkdir(exist_ok=True)

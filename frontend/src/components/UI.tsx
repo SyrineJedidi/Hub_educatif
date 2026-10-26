@@ -4,6 +4,9 @@ import type {
   FormEvent,
   InputHTMLAttributes,
   SelectHTMLAttributes,
+  TextareaHTMLAttributes,
+  FocusEventHandler,
+  Ref,
 } from "react";
 import { ApiError } from "../api/client";
 export function Alert({
@@ -37,11 +40,29 @@ export function Alert({
   );
 }
 const labels: Record<string, string> = {
+  title: "Titre",
+  learning_group_id: "Groupe pédagogique",
+  statement: "Énoncé",
+  choice_a: "Proposition A",
+  choice_b: "Proposition B",
+  choice_c: "Proposition C",
+  choice_d: "Proposition D",
+  correct_answer: "Bonne réponse",
+  points: "Points",
+  position: "Position",
+  publication: "Publication",
+  duration_minutes: "Durée",
+  max_attempts: "Tentatives",
+  explanation: "Explication",
+  description: "Description",
+  question_ids: "Ordre des questions",
+  level: "Niveau",
   email: "Email",
   password: "Mot de passe",
   confirmation: "Confirmation",
   role: "Rôle",
   teacher_id: "Enseignant",
+  duration_mode: "Durée du quiz",
   ends_at: "Fin",
   reason: "Motif",
   first_name: "Prénom",
@@ -51,43 +72,73 @@ const labels: Record<string, string> = {
 };
 export function Field({
   label,
+  error,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+}: InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string }) {
   const id = useId();
   return (
     <div className="field">
       <label htmlFor={id}>{label}</label>
-      <input id={id} className="form-control" {...props} />
+      <input
+        id={id}
+        className="form-control"
+        {...props}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? id + "-error" : props["aria-describedby"]}
+      />
+      {error && (
+        <p id={id + "-error"} className="field-help notice-error">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
 export function Select({
   label,
+  error,
   children,
   ...props
 }: SelectHTMLAttributes<HTMLSelectElement> & {
   label: string;
+  error?: string;
   children: ReactNode;
 }) {
   const id = useId();
   return (
     <div className="field">
       <label htmlFor={id}>{label}</label>
-      <select id={id} className="form-control" {...props}>
+      <select
+        id={id}
+        className="form-control"
+        {...props}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? id + "-error" : props["aria-describedby"]}
+      >
         {children}
       </select>
+      {error && (
+        <p id={id + "-error"} className="field-help notice-error">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
 export function Empty({
   children = "Aucune donnée à afficher pour le moment.",
+  title = "Tout commence ici",
+  headingLevel = 3,
 }: {
   children?: ReactNode;
+  title?: string;
+  headingLevel?: 2 | 3;
 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <div className="empty">
       <span className="ti-folder" aria-hidden="true" />
-      <h3>Tout commence ici</h3>
+      <Heading>{title}</Heading>
       <p>{children}</p>
     </div>
   );
@@ -138,8 +189,12 @@ export function Modal({
     id = useId();
   useEffect(() => {
     const previous = document.activeElement as HTMLElement;
-    ref.current?.showModal();
-    return () => previous?.focus();
+    const dialog = ref.current;
+    dialog?.showModal();
+    return () => {
+      dialog?.close();
+      if (previous?.isConnected) previous.focus();
+    };
   }, []);
   return (
     <dialog ref={ref} aria-labelledby={id} onCancel={onClose}>
@@ -158,11 +213,19 @@ export function Form({
   children,
   label = "Enregistrer",
   onSuccess,
+  noValidate = false,
+  onBlur,
+  formRef,
+  clearErrorOnChange = false,
 }: {
   onSubmit: (form: FormData) => Promise<unknown>;
   children?: ReactNode;
   label?: string;
   onSuccess?: () => void;
+  noValidate?: boolean;
+  onBlur?: FocusEventHandler<HTMLFormElement>;
+  formRef?: Ref<HTMLFormElement>;
+  clearErrorOnChange?: boolean;
 }) {
   const [busy, setBusy] = useState(false),
     [error, setError] = useState<unknown>(),
@@ -188,7 +251,20 @@ export function Form({
     }
   }
   return (
-    <form onSubmit={submit}>
+    <form
+      onSubmit={submit}
+      noValidate={noValidate}
+      onBlur={onBlur}
+      ref={formRef}
+      onChange={
+        clearErrorOnChange
+          ? () => {
+              setError(undefined);
+              setSuccess("");
+            }
+          : undefined
+      }
+    >
       <Alert error={error} success={success} />
       {children}
       <button className="btn_one" disabled={busy}>
@@ -212,3 +288,31 @@ export const statuses: Record<string, string> = {
   TEACHER: "Enseignant",
   ADMIN: "Administrateur",
 };
+
+export function Textarea({
+  label,
+  error,
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  label: string;
+  error?: string;
+}) {
+  const id = useId();
+  return (
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <textarea
+        id={id}
+        className="form-control"
+        {...props}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? id + "-error" : props["aria-describedby"]}
+      />
+      {error && (
+        <p id={id + "-error"} className="field-help notice-error">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}

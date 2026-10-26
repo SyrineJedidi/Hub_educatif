@@ -66,3 +66,7 @@ Le scénario métier existant a été adapté au nouveau header et aux intitulé
 
 
 Le nouveau `roles.spec.ts` vérifie les deux choix publics, la redirection selon le rôle et l’absence de choix administrateur. La base historique des anciens tests, qui pouvait contenir plusieurs administrateurs, est conservée intacte. Les nouveaux tests navigateur utilisent `config.roles_e2e_settings` et une base distincte. `prepare_browser` y crée un seul administrateur, puis le réutilise sans changer son mot de passe lors des exécutions suivantes ; les identifiants de fixture aléatoires sont uniquement dans `.local`, ignoré par Git.
+
+## Module Quiz–Question
+
+Les commandes complètes du module figurent dans [QUIZ.md](QUIZ.md). La suite contient maintenant sept tests navigateur, dont `quizzes.spec.ts`, `quiz-validation.spec.ts` et `attempts.spec.ts`. Pour des relances rapprochées, `config.quiz_e2e_settings` et `QUIZ_TEST_RUN` créent une nouvelle base strictement nommée `test_nexora_quiz_<run>`, sur le même MongoDB local et avec les mêmes protections ; les données précédentes restent intactes. Le test de déconnexion attend explicitement la fin du chargement avant d’évaluer une nouvelle URL protégée. Les contrôles de saisie sont détaillés dans [QUIZ-VALIDATION.md](QUIZ-VALIDATION.md) et le passage/correction dans [QUIZ-PASSAGE.md](QUIZ-PASSAGE.md).

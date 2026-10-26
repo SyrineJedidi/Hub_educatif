@@ -1,0 +1,121 @@
+{
+  "verified_at": "2026-10-26T05:32:59.336847+00:00",
+  "scope": "Quiz et Question, première étape",
+  "django_check": {
+    "issues": 0
+  },
+  "migration_drift": false,
+  "migration": "quizzes.0001_initial",
+  "backend": {
+    "command": "coverage run --source=accounts,classrooms,attendance,quizzes backend/manage.py test accounts quizzes --noinput",
+    "passed": 66,
+    "quiz_tests": 27,
+    "failed": 0,
+    "database": "test_nexora_hub_isolated",
+    "coverage_percent": 94,
+    "coverage_excludes": [
+      "migrations",
+      "tests",
+      "management commands"
+    ]
+  },
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "vite_build": "passed"
+  },
+  "browser": {
+    "command": "npx.cmd playwright test",
+    "engine": "Chromium",
+    "stats": {
+      "startTime": "2026-10-26T05:30:05.130Z",
+      "duration": 132616.62,
+      "expected": 5,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "database": "test_nexora_quiz_run20261026062949",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "report": "quiz-browser-results.json"
+  },
+  "accessibility": {
+    "axe_reports": [
+      {
+        "report": "axe-quiz-admin-mobile-long-content.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:31:00.572Z"
+      },
+      {
+        "report": "axe-quiz-admin.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:59.510Z"
+      },
+      {
+        "report": "axe-quiz-preview-mobile.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:54.262Z"
+      },
+      {
+        "report": "axe-quiz-preview.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:52.732Z"
+      },
+      {
+        "report": "axe-quiz-question-form.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:43.860Z"
+      },
+      {
+        "report": "axe-quiz-quiz-form.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:41.316Z"
+      },
+      {
+        "report": "axe-quiz-student-mobile.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:57.599Z"
+      },
+      {
+        "report": "axe-quiz-student.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T05:30:56.876Z"
+      }
+    ],
+    "human_audit": false,
+    "screen_reader_test": false
+  },
+  "screenshots": [
+    "screenshots/quiz-admin-desktop.png",
+    "screenshots/quiz-admin-mobile.png",
+    "screenshots/quiz-student-desktop.png",
+    "screenshots/quiz-student-mobile.png",
+    "screenshots/quiz-teacher-preview-desktop.png",
+    "screenshots/quiz-teacher-preview-mobile.png"
+  ],
+  "git": {
+    "repository": ".local/publication",
+    "branch": "feature/quiz-progression",
+    "main": "1af567a9c23bae07aa0c7fbbfbd654db51d66aa7",
+    "feature_committed": false,
+    "pushed": false,
+    "merged": false
+  },
+  "excluded_scope": [
+    "AI generation",
+    "quiz taking",
+    "attempts",
+    "scores",
+    "progress dashboards"
+  ],
+  "blockers": []
+}

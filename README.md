@@ -4,7 +4,7 @@ Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes l
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Les cinq modules pédagogiques et IA qui y sont décrits restent prévus ; seul le socle commun utilisateurs/groupes/assiduité est livré ici.
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
 
 ## Travail en équipe
 
@@ -87,8 +87,8 @@ Le backend email local est **console** : demander un lien sur `/mot-de-passe-oub
 # À la racine ; MongoDB doit être démarré
 .\backend\.venv\Scripts\python.exe backend\manage.py check
 .\backend\.venv\Scripts\python.exe backend\manage.py makemigrations --check --dry-run
-.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance backend\manage.py test accounts --noinput
-.\backend\.venv\Scripts\python.exe -m coverage report --omit="*/migrations/*,*/tests/*,*/management/*"
+.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance,quizzes backend\manage.py test accounts quizzes --noinput
+.\backend\.venv\Scripts\python.exe -m coverage report --omit="*/migrations/*,*/tests/*,*/tests.py,*/management/*"
 
 Set-Location frontend
 npm.cmd run build
@@ -120,3 +120,7 @@ Le serveur Django de développement et le replica set mono-nœud lié à localho
 L’archive mentionne MIT dans son README mais ne contient pas le texte intégral de la licence. Les crédits sont préservés ; l’autorisation d’utilisation des photographies n’est pas déduite de cette seule mention. Les polices Google restent chargées à distance, comme dans le template.
 
 Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).
+
+Module Quiz–Question : [gestion des quiz](docs/QUIZ.md), [validations](docs/QUIZ-VALIDATION.md), [passage et correction](docs/QUIZ-PASSAGE.md). Branche de livraison : `Syrine`, destinée à une Pull Request vers `main`. Le périmètre actuel et les contrôles de publication sont décrits dans [docs/PUBLICATION-SYRINE.md](docs/PUBLICATION-SYRINE.md).
+
+Consultation des résultats des étudiants, réservée à l’enseignant propriétaire et à l’administrateur : [docs/QUIZ-RESULTATS.md](docs/QUIZ-RESULTATS.md).

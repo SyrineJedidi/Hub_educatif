@@ -4,6 +4,7 @@ from accounts import views as v
 urlpatterns = [
     path('api/', include('classrooms.urls')),
     path('api/', include('attendance.urls')),
+    path('api/', include('quizzes.urls')),
     path('api/csrf/', v.CSRFView.as_view()),
     path('api/auth/register/', v.RegisterView.as_view()),
     path('api/auth/login/', v.LoginView.as_view()),
