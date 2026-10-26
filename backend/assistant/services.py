@@ -22,7 +22,7 @@ from .llm import LLMError, answer_schema, generate_answer
 from .models import (DEFAULT_CONVERSATION_TITLE, AnswerFeedback, AssistantSettings, Conversation, Message, Mode,
     TeacherNote, ValidatedAnswer)
 from .prompts import OUT_OF_SCOPE_MESSAGE, build_prompt, parse_answer, timestamp
-from .retrieval import retrieve
+from .retrieval import is_overview_question, overview_hits, retrieve
 
 logger = logging.getLogger('assistant')
 
@@ -495,6 +495,8 @@ def ask(request, conversation, data):
     history = recent_history(conversation)
     retrieval_started = time.monotonic()
     hits = retrieve(scope.source_type, scope.scope_id, index.content_version, data['content'], previous)
+    if not hits and is_overview_question(data['content']):
+        hits = overview_hits(scope.source_type, scope.scope_id)
     retrieval_ms = int((time.monotonic() - retrieval_started) * 1000)
     quota_used = bool(hits)
     if quota_used: consume_question(request, scope, row)

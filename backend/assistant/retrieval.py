@@ -138,3 +138,29 @@ def retrieve(source_type, scope_id, content_version, question, previous_question
         # the cached corpus would then name chunks that no longer exist.
         forget(source_type, scope_id)
     return [Hit(chunks[pk], round(score, 4)) for score, pk in best if pk in chunks]
+
+
+OVERVIEW_SOURCES = 8
+# « C’est quoi ce cours ? » shares no term with the course's passages, so lexical search alone would refuse it.
+COURSE_TERMS = frozenset(tokenize('cours chapitre chapitres module matière programme plan sommaire résumé résumer sujet sujets thème thèmes '
+    'contenu notion notions course chapter summary overview topic topics syllabus'))
+OVERVIEW_TERMS = COURSE_TERMS | frozenset(tokenize('ok okay bonjour salut merci svp stp aborde abordés parle présente présentation objectif '
+    'objectifs apprend apprendre étudie étudier contient général globalement rapidement exactement vraiment principal principaux principales '
+    'grandes lignes learn'))
+
+
+def is_overview_question(question):
+    """A question about the course as a whole: it names the course and asks nothing about a notion of it."""
+    terms = set(tokenize(question))
+    return bool(terms & COURSE_TERMS) and terms <= OVERVIEW_TERMS
+
+
+def overview_hits(source_type, scope_id, limit=OVERVIEW_SOURCES):
+    """The opening passage of each source, in course order; validated answers are corrections, not course content."""
+    seen, hits = set(), []
+    for chunk in KnowledgeChunk.objects.filter(source_type=source_type, scope_id=scope_id).exclude(source_kind='VALIDATED').order_by('order'):
+        source = (chunk.source_kind, chunk.source_id)
+        if source in seen: continue
+        seen.add(source); hits.append(Hit(chunk, 0.0))
+        if len(hits) == limit: break
+    return hits
