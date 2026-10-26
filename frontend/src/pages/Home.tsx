@@ -32,6 +32,7 @@ const modules = [
     "Organisez votre travail, à votre rythme.",
   ],
 ];
+const available = ["assistant", "quiz"];
 export default function Home() {
   return (
     <>
@@ -218,9 +219,9 @@ export default function Home() {
           <div className="section-title text-center">
             <h2>Une plateforme qui grandit avec vous</h2>
             <p>
-              Groupes, séances et assiduité constituent notre socle commun. Les
-              modules suivants sont en préparation et seront développés
-              progressivement.
+              Groupes, séances et assiduité constituent notre socle commun.
+              L’assistant pédagogique et les quiz sont déjà disponibles ; les
+              autres modules seront développés progressivement.
             </p>
           </div>
           <div className="row">
@@ -252,7 +253,11 @@ export default function Home() {
                       src={"/assets/img/course/" + (i + 1) + ".png"}
                       alt=""
                     />
-                    <span>En préparation</span>
+                    <span>
+                      {available.includes(slug)
+                        ? "Disponible"
+                        : "En préparation"}
+                    </span>
                   </div>
                   <h3 className="module-title">
                     <Link to={"/modules/" + slug}>{title}</Link>

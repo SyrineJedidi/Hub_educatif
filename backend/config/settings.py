@@ -13,7 +13,7 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split('
 INSTALLED_APPS = [
     'config.apps.MongoAuthConfig', 'config.apps.MongoContentTypesConfig',
     'django.contrib.sessions', 'django.contrib.staticfiles',
-    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes',
+    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes', 'assistant',
 ]
 MIGRATION_MODULES = {'auth': 'mongo_migrations.auth', 'contenttypes': 'mongo_migrations.contenttypes'}
 DATABASE_ROUTERS = ['django_mongodb_backend.routers.MongoRouter']
@@ -82,3 +82,24 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = '/static/'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024
+# Voice questions: Whisper transcription (disabled, fake, local or groq), shared with the course resources.
+WHISPER_PROVIDER = os.getenv('WHISPER_PROVIDER', 'disabled').strip().lower()
+WHISPER_MODEL = os.getenv('WHISPER_MODEL', 'small')
+WHISPER_LANGUAGE = os.getenv('WHISPER_LANGUAGE', '').strip()
+WHISPER_CPU_THREADS = int(os.getenv('WHISPER_CPU_THREADS', '2'))
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
+GROQ_WHISPER_MODEL = os.getenv('GROQ_WHISPER_MODEL', 'whisper-large-v3-turbo')
+COURSES_MAX_AUDIO_SECONDS = int(os.getenv('COURSES_MAX_AUDIO_SECONDS', '7200'))
+# Teaching assistant: Gemini answers (disabled, fake or gemini) and usage limits.
+ASSISTANT_LLM_PROVIDER = os.getenv('ASSISTANT_LLM_PROVIDER', 'disabled').strip().lower()
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3.5-flash-lite').strip()
+GEMINI_FALLBACK_MODEL = os.getenv('GEMINI_FALLBACK_MODEL', 'gemini-3.1-flash-lite').strip()
+GEMINI_TIMEOUT_SECONDS = int(os.getenv('GEMINI_TIMEOUT_SECONDS', '45'))
+ASSISTANT_MIN_SCORE = float(os.getenv('ASSISTANT_MIN_SCORE', '1.0'))
+ASSISTANT_DAILY_QUESTIONS = int(os.getenv('ASSISTANT_DAILY_QUESTIONS', '30'))
+ASSISTANT_GLOBAL_DAILY_BUDGET = int(os.getenv('ASSISTANT_GLOBAL_DAILY_BUDGET', '400'))
+ASSISTANT_VOICE_PER_HOUR = int(os.getenv('ASSISTANT_VOICE_PER_HOUR', '20'))
+ASSISTANT_MAX_AUDIO_SECONDS = int(os.getenv('ASSISTANT_MAX_AUDIO_SECONDS', '60'))
+ASSISTANT_MAX_AUDIO_MB = float(os.getenv('ASSISTANT_MAX_AUDIO_MB', '5'))
+ASSISTANT_QUIZ_LOCK_HOURS = float(os.getenv('ASSISTANT_QUIZ_LOCK_HOURS', '3'))

@@ -125,6 +125,7 @@ export default function FrontOfficeLayout() {
                           ? "Assiduité de mes groupes"
                           : "Mon assiduité"}
                       </NavLink>
+                      <NavLink to="/espace/assistant">Assistant</NavLink>
                     </div>
                   </details>
                 )}
@@ -143,10 +144,10 @@ export default function FrontOfficeLayout() {
                       <Link
                         key={slug}
                         to={
-                          slug === "quiz"
-                            ? user.role === "ADMIN"
-                              ? "/administration/quiz"
-                              : "/espace/quiz"
+                          slug === "quiz" || slug === "assistant"
+                            ? (user.role === "ADMIN"
+                                ? "/administration/"
+                                : "/espace/") + slug
                             : "/modules/" + slug
                         }
                       >
@@ -154,7 +155,9 @@ export default function FrontOfficeLayout() {
                         <small>
                           {slug === "quiz"
                             ? "Quiz, tentatives et correction"
-                            : "En préparation"}
+                            : slug === "assistant"
+                              ? "Réponses sourcées, par texte ou par voix"
+                              : "En préparation"}
                         </small>
                       </Link>
                     ))}
