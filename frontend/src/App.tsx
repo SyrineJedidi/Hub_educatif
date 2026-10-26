@@ -1,49 +1,65 @@
-import QuizList from "./quizzes/QuizList";
-import QuizDetail from "./quizzes/QuizDetail";
-import QuizEditor from "./quizzes/QuizEditor";
-import QuestionEditor from "./quizzes/QuestionEditor";
-import QuizPreview from "./quizzes/QuizPreview";
 import {
   QuizManagerRoute,
   QuizModuleEntry,
   QuizStudentRoute,
 } from "./quizzes/QuizRoutes";
-import AttemptPage from "./quizzes/AttemptPage";
-import AttemptResult from "./quizzes/AttemptResult";
-import StudentAttempts from "./quizzes/StudentAttempts";
-import StudentResults from "./quizzes/StudentResults";
-import StudentResultDetail from "./quizzes/StudentResultDetail";
-import AssistantPage from "./assistant/AssistantPage";
-import NotesPage from "./assistant/NotesPage";
-import SettingsPage from "./assistant/SettingsPage";
-import InsightsPage from "./assistant/InsightsPage";
-import ReviewQueue from "./assistant/ReviewQueue";
-import ReviewDetail from "./assistant/ReviewDetail";
-import AdminUsage from "./assistant/AdminUsage";
+import ManagementLayout from "./layouts/backoffice/ManagementLayout";
+import { SheetModuleEntry, SheetManagerRoute } from "./revisions/routes";
+import { lazy, Suspense, useEffect, useRef } from "react";
+import { Loading } from "./components/UI";
 import {
   AssistantManagerRoute,
   AssistantModuleEntry,
   AssistantUserRoute,
 } from "./assistant/AssistantRoutes";
-import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import FrontOfficeLayout from "./layouts/FrontOfficeLayout";
-import ProtectedLearningLayout from "./layouts/ProtectedLearningLayout";
-import LearningHome from "./pages/LearningHome";
-import AdminLayout from "./layouts/AdminLayout";
+import FrontOfficeLayout from "./layouts/front/FrontOfficeLayout";
+import ProtectedLearningLayout from "./layouts/front/ProtectedLearningLayout";
+import AdminLayout from "./layouts/backoffice/AdminLayout";
 import Home from "./pages/Home";
-import AuthPage from "./pages/AuthPages";
-import Dashboard from "./pages/Dashboard";
-import Users from "./pages/Users";
-import Groups from "./pages/Groups";
-import GroupDetail from "./pages/GroupDetail";
-import Sessions from "./pages/Sessions";
-import SessionDetail from "./pages/SessionDetail";
-import Attendance from "./pages/Attendance";
-import Profile from "./pages/Profile";
-import Statistics from "./pages/Statistics";
 import { ComingSoon, NotFound } from "./pages/Other";
 import { useAuth, destination } from "./auth/AuthContext";
+// Pages are loaded on demand: each one is a separate file downloaded at first visit.
+const QuizList = lazy(() => import("./quizzes/QuizList"));
+const QuizDetail = lazy(() => import("./quizzes/QuizDetail"));
+const QuizEditor = lazy(() => import("./quizzes/QuizEditor"));
+const QuestionEditor = lazy(() => import("./quizzes/QuestionEditor"));
+const QuizPreview = lazy(() => import("./quizzes/QuizPreview"));
+const AttemptPage = lazy(() => import("./quizzes/AttemptPage"));
+const AttemptResult = lazy(() => import("./quizzes/AttemptResult"));
+const StudentAttempts = lazy(() => import("./quizzes/StudentAttempts"));
+const StudentResults = lazy(() => import("./quizzes/StudentResults"));
+const StudentResultDetail = lazy(() => import("./quizzes/StudentResultDetail"));
+const SheetList = lazy(() => import("./revisions/pages/SheetList"));
+const SheetDetail = lazy(() => import("./revisions/pages/SheetDetail"));
+const SheetEditor = lazy(() => import("./revisions/pages/SheetEditor"));
+const AIDashboard = lazy(() => import("./revisions/pages/AIDashboard"));
+const SheetTable = lazy(() => import("./revisions/pages/SheetTable"));
+const ModuleOverview = lazy(() => import("./revisions/pages/ModuleOverview"));
+const AIWorkshop = lazy(() => import("./revisions/pages/AIWorkshop"));
+const IllustrationLibrary = lazy(() => import("./revisions/pages/IllustrationLibrary"));
+const JobJournal = lazy(() => import("./revisions/pages/JobJournal"));
+const RevisionMode = lazy(() => import("./revisions/pages/RevisionMode"));
+const StudentFollowUp = lazy(() => import("./revisions/pages/StudentFollowUp"));
+const RolesPermissions = lazy(() => import("./pages/RolesPermissions"));
+const AssistantPage = lazy(() => import("./assistant/AssistantPage"));
+const NotesPage = lazy(() => import("./assistant/NotesPage"));
+const SettingsPage = lazy(() => import("./assistant/SettingsPage"));
+const InsightsPage = lazy(() => import("./assistant/InsightsPage"));
+const ReviewQueue = lazy(() => import("./assistant/ReviewQueue"));
+const ReviewDetail = lazy(() => import("./assistant/ReviewDetail"));
+const AdminUsage = lazy(() => import("./assistant/AdminUsage"));
+const LearningHome = lazy(() => import("./pages/LearningHome"));
+const AuthPage = lazy(() => import("./pages/AuthPages"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Users = lazy(() => import("./pages/Users"));
+const Groups = lazy(() => import("./pages/Groups"));
+const GroupDetail = lazy(() => import("./pages/GroupDetail"));
+const Sessions = lazy(() => import("./pages/Sessions"));
+const SessionDetail = lazy(() => import("./pages/SessionDetail"));
+const Attendance = lazy(() => import("./pages/Attendance"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Statistics = lazy(() => import("./pages/Statistics"));
 function WorkspaceIndex() {
   const { user } = useAuth();
   return user ? <Navigate to={destination(user)} replace /> : null;
@@ -59,6 +75,7 @@ export default function App() {
     previousPath.current = pathname;
   }, [pathname]);
   return (
+    <Suspense fallback={<Loading />}>
     <Routes>
       <Route element={<FrontOfficeLayout />}>
         <Route index element={<Home />} />
@@ -73,6 +90,7 @@ export default function App() {
           element={<AuthPage mode="reset" />}
         />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
+        <Route path="modules/resumes" element={<SheetModuleEntry />} />
         <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
@@ -114,6 +132,19 @@ export default function App() {
             />
             <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
           </Route>
+          <Route path="fiches" element={<SheetList />} />
+          <Route path="fiches/nouvelle" element={<SheetEditor />} />
+          <Route path="fiches/atelier-ia" element={<AIWorkshop />} />
+          <Route element={<SheetManagerRoute />}>
+            <Route
+              path="fiches/pilotage-ia"
+              element={<Navigate to="/gestion/statistiques-ia" replace />}
+            />
+          </Route>
+          <Route path="fiches/:id" element={<SheetDetail />} />
+          <Route path="fiches/:id/modifier" element={<SheetEditor />} />
+          <Route path="fiches/:id/reviser" element={<RevisionMode />} />
+          <Route path="modules/resumes" element={<SheetModuleEntry />} />
           <Route path="modules/assistant" element={<AssistantModuleEntry />} />
           <Route element={<AssistantUserRoute />}>
             <Route path="assistant" element={<AssistantPage />} />
@@ -138,6 +169,21 @@ export default function App() {
           <Route path="modules/:slug" element={<ComingSoon />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+      </Route>
+      <Route path="gestion" element={<ManagementLayout />}>
+        <Route index element={<ModuleOverview />} />
+        <Route path="fiches" element={<SheetTable />} />
+        <Route path="fiches/nouvelle" element={<SheetEditor />} />
+        <Route path="fiches/:id" element={<SheetDetail />} />
+        <Route path="fiches/:id/modifier" element={<SheetEditor />} />
+        <Route path="fiches/:id/reviser" element={<RevisionMode />} />
+        <Route path="atelier-ia" element={<AIWorkshop />} />
+        <Route path="illustrations" element={<IllustrationLibrary />} />
+        <Route path="journal-ia" element={<JobJournal />} />
+        <Route path="statistiques-ia" element={<AIDashboard />} />
+        <Route path="suivi-etudiants" element={<StudentFollowUp />} />
+        <Route path="droits" element={<RolesPermissions />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="administration" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
@@ -165,6 +211,18 @@ export default function App() {
           />
           <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
         </Route>
+        <Route path="resumes" element={<ModuleOverview />} />
+        <Route path="fiches" element={<SheetTable />} />
+        <Route path="fiches/nouvelle" element={<SheetEditor />} />
+        <Route path="atelier-ia" element={<AIWorkshop />} />
+        <Route path="illustrations" element={<IllustrationLibrary />} />
+        <Route path="journal-ia" element={<JobJournal />} />
+        <Route path="suivi-etudiants" element={<StudentFollowUp />} />
+        <Route path="roles" element={<RolesPermissions />} />
+        <Route path="pilotage-ia" element={<AIDashboard />} />
+        <Route path="fiches/:id" element={<SheetDetail />} />
+        <Route path="fiches/:id/modifier" element={<SheetEditor />} />
+        <Route path="modules/resumes" element={<SheetModuleEntry />} />
         <Route path="assistant" element={<AdminUsage />} />
         <Route path="assistant/notes" element={<NotesPage />} />
         <Route path="assistant/parametres" element={<SettingsPage />} />
@@ -183,5 +241,6 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }

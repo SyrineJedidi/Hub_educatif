@@ -65,7 +65,17 @@ export default function AuthPage({ mode }: { mode: keyof typeof titles }) {
               <br />
               <span>Avancer ensemble.</span>
             </h1>
-            <img src="/assets/img/about1.png" alt="" />
+            <ul className="auth-visual" aria-hidden="true">
+              <li className="tone-emerald">
+                <span className="ti-book" /> <strong>Fiche prête</strong> La photosynthèse
+              </li>
+              <li className="tone-amber">
+                <span className="ti-cup" /> <strong>Quiz réussi</strong> 6 / 6 bonnes réponses
+              </li>
+              <li className="tone-apricot">
+                <span className="ti-calendar" /> <strong>Séance demain</strong> Biologie · 9 h 00
+              </li>
+            </ul>
           </div>
           <div className="col-lg-6">
             <div className="auth-card">

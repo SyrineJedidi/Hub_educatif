@@ -1,0 +1,145 @@
+/* Front-office design layer on top of Eduleb: one consistent look for every page of the public site. */
+.front-office {
+  --ft-navy: #1f3b36;
+  --ft-blue: #17786a;
+  --ft-blue-dark: #0f5c52;
+  --ft-ink: #1f3b36;
+  --ft-text: #4c5a56;
+  --ft-line: #ecdfcb;
+  --ft-bg: #fdf3e3;
+  --ft-radius: 14px;
+  --ft-shadow: 0 1px 2px #1f3b360d, 0 8px 24px #1f3b360f;
+  background: #fff;
+}
+/* Header: the institutional bars run edge to edge. */
+#navigation.portal-header {
+  padding: 0;
+  border-bottom: 1px solid var(--ft-line);
+}
+.portal-header .brand-mark,
+.portal-header .brand-mark span,
+.portal-footer .brand-mark span {
+  color: #fff !important;
+  opacity: 1;
+}
+.front-office .learning-trail {
+  background: var(--ft-bg);
+  border-bottom: 1px solid var(--ft-line);
+}
+/* Buttons and links */
+.front-office .btn_one {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 13px 24px;
+  background: var(--ft-blue);
+  border: 1px solid var(--ft-blue);
+  color: #fff;
+  font-family: Jost, sans-serif;
+  font-weight: 600;
+  box-shadow: 0 6px 16px #17786a33;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.front-office .btn_one:hover {
+  background: var(--ft-blue-dark);
+  border-color: var(--ft-blue-dark);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px #17786a40;
+}
+.front-office .text-button {
+  color: var(--ft-blue);
+  font-weight: 600;
+}
+.front-office .text-button:hover {
+  color: var(--ft-blue-dark);
+  text-decoration: underline;
+}
+/* Forms */
+.front-office .form-control,
+.front-office select.form-control {
+  border-radius: 10px;
+  border-color: #ced8d6;
+  min-height: 46px;
+}
+.front-office .form-control:focus {
+  border-color: var(--ft-blue);
+  box-shadow: 0 0 0 4px #17786a1f;
+}
+/* Pages of the connected space */
+.front-office .front-study {
+  background: var(--ft-bg);
+  padding-top: 40px;
+}
+.front-office .front-study .panel,
+.front-office .learning-access-card,
+.front-office .front-study .group-card,
+.front-office .front-study .metric-card,
+.front-office .front-study .quiz-card {
+  background: #fff;
+  border: 1px solid var(--ft-line);
+  border-radius: var(--ft-radius);
+  box-shadow: var(--ft-shadow);
+}
+.front-office .learning-access-card {
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.front-office .learning-access-card:hover {
+  transform: translateY(-2px);
+  border-color: #91e4d1;
+  box-shadow: 0 14px 30px #1f3b3617;
+}
+.front-office .front-study .page-heading {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 28px;
+}
+.front-office .front-study .page-heading h1,
+.front-office .learning-welcome h1 {
+  letter-spacing: -0.02em;
+}
+/* Welcome band of the student and teacher spaces: sober, readable, no busy background. */
+.front-office .learning-welcome {
+  background: linear-gradient(120deg, #ffffff 0%, #fef5f2 55%, #fef0ea 100%);
+  border: 1px solid var(--ft-line);
+  border-radius: 18px;
+  box-shadow: var(--ft-shadow);
+}
+.front-office .learning-welcome::before,
+.front-office .learning-welcome::after {
+  display: none;
+}
+.front-office .notice {
+  border-radius: 10px;
+}
+/* Footer */
+.portal-footer .single_footer h2 {
+  font-size: 17px;
+  letter-spacing: 0.2px;
+}
+@media (max-width: 575px) {
+  .front-office .front-study {
+    padding-top: 24px;
+  }
+  .front-office .btn_one {
+    padding: 12px 18px;
+  }
+}
+.front-office .hero-action {
+  border-radius: 14px;
+  overflow: hidden;
+}
+.front-office .hero-action .subscribe__btn {
+  background: var(--ft-blue);
+  border-radius: 10px;
+}
+.front-office .hero-action .subscribe__btn:hover {
+  background: var(--ft-blue-dark);
+}
+.front-office .single_tp,
+.front-office .single_course {
+  border-radius: var(--ft-radius);
+  overflow: hidden;
+}
