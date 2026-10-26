@@ -23,6 +23,7 @@ test("scénario complet par rôle et protections API", async ({
     await page.locator(".profile-menu summary").click();
     await page.getByRole("button", { name: "Se déconnecter" }).click();
     await expect(page).toHaveURL(/\/$/);
+    await page.waitForLoadState("load");
   }
   async function axe(label: string) {
     const r = await new AxeBuilder({ page }).analyze();

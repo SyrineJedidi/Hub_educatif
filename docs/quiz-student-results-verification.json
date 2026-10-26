@@ -1,0 +1,71 @@
+{
+  "verified_at": "2026-10-26T12:26:27.975649+00:00",
+  "repository": "C:\\Users\\USER\\Downloads\\edu\\.local\\publication",
+  "branch": "feature/quiz-progression",
+  "scope": "Read-only student results for teacher and administrator",
+  "new_models": false,
+  "new_migrations": false,
+  "django_check_issues": 0,
+  "migration_drift": false,
+  "backend": {
+    "command": "python backend/manage.py test quizzes --noinput",
+    "passed": 72,
+    "new_results_tests": 11,
+    "failed": 0,
+    "database": "test_nexora_hub_isolated"
+  },
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "build": "passed"
+  },
+  "browser": {
+    "command": "E2E_BASE_URL=http://127.0.0.1:5174 npm run test:e2e -- tests/student-results.spec.ts",
+    "stats": {
+      "startTime": "2026-10-26T12:17:03.881Z",
+      "duration": 21906.831,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "general_suite_rerun": false,
+    "database": "test_nexora_quiz_res20261026131523"
+  },
+  "readonly": {
+    "no_attempt_answer_or_guard_mutations_verified": true,
+    "overdue_projection_without_persistence_verified": true,
+    "report_write_methods_refused": true,
+    "quiz_write_requests_during_browser_consultation": 0
+  },
+  "accessibility": {
+    "axe": [
+      {
+        "report": "axe-student-results-teacher.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T12:17:17.985Z"
+      },
+      {
+        "report": "axe-student-results-admin.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T12:17:21.310Z"
+      }
+    ],
+    "mobile_width": 390,
+    "mobile_height": 844,
+    "keyboard_horizontal_scroll_verified": true,
+    "document_horizontal_overflow": false,
+    "human_audit": false
+  },
+  "screenshots": [
+    "screenshots/student-results-admin-desktop.png",
+    "screenshots/student-results-admin-mobile.png",
+    "screenshots/student-results-teacher-desktop.png",
+    "screenshots/student-results-teacher-mobile.png"
+  ],
+  "preview": "http://127.0.0.1:5173",
+  "committed": false,
+  "pushed": false,
+  "merged": false,
+  "blockers": []
+}

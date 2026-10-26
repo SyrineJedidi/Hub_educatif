@@ -42,9 +42,10 @@ class GroupDetailView(SecureView):
     @mutation
     def delete(self, request, uid):
         from attendance.models import LearningSession
+        from quizzes.models import Quiz
         group = get_object(LearningGroup, uid)
         group_access(request.user, group, write=True)
-        if Enrollment.objects.filter(group=group).exists() or LearningSession.objects.filter(group=group).exists():
+        if Enrollment.objects.filter(group=group).exists() or LearningSession.objects.filter(group=group).exists() or Quiz.objects.filter(learning_group=group).exists():
             raise ValidationError('Ce groupe possède un historique. Archivez-le.')
         group.delete()
         return Response(status=204)

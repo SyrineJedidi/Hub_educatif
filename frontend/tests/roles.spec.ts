@@ -48,6 +48,7 @@ test("inscription étudiant ou enseignant et administrateur unique", async ({
     await page.locator(".profile-menu summary").click();
     await page.getByRole("button", { name: "Se déconnecter" }).click();
     await expect(page).toHaveURL(/\/$/);
+    await page.waitForLoadState("load");
   }
   await page.goto("/connexion");
   await page.getByLabel("Adresse email").fill(data.admin);

@@ -4,6 +4,7 @@ export class ApiError extends Error {
     public status: number,
     message: string,
     public fields: Record<string, string[] | string> = {},
+    public code = "",
   ) {
     super(message);
   }
@@ -51,6 +52,7 @@ export async function api<T>(
       response.status,
       data?.error?.message || "La demande a échoué.",
       data?.error?.fields || {},
+      data?.error?.code || "",
     );
   }
   if (data?.csrfToken) csrfToken = data.csrfToken;

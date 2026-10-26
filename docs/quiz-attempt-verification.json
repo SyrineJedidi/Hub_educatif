@@ -1,0 +1,62 @@
+{
+  "verified_at": "2026-10-26T06:49:34.256747+00:00",
+  "repository": "C:\\Users\\USER\\Downloads\\edu\\.local\\publication",
+  "branch": "feature/quiz-progression",
+  "migration": "quizzes.0002_attempt_answer_and_more",
+  "development_migration_applied": true,
+  "django_check_issues": 0,
+  "migration_drift": false,
+  "backend": {
+    "command": "python backend/manage.py test quizzes --noinput",
+    "passed": 55,
+    "crud_tests": 33,
+    "attempt_tests": 22,
+    "failed": 0,
+    "database": "test_nexora_hub_isolated"
+  },
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "build": "passed"
+  },
+  "browser": {
+    "command": "npx.cmd playwright test tests/attempts.spec.ts tests/quizzes.spec.ts",
+    "stats": {
+      "startTime": "2026-10-26T06:44:19.208Z",
+      "duration": 55982.448000000004,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "database": "test_nexora_quiz_att20261026073936",
+    "report": "quiz-attempt-browser-results.json",
+    "general_suite_rerun": false
+  },
+  "accessibility": {
+    "axe": [
+      {
+        "report": "axe-quiz-attempt.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T06:44:31.042Z"
+      },
+      {
+        "report": "axe-quiz-result.json",
+        "violations": 0,
+        "timestamp": "2026-10-26T06:44:33.428Z"
+      }
+    ],
+    "human_audit": false
+  },
+  "screenshots": [
+    "screenshots/quiz-attempt-desktop.png",
+    "screenshots/quiz-attempt-mobile.png",
+    "screenshots/quiz-result-mobile.png"
+  ],
+  "development_preview": "http://127.0.0.1:5175",
+  "development_api": "http://127.0.0.1:8003",
+  "committed": false,
+  "pushed": false,
+  "merged": false,
+  "blockers": []
+}

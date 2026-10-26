@@ -13,7 +13,7 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split('
 INSTALLED_APPS = [
     'config.apps.MongoAuthConfig', 'config.apps.MongoContentTypesConfig',
     'django.contrib.sessions', 'django.contrib.staticfiles',
-    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance',
+    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes',
 ]
 MIGRATION_MODULES = {'auth': 'mongo_migrations.auth', 'contenttypes': 'mongo_migrations.contenttypes'}
 DATABASE_ROUTERS = ['django_mongodb_backend.routers.MongoRouter']

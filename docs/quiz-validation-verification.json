@@ -1,0 +1,65 @@
+{
+  "verified_at": "2026-10-26T06:08:23.945447+00:00",
+  "scope": "Quiz and Question field validation and role/status visibility",
+  "django_check": {
+    "issues": 0
+  },
+  "migration_drift": false,
+  "new_migrations": false,
+  "backend": {
+    "command": "coverage run --source=accounts,classrooms,attendance,quizzes backend/manage.py test accounts quizzes --noinput",
+    "passed": 72,
+    "quiz_tests": 33,
+    "failed": 0,
+    "coverage_percent": 94,
+    "database": "test_nexora_hub_isolated"
+  },
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "vite_build": "passed"
+  },
+  "browser": {
+    "command": "npx.cmd playwright test tests/quiz-validation.spec.ts tests/quizzes.spec.ts",
+    "stats": {
+      "startTime": "2026-10-26T06:06:33.940Z",
+      "duration": 48681.458,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "report": "quiz-validation-browser-results.json",
+    "database": "test_nexora_quiz_val20261026065851",
+    "full_six_test_suite_rerun": false
+  },
+  "visibility": {
+    "DRAFT": [
+      "owner",
+      "admin"
+    ],
+    "PUBLISHED": [
+      "owner",
+      "admin",
+      "currently_enrolled_target_group_students"
+    ],
+    "ARCHIVED": [
+      "owner",
+      "admin"
+    ]
+  },
+  "development_server_validation_http": 400,
+  "accessibility": {
+    "report": "axe-quiz-validation.json",
+    "violations": 0,
+    "human_audit": false
+  },
+  "screenshot": "screenshots/quiz-validation-mobile.png",
+  "git": {
+    "branch": "feature/quiz-progression",
+    "repository": ".local/publication",
+    "committed": false,
+    "pushed": false,
+    "merged": false
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "verified_date": "2026-10-26",
+  "delivery_branch": "Syrine",
+  "django_check_issues": 0,
+  "migration_drift": false,
+  "backend": [
+    {
+      "command": "python backend/manage.py test quizzes --noinput",
+      "passed": 72,
+      "failed": 0
+    },
+    {
+      "command": "python backend/manage.py test accounts classrooms attendance --noinput",
+      "passed": 39,
+      "failed": 0
+    }
+  ],
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "vite": "passed"
+  },
+  "browser": {
+    "engine": "Chromium",
+    "base_url": "http://127.0.0.1:5181",
+    "database_isolation": "one fresh test_nexora_quiz_* database per spec",
+    "scenarios": [
+      {
+        "spec": "quizzes",
+        "exit_code": 0,
+        "stats": {
+          "startTime": "2026-10-26T12:58:05.847Z",
+          "duration": 36550.534999999996,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      },
+      {
+        "spec": "quiz-validation",
+        "exit_code": 0,
+        "stats": {
+          "startTime": "2026-10-26T12:58:48.096Z",
+          "duration": 18586.37,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      },
+      {
+        "spec": "attempts",
+        "exit_code": 0,
+        "stats": {
+          "startTime": "2026-10-26T12:59:12.292Z",
+          "duration": 14764.087000000001,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      },
+      {
+        "spec": "student-results",
+        "exit_code": 0,
+        "stats": {
+          "startTime": "2026-10-26T12:59:32.721Z",
+          "duration": 11461.706,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      }
+    ],
+    "general_suite_rerun": false
+  },
+  "secrets_and_local_data_excluded": true,
+  "source_feature_changes_during_publication": false
+}

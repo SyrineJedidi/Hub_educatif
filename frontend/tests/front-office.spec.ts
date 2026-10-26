@@ -137,7 +137,7 @@ test("toutes les pages et les trois rôles : front-office Eduleb et back-office 
       base + "/seances/" + session.id,
       base + "/assiduite",
       base + "/profil",
-      base + "/modules/quiz",
+      base + "/quiz",
     ];
     if (role !== "student")
       routes.push(base + "/seances/" + session.id + "/appel");
@@ -266,9 +266,16 @@ test("toutes les pages et les trois rôles : front-office Eduleb et back-office 
         role === "student" ? "/espace/enseignant" : "/espace/etudiant",
       );
       await expect(page).toHaveURL(new RegExp(home + "$"));
-      if(role==='student'){
-       await page.goto('/espace/seances/'+session.id+'/appel');await expect(page).toHaveURL(new RegExp('/espace/seances/'+session.id+'$'));
-       expect((await context.request.get('/api/sessions/'+session.id+'/sheet/')).status()).toBe(403);
+      if (role === "student") {
+        await page.goto("/espace/seances/" + session.id + "/appel");
+        await expect(page).toHaveURL(
+          new RegExp("/espace/seances/" + session.id + "$"),
+        );
+        expect(
+          (
+            await context.request.get("/api/sessions/" + session.id + "/sheet/")
+          ).status(),
+        ).toBe(403);
       }
       await page.goto("/");
       await expect(page.locator("header .front-profile")).toBeVisible();
@@ -277,6 +284,7 @@ test("toutes les pages et les trois rôles : front-office Eduleb et back-office 
     await page.locator(".profile-menu summary").click();
     await page.getByRole("button", { name: "Se déconnecter" }).click();
     await expect(page).toHaveURL(/\/$/);
+    await page.waitForLoadState("load");
     await page.goto(base + "/profil");
     await expect(page).toHaveURL(/\/connexion$/);
   }

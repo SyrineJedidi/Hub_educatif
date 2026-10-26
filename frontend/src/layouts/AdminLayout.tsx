@@ -33,6 +33,8 @@ export default function AdminLayout() {
     [base + "/groupes", "ti-folder", "Mes groupes"],
     [base + "/seances", "ti-calendar", "Séances"],
     [base + "/assiduite", "ti-bar-chart", "Assiduité"],
+    [base + "/quiz", "ti-help-alt", "Quiz"],
+    [base + "/resultats-quiz", "ti-bar-chart", "Résultats des quiz"],
   ];
   links.splice(1, 0, [base + "/utilisateurs", "ti-user", "Utilisateurs"]);
   return (
@@ -76,7 +78,6 @@ export default function AdminLayout() {
             ["cours", "Cours et ressources"],
             ["resumes", "Résumés et illustrations"],
             ["assistant", "Assistant pédagogique"],
-            ["quiz", "Quiz et progression"],
             ["coaching", "Planification et coaching"],
           ].map(([slug, title]) => (
             <NavLink

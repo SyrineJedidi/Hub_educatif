@@ -1,0 +1,49 @@
+{
+  "verified_at": "2026-10-26T07:17:10.134639+00:00",
+  "repository": "C:\\Users\\USER\\Downloads\\edu\\.local\\publication",
+  "branch": "feature/quiz-progression",
+  "scope": "Mandatory Quiz and Question CRUD inputs",
+  "migration": "quizzes.0003_alter_question_explanation_alter_quiz_description_and_more",
+  "migration_applied": true,
+  "django_check_issues": 0,
+  "migration_drift": false,
+  "backend": {
+    "command": "python backend/manage.py test quizzes --noinput",
+    "passed": 61,
+    "failed": 0,
+    "database": "test_nexora_hub_isolated",
+    "additional_targeted_group_patch_test": "passed"
+  },
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "build": "passed"
+  },
+  "browser": {
+    "command": "npx.cmd playwright test tests/quiz-validation.spec.ts tests/quizzes.spec.ts tests/attempts.spec.ts",
+    "stats": {
+      "startTime": "2026-10-26T07:11:43.913Z",
+      "duration": 62653.842000000004,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "general_suite_rerun": false,
+    "database": "test_nexora_quiz_req20261026081108"
+  },
+  "legacy": {
+    "existing_records_fingerprint_unchanged": 5,
+    "nonconforming_records": 1,
+    "modified_records": 0,
+    "report": "quiz-required-inputs-legacy.json"
+  },
+  "accessibility": {
+    "report": "axe-quiz-validation.json",
+    "violations": 0,
+    "human_audit": false
+  },
+  "committed": false,
+  "pushed": false,
+  "merged": false
+}
