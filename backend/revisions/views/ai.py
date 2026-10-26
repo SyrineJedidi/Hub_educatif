@@ -109,7 +109,7 @@ class AIStatusView(SheetView):
         summary = bool(settings.GEMINI_API_KEY or settings.OLLAMA_MODEL)
         return Response({
             'summary': summary, 'illustration': bool(settings.HF_TOKEN),
-            'summary_engine': f'Gemini · {settings.GEMINI_MODEL}' if settings.GEMINI_API_KEY else (f'Ollama · {settings.OLLAMA_MODEL}' if settings.OLLAMA_MODEL else None),
+            'summary_engine': f'Gemini · {settings.REVISIONS_GEMINI_MODEL}' if settings.GEMINI_API_KEY else (f'Ollama · {settings.OLLAMA_MODEL}' if settings.OLLAMA_MODEL else None),
             'fallback_engine': f'Ollama · {settings.OLLAMA_MODEL}' if settings.GEMINI_API_KEY and settings.OLLAMA_MODEL else None,
             'illustration_engine': f'Hugging Face · {(settings.HF_IMAGE_SPACE or settings.HF_IMAGE_MODEL).split("/")[-1]}' if settings.HF_TOKEN else None,
             'asynchronous': settings.AI_JOB_BACKEND != 'sync',
@@ -133,7 +133,7 @@ class MetricsView(SheetView):
         data['recent'] = [job_data(j, request.user) for j in recent]
         data['configuration'] = {
             'job_backend': settings.AI_JOB_BACKEND,
-            'gemini_model': settings.GEMINI_MODEL if settings.GEMINI_API_KEY else None,
+            'gemini_model': settings.REVISIONS_GEMINI_MODEL if settings.GEMINI_API_KEY else None,
             'ollama_model': settings.OLLAMA_MODEL or None,
             'image_model': (settings.HF_IMAGE_SPACE or settings.HF_IMAGE_MODEL) if settings.HF_TOKEN else None,
         }

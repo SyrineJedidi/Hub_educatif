@@ -7,6 +7,11 @@ import ManagementLayout from "./layouts/backoffice/ManagementLayout";
 import { SheetModuleEntry, SheetManagerRoute } from "./revisions/routes";
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { Loading } from "./components/UI";
+import {
+  AssistantManagerRoute,
+  AssistantModuleEntry,
+  AssistantUserRoute,
+} from "./assistant/AssistantRoutes";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/front/FrontOfficeLayout";
 import ProtectedLearningLayout from "./layouts/front/ProtectedLearningLayout";
@@ -37,6 +42,13 @@ const JobJournal = lazy(() => import("./revisions/pages/JobJournal"));
 const RevisionMode = lazy(() => import("./revisions/pages/RevisionMode"));
 const StudentFollowUp = lazy(() => import("./revisions/pages/StudentFollowUp"));
 const RolesPermissions = lazy(() => import("./pages/RolesPermissions"));
+const AssistantPage = lazy(() => import("./assistant/AssistantPage"));
+const NotesPage = lazy(() => import("./assistant/NotesPage"));
+const SettingsPage = lazy(() => import("./assistant/SettingsPage"));
+const InsightsPage = lazy(() => import("./assistant/InsightsPage"));
+const ReviewQueue = lazy(() => import("./assistant/ReviewQueue"));
+const ReviewDetail = lazy(() => import("./assistant/ReviewDetail"));
+const AdminUsage = lazy(() => import("./assistant/AdminUsage"));
 const LearningHome = lazy(() => import("./pages/LearningHome"));
 const AuthPage = lazy(() => import("./pages/AuthPages"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -79,6 +91,7 @@ export default function App() {
         />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
         <Route path="modules/resumes" element={<SheetModuleEntry />} />
+        <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -132,6 +145,20 @@ export default function App() {
           <Route path="fiches/:id/modifier" element={<SheetEditor />} />
           <Route path="fiches/:id/reviser" element={<RevisionMode />} />
           <Route path="modules/resumes" element={<SheetModuleEntry />} />
+          <Route path="modules/assistant" element={<AssistantModuleEntry />} />
+          <Route element={<AssistantUserRoute />}>
+            <Route path="assistant" element={<AssistantPage />} />
+          </Route>
+          <Route element={<AssistantManagerRoute />}>
+            <Route path="assistant/notes" element={<NotesPage />} />
+            <Route path="assistant/parametres" element={<SettingsPage />} />
+            <Route path="assistant/suivi" element={<InsightsPage />} />
+            <Route path="assistant/signalements" element={<ReviewQueue />} />
+            <Route
+              path="assistant/signalements/:id"
+              element={<ReviewDetail />}
+            />
+          </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
           <Route path="groupes/:id" element={<GroupDetail />} />
@@ -196,6 +223,13 @@ export default function App() {
         <Route path="fiches/:id" element={<SheetDetail />} />
         <Route path="fiches/:id/modifier" element={<SheetEditor />} />
         <Route path="modules/resumes" element={<SheetModuleEntry />} />
+        <Route path="assistant" element={<AdminUsage />} />
+        <Route path="assistant/notes" element={<NotesPage />} />
+        <Route path="assistant/parametres" element={<SettingsPage />} />
+        <Route path="assistant/suivi" element={<InsightsPage />} />
+        <Route path="assistant/signalements" element={<ReviewQueue />} />
+        <Route path="assistant/signalements/:id" element={<ReviewDetail />} />
+        <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />
         <Route path="groupes/:id" element={<GroupDetail />} />

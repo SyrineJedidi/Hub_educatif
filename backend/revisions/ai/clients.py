@@ -68,8 +68,8 @@ HTTP_ERRORS = {
     401: 'La clé du service IA est refusée. Vérifiez la configuration du serveur.',
     403: 'La clé du service IA est refusée. Vérifiez la configuration du serveur.',
     402: 'Le quota du service IA est épuisé. Réessayez plus tard ou ajoutez des crédits au compte.',
-    404: 'Le modèle IA configuré n’est plus disponible. Mettez à jour GEMINI_MODEL ou HF_IMAGE_MODEL dans backend/.env.',
-    410: 'Le modèle IA configuré n’est plus disponible. Mettez à jour GEMINI_MODEL ou HF_IMAGE_MODEL dans backend/.env.',
+    404: 'Le modèle IA configuré n’est plus disponible. Mettez à jour REVISIONS_GEMINI_MODEL ou HF_IMAGE_MODEL dans backend/.env.',
+    410: 'Le modèle IA configuré n’est plus disponible. Mettez à jour REVISIONS_GEMINI_MODEL ou HF_IMAGE_MODEL dans backend/.env.',
     429: 'Le service IA reçoit trop de demandes. Patientez une minute puis réessayez.',
     503: 'Le service IA est momentanément surchargé. Réessayez dans quelques instants.',
 }
@@ -142,7 +142,7 @@ def _clean_summary(result, engine):
 def gemini_summary(text, *, title, course, length):
     """Return a dict {summary, key_points, glossary, tags, illustration_prompt, model, duration_ms}."""
     if not settings.GEMINI_API_KEY: raise AIUnavailable('Gemini n’est pas configuré : ajoutez GEMINI_API_KEY dans backend/.env.')
-    model = settings.GEMINI_MODEL
+    model = settings.REVISIONS_GEMINI_MODEL
     payload = {
         'systemInstruction': {'parts': [{'text': SUMMARY_INSTRUCTIONS}]},
         'contents': [{'role': 'user', 'parts': [{'text': _prompt(text, title, course, length)}]}],

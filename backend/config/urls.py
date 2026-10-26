@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/', include('attendance.urls')),
     path('api/', include('quizzes.urls')),
     path('api/', include('revisions.urls')),
+    path('api/', include('assistant.urls')),
     path('api/csrf/', v.CSRFView.as_view()),
     path('api/auth/register/', v.RegisterView.as_view()),
     path('api/auth/login/', v.LoginView.as_view()),

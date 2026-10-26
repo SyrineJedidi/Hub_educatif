@@ -7,7 +7,7 @@ const modules: [string, string, string, string, boolean, string][] = [
   ["quiz", "ti-help-alt", "Quiz et progression", "Des QCM corrigés automatiquement, plusieurs tentatives et des résultats détaillés.", true, "amber"],
   ["resumes", "ti-book", "Résumés et illustrations", "Des fiches de révision rédigées avec l’IA, relues par l’enseignant, et des cartes mémoire.", true, "sage"],
   ["cours", "ti-folder", "Cours et ressources", "Tous les supports de cours rassemblés au même endroit.", false, "sun"],
-  ["assistant", "ti-comments", "Assistant pédagogique", "Un accompagnement pour répondre aux questions du quotidien.", false, "apricot"],
+  ["assistant", "ti-comments", "Assistant pédagogique", "Des réponses sourcées à partir de vos cours, par texte ou par la voix.", true, "apricot"],
   ["coaching", "ti-target", "Planification et coaching", "Organiser son travail et avancer à son rythme.", false, "emerald"],
 ];
 const roles: [string, string, string, string[]][] = [
@@ -221,8 +221,8 @@ export default function Home() {
               Une plateforme qui <em>grandit</em> avec vous
             </h2>
             <p>
-              Le socle commun est disponible ; les modules suivants arrivent
-              progressivement, développés chacun par un membre de l’équipe.
+              Le socle commun, les quiz, les fiches de révision et l’assistant sont
+              disponibles ; les autres modules arrivent progressivement.
             </p>
           </header>
           <ul className="hm-modules">

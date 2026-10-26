@@ -231,7 +231,7 @@ Scénario détaillé : [SCENARIO-RESUMES-ILLUSTRATIONS.md](SCENARIO-RESUMES-ILLU
 
 | Situation | Comment la provoquer | Résultat attendu |
 |---|---|---|
-| Gemini indisponible | Mettre `GEMINI_MODEL=modele-inexistant` dans `.env`, redémarrer le worker (ou Django sans Celery), générer | ✅ Ollama `qwen3:8b` prend le relais (45 à 130 s), message « Gemini indisponible : modèle local », moteur « Ollama (local) » dans le Studio et le Pilotage IA |
+| Gemini indisponible | Mettre `REVISIONS_GEMINI_MODEL=modele-inexistant` dans `.env`, redémarrer le worker (ou Django sans Celery), générer | ✅ Ollama `qwen3:8b` prend le relais (45 à 130 s), message « Gemini indisponible : modèle local », moteur « Ollama (local) » dans le Studio et le Pilotage IA |
 | Worker arrêté | Arrêter le worker Celery puis lancer une génération | ✅ La tâche reste *En attente* ; elle est traitée dès que le worker redémarre |
 | Aucune IA configurée | Vider `GEMINI_API_KEY` et `OLLAMA_MODEL` | ✅ Message clair ; la saisie manuelle fonctionne |
 | PDF scanné ou fichier `.exe` | L’importer dans la fenêtre Gemini | ✅ Refus explicite, aucun appel IA consommé |

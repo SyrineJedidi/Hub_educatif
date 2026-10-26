@@ -25,7 +25,7 @@ Dans `backend/.env` (les clés restent côté serveur, jamais dans le frontend) 
 
 ```env
 GEMINI_API_KEY=...            # https://aistudio.google.com/apikey
-GEMINI_MODEL=gemini-3.5-flash
+REVISIONS_GEMINI_MODEL=gemini-3.5-flash
 HF_TOKEN=hf_...               # jeton Hugging Face
 HF_IMAGE_SPACE=black-forest-labs/FLUX.1-schnell   # Space public (quota GPU gratuit) ; vide = API payante HF_IMAGE_MODEL
 HF_IMAGE_MODEL=stabilityai/stable-diffusion-3-medium-diffusers

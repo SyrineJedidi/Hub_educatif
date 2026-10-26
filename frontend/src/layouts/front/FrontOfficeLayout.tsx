@@ -27,7 +27,7 @@ export function Brand() {
 const modules = [
   ["cours", "Cours et ressources", "En préparation"],
   ["resumes", "Résumés et illustrations", "Fiches, résumés IA et illustrations"],
-  ["assistant", "Assistant pédagogique", "En préparation"],
+  ["assistant", "Assistant pédagogique", "Réponses sourcées, par texte ou par voix"],
   ["quiz", "Quiz et progression", "Quiz, tentatives et correction"],
   ["coaching", "Planification et coaching", "En préparation"],
 ];
@@ -207,6 +207,7 @@ export default function FrontOfficeLayout() {
                       Résumés et illustrations
                     </NavLink>
                     <NavLink to="/administration/quiz">Quiz</NavLink>
+                    <NavLink to="/administration/assistant">Assistant</NavLink>
                     <NavLink to="/administration/seances">Séances</NavLink>
                     <NavLink to="/administration/utilisateurs">
                       Utilisateurs
@@ -216,6 +217,7 @@ export default function FrontOfficeLayout() {
                   <>
                     <NavLink to="/espace/fiches">Fiches de révision</NavLink>
                     <NavLink to="/espace/quiz">Quiz</NavLink>
+                    <NavLink to="/espace/assistant">Assistant</NavLink>
                     <NavLink to="/espace/seances">
                       {user.role === "TEACHER" ? "Séances et appel" : "Mes séances"}
                     </NavLink>

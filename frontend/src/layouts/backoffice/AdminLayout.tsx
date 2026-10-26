@@ -43,10 +43,16 @@ const sections = [
     ],
   },
   {
+    title: "Assistant pédagogique",
+    links: [
+      { to: base + "/assistant", icon: "ti-comments", label: "Assistant", end: true },
+      { to: base + "/assistant/signalements", icon: "ti-flag", label: "Signalements" },
+    ],
+  },
+  {
     title: "Bientôt dans le hub",
     links: [
       { to: base + "/modules/cours", icon: "ti-blackboard", label: "Cours et ressources", soon: true },
-      { to: base + "/modules/assistant", icon: "ti-comments", label: "Assistant pédagogique", soon: true },
       { to: base + "/modules/coaching", icon: "ti-target", label: "Planification", soon: true },
     ],
   },
