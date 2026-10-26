@@ -109,6 +109,7 @@ export default function FrontOfficeLayout() {
                       Mes activités <span aria-hidden="true">⌄</span>
                     </summary>
                     <div>
+                      <NavLink to="/espace/cours">Mes cours</NavLink>
                       <NavLink to="/espace/quiz">
                         {user.role === "TEACHER"
                           ? "Mes quiz"
@@ -143,10 +144,10 @@ export default function FrontOfficeLayout() {
                       <Link
                         key={slug}
                         to={
-                          slug === "quiz"
-                            ? user.role === "ADMIN"
-                              ? "/administration/quiz"
-                              : "/espace/quiz"
+                          slug === "quiz" || slug === "cours"
+                            ? (user.role === "ADMIN"
+                                ? "/administration/"
+                                : "/espace/") + slug
                             : "/modules/" + slug
                         }
                       >
@@ -154,7 +155,9 @@ export default function FrontOfficeLayout() {
                         <small>
                           {slug === "quiz"
                             ? "Quiz, tentatives et correction"
-                            : "En préparation"}
+                            : slug === "cours"
+                              ? "Chapitres, PDF et enregistrements audio"
+                              : "En préparation"}
                         </small>
                       </Link>
                     ))}

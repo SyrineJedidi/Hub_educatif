@@ -33,6 +33,8 @@ export default function AdminLayout() {
     [base + "/groupes", "ti-folder", "Mes groupes"],
     [base + "/seances", "ti-calendar", "Séances"],
     [base + "/assiduite", "ti-bar-chart", "Assiduité"],
+    [base + "/cours", "ti-book", "Cours"],
+    [base + "/matieres", "ti-bookmark-alt", "Matières"],
     [base + "/quiz", "ti-help-alt", "Quiz"],
     [base + "/resultats-quiz", "ti-bar-chart", "Résultats des quiz"],
   ];
@@ -75,7 +77,6 @@ export default function AdminLayout() {
         <p className="sidebar-label">BIENTÔT DANS LE HUB</p>
         <nav aria-label="Modules en préparation">
           {[
-            ["cours", "Cours et ressources"],
             ["resumes", "Résumés et illustrations"],
             ["assistant", "Assistant pédagogique"],
             ["coaching", "Planification et coaching"],

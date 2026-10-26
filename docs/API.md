@@ -58,3 +58,37 @@ Erreurs : `{"error":{"code":"…","message":"…","fields":{…}}}`. Codes HTTP 
 - Modules futurs : `{base}/modules/{cours|resumes|assistant|quiz|coaching}`. Ils sont explicitement en préparation.
 
 Le backend contrôle toujours les droits : masquer un bouton dans React n’est jamais la seule protection.
+
+## Cours et ressources
+
+Règles métier, limites et fonctionnement de la transcription : [COURS.md](COURS.md). Routes de gestion réservées à l’enseignant (ses cours) et à l’administrateur (tous) ; routes `student/` réservées aux étudiants, sur les cours publiés de leurs groupes actuels. Un cours, un chapitre, une ressource ou un extrait hors périmètre renvoie 404.
+
+| Route `/api/…` | Méthodes | Accès / fonction |
+| --- | --- | --- |
+| `subjects/` | GET, POST | Enseignant, ADMIN ; `q`, `archived`, `page` ; création `name`, `code`, `description` |
+| `subjects/{id}/` | GET, PATCH, DELETE | Écriture par l’auteur ou ADMIN (403 sinon) ; PATCH accepte aussi `archived` ; suppression si aucun cours ne l’utilise |
+| `courses/` | GET, POST | `q`, `status`, `subject`, `group`, `teacher` (ADMIN), `page` ; création `title`, `description`, `subject_id`, `group_ids` (0 à 20), plus `teacher_id` obligatoire pour ADMIN |
+| `courses/{id}/` | GET, PATCH, DELETE | Détail avec `chapters` et `publication_blockers` ; PATCH partiel ; suppression d’un brouillon jamais publié |
+| `courses/{id}/publish/`, `unpublish/`, `archive/`, `restore/` | POST `{}` | Changement de statut ; refus de publication dans `fields.publication` |
+| `courses/{id}/chapters/` | GET, POST | `title`, `description` ; ajout en fin de cours |
+| `courses/{id}/chapters/reorder/` | POST | `chapter_ids` : tous les chapitres du cours, sans doublon |
+| `courses/{id}/chapters/{chapter_id}/` | PATCH, DELETE | Suppression d’un chapitre vide uniquement |
+| `courses/{id}/chapters/{chapter_id}/resources/reorder/` | POST | `resource_ids` : toutes les ressources du chapitre |
+| `courses/{id}/resources/` | GET, POST multipart | `chapter` en filtre ; import `chapter_id`, `title`, `description`, `file` |
+| `courses/{id}/resources/{resource_id}/` | GET, PATCH, DELETE | PATCH `title`, `description`, `chapter_id` (déplacement en fin de chapitre) |
+| `courses/{id}/resources/{resource_id}/reprocess/` | POST `{}` | Relance l’extraction ou la transcription ; 409 si une tâche est active |
+| `courses/{id}/resources/{resource_id}/segments/` | GET | Extraits : `count`, `results` (5 000 au plus) |
+| `courses/{id}/resources/{resource_id}/segments/{segment_id}/` | PATCH | Correction `text` ; 409 pendant un traitement |
+| `courses/{id}/statistics/` | GET | Synthèse, ressources et élèves ; `?format=csv` pour l’export |
+| `courses/processing/` | GET | Enseignant, ADMIN : `provider`, `configured`, `model`, `process_inline`, `pending`, `running`, `failed` |
+| `courses/search/` | GET | Tous les rôles, cours visibles uniquement ; `q`, `subject`, `course`, `kind` (`PDF`, `AUDIO`), `page` |
+| `courses/resources/{resource_id}/file/` | GET | Compte actif qui voit le cours ; `?download=1`, en-tête `Range` |
+| `student/courses/` | GET | Étudiant ; `q`, `subject`, `page` ; progression de chaque cours |
+| `student/courses/{id}/` | GET | Cours, progression et chapitres avec ressources et indicateur `viewed` |
+| `student/courses/{id}/resources/{resource_id}/` | GET | Ressource, chapitre et cours |
+| `student/courses/{id}/resources/{resource_id}/segments/` | GET | Extraits, comme pour la gestion |
+| `student/courses/{id}/resources/{resource_id}/views/` | POST `{}` | Enregistre une consultation ; renvoie `viewed`, `view_count`, `progress` |
+
+Listes de cours, de matières et résultats de recherche : `count`, `page`, `page_size=20`, `results`. Un résultat de recherche porte `type` (`course`, `chapter`, `resource`, `segment`), `score`, `course`, `chapter`, `resource`, `snippet`, `highlights` (positions `[début, fin]` dans `snippet`), `page`, `start_seconds` et `link`. Une ressource de gestion expose `processing_status`, `processing_error`, `text_version`, `segments_count`, `file_url`, `download_url` et sa dernière tâche (`job`) ; la version étudiante n’expose ni l’erreur ni la tâche. Un extrait porte `order`, `text`, `page`, `start_seconds`, `end_seconds`, `edited` et `edited_at`.
+
+Codes propres au module : 409 `processing_in_progress` (traitement actif), 416 `range_not_satisfiable` (plage hors du fichier), 429 au-delà de 30 imports par heure, 60 recherches par minute ou 600 consultations par heure et par utilisateur. Un corps d’import plus gros que la plus grande limite de taille plus 1 Mo est refusé en 400 avant sa lecture.

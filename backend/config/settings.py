@@ -13,7 +13,7 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split('
 INSTALLED_APPS = [
     'config.apps.MongoAuthConfig', 'config.apps.MongoContentTypesConfig',
     'django.contrib.sessions', 'django.contrib.staticfiles',
-    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes',
+    'django_mongodb_backend', 'rest_framework', 'accounts', 'classrooms', 'attendance', 'quizzes', 'courses',
 ]
 MIGRATION_MODULES = {'auth': 'mongo_migrations.auth', 'contenttypes': 'mongo_migrations.contenttypes'}
 DATABASE_ROUTERS = ['django_mongodb_backend.routers.MongoRouter']
@@ -82,3 +82,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = '/static/'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024
+# Course resources: PDF text extraction and Whisper transcription (disabled, fake, local or groq).
+WHISPER_PROVIDER = os.getenv('WHISPER_PROVIDER', 'disabled').strip().lower()
+WHISPER_MODEL = os.getenv('WHISPER_MODEL', 'small')
+WHISPER_LANGUAGE = os.getenv('WHISPER_LANGUAGE', '').strip()
+WHISPER_CPU_THREADS = int(os.getenv('WHISPER_CPU_THREADS', '2'))
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
+GROQ_WHISPER_MODEL = os.getenv('GROQ_WHISPER_MODEL', 'whisper-large-v3-turbo')
+COURSES_PROCESS_INLINE = os.getenv('COURSES_PROCESS_INLINE', 'false').lower() == 'true'
+COURSES_MAX_PDF_MB = float(os.getenv('COURSES_MAX_PDF_MB', '20'))
+COURSES_MAX_AUDIO_MB = float(os.getenv('COURSES_MAX_AUDIO_MB', '25'))
+COURSES_MAX_PDF_PAGES = int(os.getenv('COURSES_MAX_PDF_PAGES', '300'))
+COURSES_MAX_AUDIO_SECONDS = int(os.getenv('COURSES_MAX_AUDIO_SECONDS', '7200'))

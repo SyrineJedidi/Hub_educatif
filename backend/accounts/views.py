@@ -234,6 +234,9 @@ class UserDetailView(SecureView):
                         from django.utils import timezone
                         if LearningGroup.objects.filter(teacher=user, archived=False).exists() or Enrollment.objects.filter(student=user).filter(Q(ends_at__isnull=True) | Q(ends_at__gt=timezone.now())).exists():
                             raise ValidationError({'role': ['Réaffectez ou archivez les groupes enseignés et terminez les périodes d’inscription en cours ou futures avant de changer ce rôle. L’historique sera conservé.']})
+                        from courses.models import Course
+                        if Course.objects.filter(teacher=user).exclude(status='ARCHIVED').exists():
+                            raise ValidationError({'role': ['Archivez les cours de cet enseignant ou confiez-les à un autre enseignant avant de changer son rôle.']})
                     user.session_nonce = nonce()
                     for key, value in data.items():
                         setattr(user, key, value)

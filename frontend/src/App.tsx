@@ -13,6 +13,14 @@ import AttemptResult from "./quizzes/AttemptResult";
 import StudentAttempts from "./quizzes/StudentAttempts";
 import StudentResults from "./quizzes/StudentResults";
 import StudentResultDetail from "./quizzes/StudentResultDetail";
+import CourseList from "./courses/CourseList";
+import CourseDetail from "./courses/CourseDetail";
+import CourseEditor from "./courses/CourseEditor";
+import CourseSearch from "./courses/CourseSearch";
+import CourseStatistics from "./courses/CourseStatistics";
+import ResourceViewer from "./courses/ResourceViewer";
+import SubjectList from "./courses/SubjectList";
+import { CourseManagerRoute, CourseModuleEntry } from "./courses/CourseRoutes";
 import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/FrontOfficeLayout";
@@ -61,6 +69,7 @@ export default function App() {
           element={<AuthPage mode="reset" />}
         />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
+        <Route path="modules/cours" element={<CourseModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -101,6 +110,23 @@ export default function App() {
             />
             <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
           </Route>
+          <Route path="cours" element={<CourseList />} />
+          <Route path="cours/recherche" element={<CourseSearch />} />
+          <Route path="cours/:id" element={<CourseDetail />} />
+          <Route
+            path="cours/:id/ressources/:resourceId"
+            element={<ResourceViewer />}
+          />
+          <Route path="modules/cours" element={<CourseModuleEntry />} />
+          <Route element={<CourseManagerRoute />}>
+            <Route path="cours/nouveau" element={<CourseEditor />} />
+            <Route path="cours/:id/modifier" element={<CourseEditor />} />
+            <Route
+              path="cours/:id/statistiques"
+              element={<CourseStatistics />}
+            />
+            <Route path="matieres" element={<SubjectList />} />
+          </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
           <Route path="groupes/:id" element={<GroupDetail />} />
@@ -137,6 +163,20 @@ export default function App() {
             element={<QuestionEditor />}
           />
           <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
+        </Route>
+        <Route path="cours" element={<CourseList />} />
+        <Route path="cours/recherche" element={<CourseSearch />} />
+        <Route path="cours/:id" element={<CourseDetail />} />
+        <Route
+          path="cours/:id/ressources/:resourceId"
+          element={<ResourceViewer />}
+        />
+        <Route path="modules/cours" element={<CourseModuleEntry />} />
+        <Route element={<CourseManagerRoute />}>
+          <Route path="cours/nouveau" element={<CourseEditor />} />
+          <Route path="cours/:id/modifier" element={<CourseEditor />} />
+          <Route path="cours/:id/statistiques" element={<CourseStatistics />} />
+          <Route path="matieres" element={<SubjectList />} />
         </Route>
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />

@@ -4,7 +4,7 @@ Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes l
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité, le module Cours et ressources et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
 
 ## Travail en équipe
 
@@ -87,7 +87,7 @@ Le backend email local est **console** : demander un lien sur `/mot-de-passe-oub
 # À la racine ; MongoDB doit être démarré
 .\backend\.venv\Scripts\python.exe backend\manage.py check
 .\backend\.venv\Scripts\python.exe backend\manage.py makemigrations --check --dry-run
-.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance,quizzes backend\manage.py test accounts quizzes --noinput
+.\backend\.venv\Scripts\python.exe -m coverage run --source=accounts,classrooms,attendance,quizzes,courses,ai backend\manage.py test accounts quizzes courses --noinput
 .\backend\.venv\Scripts\python.exe -m coverage report --omit="*/migrations/*,*/tests/*,*/tests.py,*/management/*"
 
 Set-Location frontend
@@ -105,11 +105,48 @@ Pour reproduire les parcours Chromium et les captures comparées, voir [docs/TES
 - Séances, dates et chevauchements, annulation avec conservation de l’historique.
 - Appel en brouillon puis validation, copie historique des participants, corrections motivées et refus des versions obsolètes.
 - Statistiques autorisées par rôle, filtres et CSV protégé contre les formules.
-- Pages « Fonctionnalité en préparation » pour les cinq modules futurs.
+- Cours et ressources : matières, chapitres, PDF et enregistrements audio, texte extrait et transcrit, recherche, progression et statistiques. Voir la section dédiée ci-dessous.
+- Pages « Fonctionnalité en préparation » pour les modules encore à développer.
 
 Séparation des interfaces et captures : [docs/FRONT_OFFICE.md](docs/FRONT_OFFICE.md).
 
 Documentation : [API et rôles](docs/API.md), [architecture et conventions](docs/ARCHITECTURE.md), [références et licences](docs/THIRD_PARTY.md).
+
+## Cours et ressources
+
+Module disponible pour les enseignants, les étudiants et l’administrateur : matières, cours partagés avec des groupes, chapitres, import de PDF et d’enregistrements audio, extraction du texte des PDF, transcription Whisper, correction des textes générés, recherche, consultation, progression et statistiques exportables en CSV. Règles, limites et contrat pour le futur assistant : [docs/COURS.md](docs/COURS.md). Routes : [docs/API.md](docs/API.md#cours-et-ressources).
+
+Après la mise à jour du dépôt, réinstaller `backend\requirements.lock` (ajout de `pypdf`) puis exécuter `migrate`. Les variables suivantes se placent dans `backend/.env` ; absentes, elles prennent la valeur par défaut, aussi indiquée dans `backend/.env.example`.
+
+| Variable | Défaut | Rôle |
+| --- | --- | --- |
+| `WHISPER_PROVIDER` | `disabled` | `disabled`, `fake` (tests et démonstrations, n’écoute pas l’audio), `local` (faster-whisper) ou `groq` |
+| `WHISPER_MODEL`, `WHISPER_CPU_THREADS` | `small`, `2` | Modèle et threads du fournisseur local |
+| `WHISPER_LANGUAGE` | vide | Langue imposée, par exemple `fr` ; vide : détection automatique |
+| `GROQ_API_KEY`, `GROQ_WHISPER_MODEL` | vide, `whisper-large-v3-turbo` | Fournisseur Groq ; la clé reste côté serveur |
+| `COURSES_PROCESS_INLINE` | `false` | `true` : transcrire pendant la requête d’import, pour des démonstrations sur des fichiers courts |
+| `COURSES_MAX_PDF_MB`, `COURSES_MAX_AUDIO_MB` | `20`, `25` | Tailles maximales en Mo |
+| `COURSES_MAX_PDF_PAGES`, `COURSES_MAX_AUDIO_SECONDS` | `300`, `7200` | Pages d’un PDF ; durée d’un audio, vérifiée par le fournisseur local |
+
+Les PDF sont traités pendant l’import. Les audios restent « En attente » jusqu’au passage du worker, à lancer dans un terminal supplémentaire, MongoDB démarré :
+
+```powershell
+.\backend\.venv\Scripts\python.exe backend\manage.py process_course_jobs
+```
+
+`--once` traite les tâches disponibles puis s’arrête ; Ctrl+C arrête le worker après la tâche en cours.
+
+Transcription locale, facultative et sans service externe : installer le fichier ci-dessous en plus de `requirements.lock`, puis définir `WHISPER_PROVIDER=local`. Le modèle est téléchargé depuis Hugging Face au premier usage. Avec `groq`, l’enregistrement est envoyé au service Groq.
+
+```powershell
+.\backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-whisper.txt
+```
+
+Tests du module, sans réseau ni vrai modèle (fournisseur `fake`) :
+
+```powershell
+.\backend\.venv\Scripts\python.exe backend\manage.py test courses --noinput
+```
 
 ## Limites et configuration restante
 
