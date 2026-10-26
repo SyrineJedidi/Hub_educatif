@@ -35,6 +35,8 @@ export default function AdminLayout() {
     [base + "/assiduite", "ti-bar-chart", "Assiduité"],
     [base + "/quiz", "ti-help-alt", "Quiz"],
     [base + "/resultats-quiz", "ti-bar-chart", "Résultats des quiz"],
+    [base + "/assistant", "ti-comments", "Assistant"],
+    [base + "/assistant/signalements", "ti-flag", "Signalements"],
   ];
   links.splice(1, 0, [base + "/utilisateurs", "ti-user", "Utilisateurs"]);
   return (
@@ -61,7 +63,7 @@ export default function AdminLayout() {
               onClick={() => setOpen(false)}
               key={path}
               to={path}
-              end={path === home}
+              end={path === home || path === base + "/assistant"}
             >
               <span className={icon} aria-hidden="true" />
               {label}
@@ -77,7 +79,6 @@ export default function AdminLayout() {
           {[
             ["cours", "Cours et ressources"],
             ["resumes", "Résumés et illustrations"],
-            ["assistant", "Assistant pédagogique"],
             ["coaching", "Planification et coaching"],
           ].map(([slug, title]) => (
             <NavLink

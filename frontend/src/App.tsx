@@ -13,6 +13,18 @@ import AttemptResult from "./quizzes/AttemptResult";
 import StudentAttempts from "./quizzes/StudentAttempts";
 import StudentResults from "./quizzes/StudentResults";
 import StudentResultDetail from "./quizzes/StudentResultDetail";
+import AssistantPage from "./assistant/AssistantPage";
+import NotesPage from "./assistant/NotesPage";
+import SettingsPage from "./assistant/SettingsPage";
+import InsightsPage from "./assistant/InsightsPage";
+import ReviewQueue from "./assistant/ReviewQueue";
+import ReviewDetail from "./assistant/ReviewDetail";
+import AdminUsage from "./assistant/AdminUsage";
+import {
+  AssistantManagerRoute,
+  AssistantModuleEntry,
+  AssistantUserRoute,
+} from "./assistant/AssistantRoutes";
 import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/FrontOfficeLayout";
@@ -61,6 +73,7 @@ export default function App() {
           element={<AuthPage mode="reset" />}
         />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
+        <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -101,6 +114,20 @@ export default function App() {
             />
             <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
           </Route>
+          <Route path="modules/assistant" element={<AssistantModuleEntry />} />
+          <Route element={<AssistantUserRoute />}>
+            <Route path="assistant" element={<AssistantPage />} />
+          </Route>
+          <Route element={<AssistantManagerRoute />}>
+            <Route path="assistant/notes" element={<NotesPage />} />
+            <Route path="assistant/parametres" element={<SettingsPage />} />
+            <Route path="assistant/suivi" element={<InsightsPage />} />
+            <Route path="assistant/signalements" element={<ReviewQueue />} />
+            <Route
+              path="assistant/signalements/:id"
+              element={<ReviewDetail />}
+            />
+          </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
           <Route path="groupes/:id" element={<GroupDetail />} />
@@ -138,6 +165,13 @@ export default function App() {
           />
           <Route path="quiz/:id/previsualisation" element={<QuizPreview />} />
         </Route>
+        <Route path="assistant" element={<AdminUsage />} />
+        <Route path="assistant/notes" element={<NotesPage />} />
+        <Route path="assistant/parametres" element={<SettingsPage />} />
+        <Route path="assistant/suivi" element={<InsightsPage />} />
+        <Route path="assistant/signalements" element={<ReviewQueue />} />
+        <Route path="assistant/signalements/:id" element={<ReviewDetail />} />
+        <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />
         <Route path="groupes/:id" element={<GroupDetail />} />
