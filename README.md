@@ -196,9 +196,4 @@ par l’enseignant avant publication.
 Les noms, profils GitHub et responsabilités des cinq membres seront
 ajoutés après confirmation de la répartition.
 
-## Licence et crédits
 
-Aucune licence propre au projet n’est définie à ce stade.
-
-Les licences et mentions d’attribution du template et des dépendances
-utilisés doivent être conservées et respectées.
