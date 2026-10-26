@@ -8,7 +8,7 @@ from django.core.management import CommandError, call_command
 from accounts.models import RateBucket, User
 from classrooms.models import LearningGroup
 from assistant.models import Conversation, KnowledgeChunk, Message, ScopeIndex, TeacherNote
-from .base import AssistantTestCase
+from .base import AssistantTestCase, without_courses
 
 DEMO_TITLES = ['Le dioxyde de carbone et l’effet de serre', 'Les fonctions affines', 'Probabilités : bases']
 ROW_KEYS = {'question', 'expected_source', 'expected_out_of_scope', 'retrieved_sources', 'top_score', 'retrieval_ms', 'hit_at_1', 'hit_at_5', 'status',
@@ -119,6 +119,7 @@ class EvaluationCommandTests(AssistantTestCase):
         self.assertEqual(self.evaluate(scope='DEMO', retrieval_only=True).count('\n- [NON APPELÉ] '), 15)
 
     def test_refusals(self):
+        absent = without_courses(); absent.start(); self.addCleanup(absent.stop)
         broken = os.path.join(self.folder, 'broken.json')
         with open(broken, 'w', encoding='utf-8') as handle: handle.write('{"notes": []}')
         cases = [({'scope': 'DEMO', 'source_type': 'course'}, 'Type de contenu indisponible : course.'), ({'scope': 'NOPE'}, 'Aucun groupe avec le code NOPE.'),

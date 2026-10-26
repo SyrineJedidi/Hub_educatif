@@ -2,10 +2,12 @@ from datetime import timedelta
 from unittest.mock import patch
 from bson import ObjectId
 from django.db import connection
+from django.db.models import QuerySet
 from django.utils import timezone
 from classrooms.models import Enrollment, LearningGroup
+from assistant import services
 from assistant.models import AnswerFeedback, AssistantSettings, Citation, Conversation, Message
-from assistant.services import auto_title
+from assistant.services import ConversationLocked, auto_title
 from .base import IN_SCOPE, AssistantTestCase
 
 
@@ -111,6 +113,35 @@ class ConversationTests(AssistantTestCase):
         Conversation.objects.filter(owner=self.student).update(pinned=True)
         self.enrol_classmate()
         self.assertEqual(self.change(self.start(client=self.classmate), {'pinned': True}, self.classmate).status_code, 200)
+
+    def test_pins_sent_at_once_never_pass_the_limit(self):
+        ids = [self.start() for _ in range(6)]
+        for conversation in ids[:4]: self.change(conversation, {'pinned': True})
+        count, raced = QuerySet.count, []
+        def other_tab(queryset):
+            # Another tab pins a fifth conversation right after this request counted the pins.
+            value = count(queryset)
+            if queryset.model is Conversation and not raced:
+                raced.append(value); Conversation.objects.filter(pk=ids[4]).update(pinned=True)
+            return value
+        with patch.object(QuerySet, 'count', other_tab):
+            response = self.change(ids[5], {'pinned': True, 'title': 'Révisions'})
+        self.assertEqual((raced, response.status_code, response.data['error']['fields']), ([4], 400, {'pinned': ['Vous pouvez épingler au plus 5 conversations.']}))
+        self.assertEqual(Conversation.objects.filter(owner=self.student, pinned=True).count(), 5)
+        # Refused as a whole: the title sent with the pin is not written either.
+        self.assertEqual(Conversation.objects.get(pk=ids[5]).title, 'Nouvelle conversation')
+
+    def test_a_stale_change_never_brings_a_trashed_conversation_back(self):
+        conversation = Conversation.objects.get(pk=self.start())
+        stale = Conversation.objects.get(pk=conversation.pk)
+        # Another tab sends the conversation to the trash after this request read it.
+        services.trash(conversation)
+        for data in ({'status': 'ARCHIVED'}, {'status': 'ACTIVE'}, {'title': 'Renommée'}, {'pinned': True}):
+            with self.subTest(data=data), self.assertRaises(ConversationLocked):
+                services.update_conversation(self.student, stale, data)
+        row = Conversation.objects.get(pk=conversation.pk)
+        self.assertEqual((row.status, row.title, row.pinned), ('DELETED', 'Nouvelle conversation', False))
+        self.assertIsNotNone(row.purge_at)
 
     def enrol_classmate(self):
         Enrollment.objects.create(student=self.other_student, group=self.group, starts_at=timezone.now() - timedelta(hours=1))

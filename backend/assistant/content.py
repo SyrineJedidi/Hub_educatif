@@ -54,7 +54,9 @@ class ContentProvider(Protocol):
 
 def validated_segments(source_type, scope_id):
     for answer in ValidatedAnswer.objects.filter(source_type=source_type, scope_id=str(scope_id)).order_by('created_at', 'id'):
-        yield Segment('VALIDATED', str(answer.pk), VALIDATED_TITLE, answer.question[:200], None, None, '', f'{answer.question}\n\n{answer.answer}')
+        # The question the teacher published, if any, leads the passage; it is not shown apart as a section name.
+        text = f'{answer.question}\n\n{answer.answer}' if answer.question.strip() else answer.answer
+        yield Segment('VALIDATED', str(answer.pk), VALIDATED_TITLE, '', None, None, '', text)
 
 
 def validated_fingerprint(source_type, scope_id):

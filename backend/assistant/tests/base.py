@@ -91,8 +91,14 @@ def resource_url(course_id, resource_id, *, page=None, start_seconds=None):
     return url
 
 
+def without_courses():
+    """Registry of a deployment without the courses module, whether or not it is installed here."""
+    real = apps.is_installed
+    return patch.object(apps, 'is_installed', lambda name: name != 'courses' and real(name))
+
+
 class CoursesStub:
-    """Stand-in for the public contract of the courses module, which this branch does not contain.
+    """Stand-in for the public contract of the courses module, so these tests run with or without it.
 
     Visibility follows that module's rules: the administrator sees every course, a teacher their own courses,
     a student the published courses linked to one of their current groups."""

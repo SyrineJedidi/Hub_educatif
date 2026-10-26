@@ -103,6 +103,7 @@ const labels: Record<string, string> = {
   correction: "Correction",
   note: "Note",
   action: "Action",
+  question: "Question publiée",
 };
 export function Field({
   label,

@@ -139,6 +139,8 @@ class SettingsSerializer(AssistantInputSerializer):
 class ReviewActionSerializer(AssistantInputSerializer):
     action = AssistantChoiceField(choices=[('CONFIRM', 'Confirmer'), ('CORRECT', 'Corriger'), ('DISMISS', 'Classer sans suite')])
     correction = AssistantTextField(max_length=2000, required=False)
+    # The question published with a correction, as reworded by the teacher; without it, only the correction is published.
+    question = AssistantTextField(max_length=QUESTION_MAX_LENGTH, required=False, allow_blank=True)
     note = AssistantTextField(max_length=2000, required=False, allow_blank=True)
 
     def validate(self, attrs):
@@ -146,6 +148,8 @@ class ReviewActionSerializer(AssistantInputSerializer):
             raise serializers.ValidationError({'correction': ['Rédigez la réponse corrigée.']})
         if attrs['action'] != 'CORRECT' and 'correction' in attrs:
             raise serializers.ValidationError({'correction': ['Une correction accompagne uniquement l’action « Corriger ».']})
+        if attrs['action'] != 'CORRECT' and 'question' in attrs:
+            raise serializers.ValidationError({'question': ['La question publiée accompagne uniquement l’action « Corriger ».']})
         return attrs
 
 

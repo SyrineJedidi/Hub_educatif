@@ -30,9 +30,12 @@ DAY = 86400
 TRASH_DAYS = 30
 MAX_PINNED = 5
 SEND_PER_MINUTE = 12
+SENDS_PER_DAY = 300
 CONVERSATIONS_PER_HOUR = 60
 MODE_LOCKED = 'Votre enseignant a fixé le mode de l’assistant pour ce cours.'
 TRASH_LOCKED = 'Cette conversation est dans la corbeille : restaurez-la pour continuer.'
+# Provider errors after which no model processed the request, whatever the question: the only ones given back.
+UNSERVED_ERRORS = {'disabled', 'quota', 'auth'}
 
 
 class ScopeUnavailable(APIException):
@@ -136,6 +139,9 @@ def global_quota():
 def check_spam(request):
     consume(request, 'assistant-send', SEND_PER_MINUTE, 60, str(request.user.pk),
         'Vous envoyez des questions trop rapidement. Patientez une minute avant de réessayer.', keep_rejected=True)
+    # Questions refused outside the course cost no quota but are stored: this bounds what one account writes in a day.
+    consume(request, 'assistant-day', SENDS_PER_DAY, DAY, str(request.user.pk),
+        f'Vous avez envoyé {SENDS_PER_DAY} questions aujourd’hui, le maximum par jour. Revenez demain.', keep_rejected=True)
 
 
 def check_conversation_rate(request):
@@ -286,21 +292,33 @@ def create_conversation(user, data):
         title=title or DEFAULT_CONVERSATION_TITLE, title_is_custom=bool(title), mode=mode, last_message_at=mongo_now())
 
 
+def pinned_count(user):
+    return Conversation.objects.filter(owner=user, pinned=True).exclude(status=Conversation.Status.DELETED).count()
+
+
+def too_many_pinned():
+    return ValidationError({'pinned': [f'Vous pouvez épingler au plus {MAX_PINNED} conversations.']})
+
+
 def update_conversation(user, conversation, data):
     if conversation.status == Conversation.Status.DELETED: raise ConversationLocked(TRASH_LOCKED)
-    fields = []
-    if 'title' in data:
-        conversation.title, conversation.title_is_custom = data['title'], True; fields += ['title', 'title_is_custom']
+    changes = {}
+    if 'title' in data: changes.update(title=data['title'], title_is_custom=True)
     if 'mode' in data and data['mode'] != conversation.mode:
         if not settings_row(conversation.source_type, conversation.scope_id).allow_mode_choice: raise ValidationError({'mode': [MODE_LOCKED]})
-        conversation.mode = data['mode']; fields.append('mode')
-    if 'status' in data:
-        conversation.status = data['status']; fields.append('status')
-    if 'pinned' in data:
-        if data['pinned'] and not conversation.pinned and Conversation.objects.filter(owner=user, pinned=True).exclude(status=Conversation.Status.DELETED).count() >= MAX_PINNED:
-            raise ValidationError({'pinned': [f'Vous pouvez épingler au plus {MAX_PINNED} conversations.']})
-        conversation.pinned = data['pinned']; fields.append('pinned')
-    if fields: conversation.save(update_fields=fields + ['updated_at'])
+        changes['mode'] = data['mode']
+    if 'status' in data: changes['status'] = data['status']
+    if 'pinned' in data: changes['pinned'] = data['pinned']
+    if changes.get('pinned') is True and not conversation.pinned and pinned_count(user) >= MAX_PINNED: raise too_many_pinned()
+    if changes:
+        # Written only while out of the trash: a change based on a stale read must not bring a trashed conversation back.
+        writable = Conversation.objects.filter(pk=conversation.pk, status__in=[Conversation.Status.ACTIVE, Conversation.Status.ARCHIVED])
+        # Two pins sent at once both pass the count above: a new pin is written first and alone, and undone past the limit.
+        if changes.get('pinned') is True and writable.filter(pinned=False).update(pinned=True, updated_at=mongo_now()) and pinned_count(user) > MAX_PINNED:
+            Conversation.objects.filter(pk=conversation.pk).update(pinned=False)
+            raise too_many_pinned()
+        if not writable.update(updated_at=mongo_now(), **changes): raise ConversationLocked(TRASH_LOCKED)
+        conversation.refresh_from_db()
     return conversation
 
 
@@ -422,11 +440,15 @@ def ensure_open(conversation):
 def save_question(conversation, user, content, input_mode, client_id):
     def write():
         now = mongo_now()
-        message = Message.objects.create(conversation=conversation, owner=user, source_type=conversation.source_type, scope_id=conversation.scope_id,
-            role=Message.Role.USER, content=content, input_mode=input_mode, client_id=client_id or None, has_client_id=bool(client_id),
-            purge_at=conversation.purge_at)
-        Conversation.objects.filter(pk=conversation.pk).update(message_count=F('message_count') + 1, last_message_at=now, updated_at=now)
-        return message
+        # The status is checked again inside the transaction: the conversation may have been archived or trashed since it was read,
+        # and a question saved into the trash would escape its purge.
+        if not Conversation.objects.filter(pk=conversation.pk, status=Conversation.Status.ACTIVE).update(
+                message_count=F('message_count') + 1, last_message_at=now, updated_at=now):
+            current = Conversation.objects.filter(pk=conversation.pk).first()
+            if not current: raise NotFound('Conversation introuvable.')
+            raise ConversationLocked() if current.status == Conversation.Status.ARCHIVED else ConversationLocked(TRASH_LOCKED)
+        return Message.objects.create(conversation=conversation, owner=user, source_type=conversation.source_type, scope_id=conversation.scope_id,
+            role=Message.Role.USER, content=content, input_mode=input_mode, client_id=client_id or None, has_client_id=bool(client_id))
     return atomic_write(write)
 
 
@@ -478,11 +500,11 @@ def ask(request, conversation, data):
     if quota_used: consume_question(request, scope, row)
     try:
         question = save_question(conversation, user, data['content'], data.get('input_mode') or Message.InputMode.TEXT, client_id)
-    except (IntegrityError, Conflict) as exc:
+    except (IntegrityError, APIException) as exc:
         # The question was not saved, so it is not counted.
         if quota_used:
             refund_question(user, scope); refund('assistant-global', 'global', DAY)
-        if isinstance(exc, Conflict): raise
+        if not isinstance(exc, IntegrityError): raise
         # Same client_id sent twice at once: the other request owns the answer.
         pair = replayed_pair(conversation, client_id)
         if not pair: raise Conflict()
@@ -498,8 +520,11 @@ def ask(request, conversation, data):
     try:
         result = generate_answer(system, contents, answer_schema())
     except LLMError as exc:
-        # A provider failure is not a used question; a blocked one is.
-        if exc.code != 'blocked': refund_question(user, scope)
+        # Only a request no model processed is given back, to the student and to the shared budget. Any other failure may
+        # come from the question itself (a reply cut by the token limit, a blocked request): giving it back would make
+        # such questions free and unlimited.
+        if exc.code in UNSERVED_ERRORS:
+            refund_question(user, scope); refund('assistant-global', 'global', DAY)
         answer = save_answer(conversation, question, content=exc.message, status=Message.Status.BLOCKED if exc.code == 'blocked' else Message.Status.FAILED,
             error_code=exc.code, provider=exc.provider, model_name=exc.model or '', chunks_used=len(used),
             latency_ms=int((time.monotonic() - started) * 1000), **metrics)
@@ -587,10 +612,12 @@ def filtered_reviews(request):
     if request.query_params.get('scope'):
         source_type, scope_id = parse_scope_key(request.query_params['scope'], 'scope')
         queryset = queryset.filter(source_type=source_type, scope_id=scope_id)
-    items = list(queryset.order_by('-created_at', '-id'))
+    queryset = queryset.order_by('-created_at', '-id')
     reason = choice_param(request, 'reason', AnswerFeedback.Reason.values)
-    # Reasons live in a JSON list, which the MongoDB backend cannot filter reliably.
-    return [f for f in items if reason in (f.reasons or [])] if reason else items
+    if not reason: return queryset
+    # Reasons live in a JSON list, which the MongoDB backend cannot filter reliably: only ids and reasons are read to pick them.
+    ids = [pk for pk, reasons in queryset.values_list('id', 'reasons') if reason in (reasons or [])]
+    return AnswerFeedback.objects.filter(pk__in=ids).order_by('-created_at', '-id')
 
 
 def managed_review(user, uid):
@@ -618,10 +645,11 @@ def apply_review(user, feedback, data):
         status=REVIEW_STATUSES[data['action']], teacher_note=note, reviewed_by=user, reviewed_at=now, updated_at=now)
     if not changed: raise AlreadyReviewed('Ce retour a déjà été traité.')
     if data['action'] == 'CORRECT':
-        question, _, _ = review_parts(feedback)
-        # The scope's content version includes validated answers, so the next question rebuilds the index with it.
+        # Every student of the scope can read a validated answer: it carries the question as the teacher chose to publish it,
+        # never a copy of the student's text made here. The scope's content version includes validated answers, so the next
+        # question rebuilds the index with it.
         ValidatedAnswer.objects.create(source_type=feedback.source_type, scope_id=feedback.scope_id,
-            question=(question.content if question else '')[:2000], answer=note, teacher=user, feedback=feedback)
+            question=data.get('question', '').strip(), answer=note, teacher=user, feedback=feedback)
     feedback.refresh_from_db()
     return feedback
 

@@ -3,7 +3,7 @@ from bson import ObjectId
 from django.db import IntegrityError
 from classrooms.models import LearningGroup
 from assistant.models import AssistantSettings, Conversation, TeacherNote
-from .base import ENERGY, IN_SCOPE, AssistantTestCase
+from .base import ENERGY, IN_SCOPE, AssistantTestCase, without_courses
 
 NOTE_KEYS = {'id', 'group', 'title', 'body', 'version', 'teacher', 'created_at', 'updated_at'}
 SETTINGS_KEYS = {'source_type', 'scope_id', 'key', 'title', 'teacher', 'enabled', 'default_mode', 'allow_mode_choice', 'daily_question_limit',
@@ -199,7 +199,7 @@ class SettingsTests(AssistantTestCase):
 
     def test_unknown_scopes(self):
         self.assertIn('source_type', self.teacher_client.get(self.url(source_type='video')).data['error']['fields'])
-        self.assertIn('source_type', self.teacher_client.put(self.url(source_type='course'), {}, format='json').data['error']['fields'])
+        with without_courses(): self.assertIn('source_type', self.teacher_client.put(self.url(source_type='course'), {}, format='json').data['error']['fields'])
         for client, url in ((self.teacher_client, '/api/assistant/settings/group/pas-un-id/'), (self.teacher_client, f'/api/assistant/settings/group/{ObjectId()}/'),
                 (self.teacher_client, self.url(self.other_group)), (self.as_user(self.other_teacher), self.url())):
             with self.subTest(url=url):

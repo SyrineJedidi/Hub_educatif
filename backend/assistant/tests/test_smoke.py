@@ -62,9 +62,10 @@ class AssistantSmokeTests(TransactionTestCase):
         self.assertEqual(review['question'], question); self.assertEqual(review['reason_labels'], ['Incomplète'])
         self.assertNotIn('Élève', json.dumps(review, default=str)); self.assertNotIn(str(self.student.pk), json.dumps(review, default=str))
         correction = 'On choisit deux points A et B de la droite puis a = (yB − yA) / (xB − xA). Exemple : A(0 ; 1) et B(2 ; 5) donnent a = 2.'
-        r = self.teacher_client.patch(f'/api/assistant/reviews/{review["id"]}/', {'action': 'CORRECT', 'correction': correction}, format='json')
+        # As the review page sends it: the question, reread by the teacher, is published with the correction.
+        r = self.teacher_client.patch(f'/api/assistant/reviews/{review["id"]}/', {'action': 'CORRECT', 'correction': correction, 'question': review['question']}, format='json')
         self.assertEqual(r.status_code, 200, r.data); self.assertEqual(r.data['status'], 'CORRECTED')
-        self.assertEqual(ValidatedAnswer.objects.get().answer, correction)
+        self.assertEqual((ValidatedAnswer.objects.get().question, ValidatedAnswer.objects.get().answer), (question, correction))
         again = self.teacher_client.patch(f'/api/assistant/reviews/{review["id"]}/', {'action': 'DISMISS'}, format='json')
         self.assertEqual(again.status_code, 409); self.assertEqual(again.data['error']['code'], 'already_reviewed')
         r = self.ask(conversation_id, 'Comment calculer le coefficient directeur avec deux points ?'); self.assertEqual(r.status_code, 201, r.data)

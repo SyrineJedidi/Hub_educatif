@@ -219,13 +219,15 @@ class ReviewTests(AssistantTestCase):
         self.assertEqual(response.status_code, 400); self.assertEqual(response.data['error']['fields'], {'correction': ['Rédigez la réponse corrigée.']})
         for body in ({'action': 'CORRECT', 'correction': '   '}, {'action': 'CONFIRM', 'correction': 'Non.'}, {'action': 'DISMISS', 'correction': ''},
                 {'action': 'VALIDER'}, {}, {'action': 'CORRECT', 'correction': 'x' * 2001}, {'action': 'CONFIRM', 'note': 'x' * 2001},
-                {'action': 'CONFIRM', 'status': 'CORRECTED'}):
+                {'action': 'CONFIRM', 'status': 'CORRECTED'}, {'action': 'CORRECT', 'correction': 'Oui.', 'question': 'x' * 2001},
+                {'action': 'DISMISS', 'question': IN_SCOPE}, {'action': 'CORRECT', 'correction': 'Oui.', 'question': 12}):
             with self.subTest(body=body): self.assertEqual(self.act(body).status_code, 400)
+        self.assertEqual(self.act({'action': 'CONFIRM', 'question': ''}).data['error']['fields'], {'question': ['La question publiée accompagne uniquement l’action « Corriger ».']})
         self.assertEqual(AnswerFeedback.objects.get(pk=self.review.pk).status, 'NEW')
         provider = NotesProvider()
         before = ensure_index(provider, str(self.group.pk)).content_version
         correction = 'La norme d’un vecteur est sa longueur ; on la note avec deux barres verticales. Exemple : un vecteur de coordonnées (3 ; 4) a une norme égale à 5.'
-        data = self.act({'action': 'CORRECT', 'correction': correction}).data
+        data = self.act({'action': 'CORRECT', 'correction': correction, 'question': f'  {IN_SCOPE}  '}).data
         self.assertEqual((data['status'], data['status_label'], data['teacher_note']), ('CORRECTED', 'Correction publiée', correction))
         validated = ValidatedAnswer.objects.get()
         self.assertEqual((validated.source_type, validated.scope_id, validated.question, validated.answer, validated.teacher_id, validated.feedback_id),
@@ -233,9 +235,36 @@ class ReviewTests(AssistantTestCase):
         self.assertNotEqual(provider.version(str(self.group.pk)), before.split(':', 1)[1])
         # The next question about the same point is answered from the correction first.
         answer = self.answered(self.start(), 'Comment noter la norme d’un vecteur ?')['answer']
-        self.assertEqual((answer['citations'][0]['source_kind'], answer['citations'][0]['source_title'], answer['citations'][0]['source_id']),
-            ('VALIDATED', 'Réponse validée par l’enseignant', str(validated.pk)))
-        self.assertIn('deux barres verticales', answer['citations'][0]['excerpt'])
+        citation = answer['citations'][0]
+        self.assertEqual((citation['source_kind'], citation['source_title'], citation['source_id'], citation['chapter_title']),
+            ('VALIDATED', 'Réponse validée par l’enseignant', str(validated.pk), ''))
+        self.assertTrue(citation['excerpt'].startswith(IN_SCOPE)); self.assertIn('deux barres verticales', citation['excerpt'])
+
+    def test_a_published_correction_never_shows_the_student_own_words(self):
+        question = 'Je suis Léa Bernard (lea.bernard@example.com, 06 12 34 56 78) : comment noter la norme d’un vecteur ?'
+        answer = self.answered(self.conversation, question)['answer']['id']
+        self.feedback(answer, {'rating': 'DOWN', 'reasons': ['INCOMPLETE'], 'shared_with_teacher': True})
+        review = AnswerFeedback.objects.get(message_id=answer)
+        # The teacher sees the question as asked, to correct the answer.
+        self.assertEqual(self.teacher_client.get(f'/api/assistant/reviews/{review.pk}/').data['question'], question)
+        correction = 'La norme d’un vecteur se note avec deux barres verticales, de part et d’autre du nom du vecteur.'
+        # Without a question, only the correction is published; with one, the teacher's wording, kept as written, numbers included.
+        cases = [({}, ''), ({'question': ''}, ''), ({'question': '  Comment noter la norme d’un vecteur de 1 000 000 m ?  '}, 'Comment noter la norme d’un vecteur de 1 000 000 m ?')]
+        classmate = self.as_user(self.other_student)
+        Enrollment.objects.create(student=self.other_student, group=self.group, starts_at=timezone.now())
+        for extra, published in cases:
+            with self.subTest(published=published):
+                ValidatedAnswer.objects.all().delete(); AnswerFeedback.objects.filter(pk=review.pk).update(status='NEW')
+                self.assertEqual(self.act({'action': 'CORRECT', 'correction': correction, **extra}, review).status_code, 200)
+                self.assertEqual(ValidatedAnswer.objects.get().question, published)
+                data = self.answered(self.start(client=classmate), 'Comment noter la norme d’un vecteur ?', client=classmate)
+                citation = data['answer']['citations'][0]
+                self.assertEqual((citation['source_kind'], citation['chapter_title']), ('VALIDATED', ''))
+                # Neither the sources shown nor the answer written from them carry what the first student typed.
+                shown = json.dumps(data, default=str, ensure_ascii=False)
+                for private in ('Léa', 'Bernard', 'lea.bernard@example.com', '06 12 34 56 78', 'Je suis'):
+                    self.assertNotIn(private, shown)
+                self.assertIn(correction[:40], citation['excerpt'])
 
     def test_only_new_feedback_can_be_reviewed(self):
         self.assertEqual(self.act({'action': 'CONFIRM'}).status_code, 200)

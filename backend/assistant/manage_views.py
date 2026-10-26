@@ -17,12 +17,6 @@ class ManagerView(SecureView):
     permission_classes = [AssistantManager]
 
 
-def page_of(request, items, serialize):
-    try: page = max(1, int(request.query_params.get('page', 1)))
-    except ValueError: raise ValidationError({'page': ['Page invalide.']})
-    return {'count': len(items), 'page': page, 'page_size': 20, 'results': [serialize(i) for i in items[(page - 1) * 20:page * 20]]}
-
-
 class NotesView(ManagerView):
     def get(self, request):
         return Response(paginated(request, filtered_notes(request), note_data))
@@ -108,8 +102,7 @@ def review_payload(feedback):
 
 class ReviewsView(ManagerView):
     def get(self, request):
-        items = filtered_reviews(request)
-        data = page_of(request, items, review_payload)
+        data = paginated(request, filtered_reviews(request), review_payload)
         data['results'] = [item for item in data['results'] if item]
         return Response(data)
 

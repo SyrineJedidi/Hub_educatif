@@ -53,9 +53,24 @@ export function location(citation: Citation) {
     return "à " + clock(citation.start_seconds);
   return "";
 }
-// Only same-origin application paths are rendered as links.
-export const internalUrl = (url: string) =>
-  url.startsWith("/") && !url.startsWith("//") ? url : "";
+// Only same-origin application paths are rendered as links. The browser's own parser decides,
+// because it reads "/\host" or a tab inside "//host" as a link to another site.
+export function internalUrl(url: string) {
+  if (!url.startsWith("/")) return "";
+  try {
+    const parsed = new URL(url, window.location.origin);
+    return parsed.origin === window.location.origin
+      ? parsed.pathname + parsed.search + parsed.hash
+      : "";
+  } catch {
+    return "";
+  }
+}
+// Emails and phone-like numbers of a student's text, masked in a draft the teacher still rereads before publishing it.
+export const maskContacts = (text: string) =>
+  text
+    .replace(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g, "[adresse]")
+    .replace(/\+?\d[\d .-]{6,}\d/g, "[numéro]");
 export function plainText(text: string) {
   return text
     .replace(/\[S(\d+)(?:\s*[,;]\s*S?\d+)*\]/g, "")

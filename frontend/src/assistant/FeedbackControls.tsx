@@ -252,7 +252,7 @@ export default function FeedbackControls({
           <p id={id + "-share"} className="field-help">
             {teacher
               ? "Le retour apparaîtra dans vos signalements pour être corrigé."
-              : "Votre enseignant verra la question et la réponse, sans votre nom, et pourra publier une correction."}
+              : "Votre enseignant verra la question et la réponse, sans votre nom, et pourra publier une correction. Celle-ci serait visible par les autres étudiants du cours, avec votre question telle qu’il l’aura relue."}
           </p>
           <Alert error={error} />
           <div className="actions">

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ApiError, date } from "../api/client";
 import { useResource } from "../hooks/useResource";
@@ -8,8 +8,8 @@ import AnswerText from "./AnswerText";
 import SourceList from "./SourceList";
 import { AssistantManagerNav, AssistantUnavailable } from "./AssistantRoutes";
 import type { Review, ReviewAction } from "./types";
-import { feedbackStatuses, ratings } from "./types";
-import { reasonLabels } from "./format";
+import { QUESTION_MAX, feedbackStatuses, ratings } from "./types";
+import { maskContacts, reasonLabels } from "./format";
 import { useAssistantContext } from "./useAssistantContext";
 import "./assistant.css";
 const CORRECTION_MAX = 2000;
@@ -40,7 +40,7 @@ const copy: Record<
     button: "Publier une correction",
     title: "Publier une correction",
     intro:
-      "La correction s’affiche sous la réponse de l’étudiant. Elle est aussi ajoutée aux sources de ce cours : l’assistant la citera en priorité pour les questions proches.",
+      "La correction s’affiche sous la réponse de l’étudiant. Elle devient aussi une source de ce cours, visible par tous ses étudiants avec la question telle que vous la publiez : l’assistant la citera en priorité pour les questions proches.",
     confirm: "Publier la correction",
     done: "Correction publiée : l’assistant l’utilisera désormais.",
   },
@@ -61,6 +61,7 @@ export default function ReviewDetail() {
     [action, setAction] = useState<ReviewAction | null>(null),
     [done, setDone] = useState("");
   const outcome = useRef<HTMLHeadingElement>(null);
+  const questionHelp = useId();
   if (loading && !data) return <Loading />;
   if (!data)
     return (
@@ -183,7 +184,10 @@ export default function ReviewDetail() {
                 const result = await actOnReview(review.id, {
                   action,
                   ...(action === "CORRECT"
-                    ? { correction: val(form, "correction").trim() }
+                    ? {
+                        question: val(form, "question").trim(),
+                        correction: val(form, "correction").trim(),
+                      }
                     : { note: val(form, "note").trim() }),
                 });
                 if (result) setUpdated(result);
@@ -201,14 +205,31 @@ export default function ReviewDetail() {
             }}
           >
             {action === "CORRECT" ? (
-              <Textarea
-                label="Réponse corrigée"
-                name="correction"
-                required
-                rows={10}
-                maxLength={CORRECTION_MAX}
-                defaultValue={correctionDraft(review.answer.content)}
-              />
+              <>
+                <Textarea
+                  label="Question publiée avec la correction (facultatif)"
+                  name="question"
+                  rows={3}
+                  maxLength={QUESTION_MAX}
+                  defaultValue={maskContacts(review.question)}
+                  aria-describedby={questionHelp}
+                />
+                <p id={questionHelp} className="field-help">
+                  Les étudiants du cours la liront avec la correction, telle que
+                  vous l’écrivez ici. Les adresses email et les numéros de
+                  téléphone de la question d’origine sont déjà masqués : retirez
+                  aussi les noms et toute autre information personnelle, ou
+                  videz le champ pour ne publier que la correction.
+                </p>
+                <Textarea
+                  label="Réponse corrigée"
+                  name="correction"
+                  required
+                  rows={10}
+                  maxLength={CORRECTION_MAX}
+                  defaultValue={correctionDraft(review.answer.content)}
+                />
+              </>
             ) : (
               <Textarea
                 label="Note pour l’étudiant (facultatif)"
