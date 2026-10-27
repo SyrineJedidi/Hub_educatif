@@ -7,6 +7,7 @@ from accounts.models import RateBucket
 from accounts.services import limit
 from classrooms.models import Enrollment
 from assistant import services
+from assistant.llm import LLMError
 from assistant.models import AssistantSettings
 from assistant.services import QuotaExceeded, bucket_key, consume, refund, remaining
 from .base import DAY, IN_SCOPE, OUT_OF_SCOPE, AssistantTestCase
@@ -133,12 +134,38 @@ class QuestionQuotaTests(AssistantTestCase):
             # Questions outside the course are still answered.
             self.assertEqual(self.answered(conversation, OUT_OF_SCOPE, client=classmate)['answer']['status'], 'OUT_OF_SCOPE')
 
-    def test_failed_answers_give_the_question_back(self):
-        self.daily(1)
-        for marker in ('#erreur', '#quota'):
-            self.assertEqual(self.answered(self.conversation, f'{IN_SCOPE} {marker}')['quota'], {'limit': 1, 'used': 0, 'remaining': 1})
-        self.assertEqual(self.answered(self.conversation, f'{IN_SCOPE} #bloque')['quota'], {'limit': 1, 'used': 1, 'remaining': 0})
+    def test_only_requests_no_model_processed_are_given_back(self):
+        self.daily(2)
+        shared = lambda: remaining('assistant-global', 'global', 400, DAY)['used']
+        # Quota exhausted on every model, or no provider at all: nothing was generated, both counters are given back.
+        self.assertEqual(self.answered(self.conversation, f'{IN_SCOPE} #quota')['quota'], {'limit': 2, 'used': 0, 'remaining': 2})
+        with self.settings(ASSISTANT_LLM_PROVIDER='disabled'):
+            self.assertEqual(self.answered(self.conversation)['quota'], {'limit': 2, 'used': 0, 'remaining': 2})
+        self.assertEqual(shared(), 0)
+        # An outage or a blocked request may have been processed, and may come from the question itself: both count.
+        self.assertEqual(self.answered(self.conversation, f'{IN_SCOPE} #erreur')['quota'], {'limit': 2, 'used': 1, 'remaining': 1})
+        self.assertEqual(self.answered(self.conversation, f'{IN_SCOPE} #bloque')['quota'], {'limit': 2, 'used': 2, 'remaining': 0})
+        self.assertEqual(shared(), 2)
         self.refused(self.ask(self.conversation), 429, 'quota_exceeded')
+
+    def test_failed_answers_cannot_drain_the_shared_budget(self):
+        # Questions that make the model fail, such as a reply cut by the token limit, are not free to repeat.
+        with self.settings(ASSISTANT_GLOBAL_DAILY_BUDGET=100), patch.object(services, 'SEND_PER_MINUTE', 100), \
+                patch('assistant.services.generate_answer', side_effect=LLMError('invalid_response')):
+            for _ in range(30): self.assertEqual(self.answered(self.conversation)['answer']['status'], 'FAILED')
+            self.refused(self.ask(self.conversation), 429, 'quota_exceeded')
+        self.assertEqual(remaining('assistant-global', 'global', 100, DAY)['used'], 30)
+
+    def test_sends_per_day_are_capped_even_outside_the_course(self):
+        # Refusals outside the course cost no quota but are stored.
+        with patch.object(services, 'SENDS_PER_DAY', 3), patch('accounts.services.time.time', return_value=NOW):
+            for _ in range(3): self.assertEqual(self.answered(self.conversation, OUT_OF_SCOPE)['answer']['status'], 'OUT_OF_SCOPE')
+            error = self.refused(self.ask(self.conversation, OUT_OF_SCOPE), 429, 'quota_exceeded')
+            self.assertEqual(error['message'], 'Vous avez envoyé 3 questions aujourd’hui, le maximum par jour. Revenez demain.')
+            self.assertEqual(self.conversation_messages(), 6)
+            self.assertEqual(self.ask(self.start(client=self.teacher_client), OUT_OF_SCOPE, client=self.teacher_client).status_code, 201)
+        with patch.object(services, 'SENDS_PER_DAY', 3), patch('accounts.services.time.time', return_value=NOW + 400):
+            self.assertEqual(self.ask(self.conversation, OUT_OF_SCOPE).status_code, 201)
 
     def test_scopes_and_answers_report_the_same_quota(self):
         data = self.answered(self.conversation)

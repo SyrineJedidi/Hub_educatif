@@ -1,8 +1,10 @@
 """Voice questions: the recording is transcribed for the student to review, then deleted; it is never stored."""
 import contextlib
+import logging
 import os
 import tempfile
 from django.conf import settings
+from django.http import JsonResponse
 from rest_framework.exceptions import APIException, ValidationError
 from accounts.views import validated
 from ai.transcription import TranscriptionError, get_transcriber
@@ -10,8 +12,13 @@ from .models import QUESTION_MAX_LENGTH
 from .serializers import TranscriptionSerializer
 from .services import consume
 
+logger = logging.getLogger('assistant')
+
 MB = 1024 * 1024
 UNSUPPORTED = 'Format audio non pris en charge : enregistrez en WebM, Ogg, MP4 (M4A), WAV ou MP3.'
+NO_AUDIO = 'Cet enregistrement ne contient aucune piste audio.'
+# Providers that never decode the recording, so there is nothing to measure before calling them.
+UNHEARD = {'disabled', 'fake'}
 
 
 class TranscriptionUnavailable(APIException):
@@ -40,24 +47,59 @@ def max_bytes():
     return int(settings.ASSISTANT_MAX_AUDIO_MB * MB)
 
 
-def too_large():
-    return ValidationError({'audio': [f'L’enregistrement dépasse la taille maximale de {settings.ASSISTANT_MAX_AUDIO_MB:g} Mo.']})
+def size_message():
+    return f'L’enregistrement dépasse la taille maximale de {settings.ASSISTANT_MAX_AUDIO_MB:g} Mo.'
 
 
-def reject_oversized_body(request):
-    # Checked before the multipart body is parsed and spooled to disk.
+def max_seconds():
+    return settings.ASSISTANT_MAX_AUDIO_SECONDS + 2
+
+
+def too_long():
+    return ValidationError({'audio': [f'L’enregistrement dépasse la durée maximale de {settings.ASSISTANT_MAX_AUDIO_SECONDS} secondes.']})
+
+
+def oversized_body(request):
+    """The refusal of a body announced larger than any accepted recording, or None.
+
+    It must run before the view: the CSRF check reads request.POST, which parses the whole multipart body and writes
+    its file to disk."""
     try: length = int(request.META.get('CONTENT_LENGTH') or 0)
     except ValueError: length = 0
-    if length > max_bytes() + MB: raise too_large()
+    # The other form fields and the multipart framing get one extra megabyte.
+    if length <= max_bytes() + MB: return None
+    # The body of a field error raised in a view; the API's exception handler does not run this early.
+    response = JsonResponse({'error': {'code': 'invalid', 'message': 'Veuillez corriger les champs indiqués.', 'fields': {'audio': [size_message()]}}}, status=400)
+    response['Cache-Control'] = 'private, no-store'
+    return response
+
+
+def decoded_seconds(path, limit):
+    """Seconds of sound the decoder gets out of the file, counted until limit is passed; None without PyAV.
+
+    A declared duration can lie and a low bitrate fits hours in a few megabytes: only decoding tells, and stopping
+    past the limit keeps a refusal as cheap as a minute of audio."""
+    try: import av
+    except ImportError: return None
+    seconds = 0.0
+    with av.open(path, metadata_errors='ignore') as container:
+        if not container.streams.audio: raise ValidationError({'audio': [NO_AUDIO]})
+        try:
+            for frame in container.decode(audio=0):
+                if frame.sample_rate: seconds += frame.samples / frame.sample_rate
+                if seconds > limit: break
+        except av.error.InvalidDataError:
+            # faster-whisper also stops at the first unreadable packet: what came before is what it transcribes.
+            pass
+    return seconds
 
 
 def transcribe_question(request):
     consume(request, 'assistant-voice', settings.ASSISTANT_VOICE_PER_HOUR, 3600, str(request.user.pk),
         f'Vous avez atteint la limite de {settings.ASSISTANT_VOICE_PER_HOUR} questions vocales par heure. Écrivez votre question ou réessayez plus tard.')
-    reject_oversized_body(request)
     data = validated(TranscriptionSerializer, request)
     upload = data['audio']
-    if upload.size > max_bytes(): raise too_large()
+    if upload.size > max_bytes(): raise ValidationError({'audio': [size_message()]})
     head = upload.read(16)
     upload.seek(0)
     extension = sniff(head)
@@ -67,13 +109,21 @@ def transcribe_question(request):
     try:
         with os.fdopen(descriptor, 'wb') as handle:
             for chunk in upload.chunks(): handle.write(chunk)
-        transcript = get_transcriber().transcribe(path, language=language)
+        transcriber = get_transcriber()
+        # Refused before the provider spends its time, or the shared Groq quota, on a long recording.
+        if transcriber.name not in UNHEARD and (decoded_seconds(path, max_seconds()) or 0) > max_seconds(): raise too_long()
+        transcript = transcriber.transcribe(path, language=language)
     except TranscriptionError as exc:
         raise (TranscriptionUnavailable if exc.retryable else TranscriptionFailed)(exc.message)
+    except APIException:
+        raise
+    except Exception:
+        # A file the decoder cannot read, or a provider reply cut short. The traceback holds no text of the recording.
+        logger.exception('assistant transcription failed')
+        raise TranscriptionFailed()
     finally:
         with contextlib.suppress(FileNotFoundError): os.unlink(path)
-    if transcript.duration and transcript.duration > settings.ASSISTANT_MAX_AUDIO_SECONDS + 2:
-        raise ValidationError({'audio': [f'L’enregistrement dépasse la durée maximale de {settings.ASSISTANT_MAX_AUDIO_SECONDS} secondes.']})
+    if transcript.duration and transcript.duration > max_seconds(): raise too_long()
     text = ' '.join(s.text.strip() for s in transcript.segments if s.text.strip())[:QUESTION_MAX_LENGTH].strip()
     if not text: raise ValidationError({'audio': ['Aucune parole détectée.']})
     return {'text': text, 'language': transcript.language or language or '',

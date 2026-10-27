@@ -160,7 +160,12 @@ export const reviewsPath = (filters: {
 export const reviewPath = (id: string) => "assistant/reviews/" + id + "/";
 export const actOnReview = (
   id: string,
-  body: { action: ReviewAction; correction?: string; note?: string },
+  body: {
+    action: ReviewAction;
+    correction?: string;
+    question?: string;
+    note?: string;
+  },
 ) => write<Review>(reviewPath(id), "PATCH", body);
 
 export const usagePath = "assistant/admin/usage/";

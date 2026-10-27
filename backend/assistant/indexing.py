@@ -4,15 +4,15 @@ import time
 from django.db import DatabaseError, IntegrityError
 from django.utils import timezone
 from django_mongodb_backend import transaction
-from classrooms.services import Conflict
 from .models import KnowledgeChunk, ScopeIndex
 from .retrieval import search_text
 
 CHUNK_SIZE = 1200
 OVERLAP = 200
 MAX_CHUNKS = 5000
+REBUILD_WAIT_SECONDS = 5
 # Bump when the chunking changes, so every index is rebuilt once.
-INDEX_FORMAT = '2'
+INDEX_FORMAT = '3'
 
 logger = logging.getLogger('assistant')
 
@@ -100,8 +100,12 @@ def ensure_index(provider, scope_id):
     if not index:
         try: index = ScopeIndex.objects.create(**lookup)
         except IntegrityError: index = ScopeIndex.objects.get(**lookup)
-    for attempt in range(3):
-        if index.content_version == version: return index
+    deadline, pause = time.monotonic() + REBUILD_WAIT_SECONDS, 0.05
+    while index.content_version != version:
+        if time.monotonic() > deadline:
+            # Still not written: this question is answered from the index as last committed, and the next one rebuilds it.
+            logger.warning('assistant index rebuild postponed source_type=%s scope_id=%s', provider.source_type, scope_id)
+            return index
         try:
             with transaction.atomic():
                 claimed = ScopeIndex.objects.filter(pk=index.pk, content_version=index.content_version).update(
@@ -112,7 +116,7 @@ def ensure_index(provider, scope_id):
             if claimed:
                 logger.info('assistant index rebuilt source_type=%s scope_id=%s chunks=%s build_ms=%s', provider.source_type, scope_id, len(chunks), build_ms)
         except DatabaseError:
-            if attempt == 2: raise Conflict()
+            # Usually another request writing the same index: wait for it to commit rather than failing this question.
+            time.sleep(pause); pause = min(pause * 2, 0.5)
         index = ScopeIndex.objects.get(pk=index.pk)
-    if index.content_version != version: raise Conflict()
     return index

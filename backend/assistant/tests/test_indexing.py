@@ -1,9 +1,9 @@
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import patch
 from django.db import DatabaseError, connections
 from django.test import SimpleTestCase
-from classrooms.services import Conflict
 from assistant import indexing
 from assistant.content import NotesProvider, Segment
 from assistant.indexing import CHUNK_SIZE, INDEX_FORMAT, OVERLAP, build_chunks, ensure_index, overlap_tail, paragraphs, word_slices
@@ -178,7 +178,7 @@ class IndexTests(AssistantTestCase):
         self.assertEqual((index.content_version, len(ids)), (f'{INDEX_FORMAT}:{self.provider.version(self.scope_id)}', 1))
         self.assertEqual(ensure_index(self.provider, self.scope_id).pk, index.pk); self.assertEqual([c.pk for c in self.chunks()], ids)
 
-    def test_write_conflicts_are_retried_then_reported(self):
+    def test_write_conflicts_are_retried_then_the_committed_index_answers(self):
         stale = ensure_index(self.provider, self.scope_id)
         TeacherNote.objects.filter(pk=self.note.pk).update(version=2, body='Une norme est une longueur.')
         real, calls = KnowledgeChunk.objects.bulk_create, []
@@ -186,16 +186,39 @@ class IndexTests(AssistantTestCase):
             calls.append(len(chunks))
             if len(calls) < 3: raise DatabaseError('WriteConflict')
             return real(chunks, *args, **kwargs)
-        # The third and last attempt still succeeds.
-        with patch.object(KnowledgeChunk.objects, 'bulk_create', flaky):
+        # Two conflicts, each followed by a growing pause, then the write succeeds.
+        with patch.object(KnowledgeChunk.objects, 'bulk_create', flaky), patch.object(indexing.time, 'sleep') as sleep:
             index = ensure_index(self.provider, self.scope_id)
         self.assertEqual((calls, [c.text for c in self.chunks()]), ([1, 1, 1], ['Une norme est une longueur.']))
+        self.assertEqual([c.args[0] for c in sleep.call_args_list], [0.05, 0.1])
         self.assertEqual(index.content_version, ScopeIndex.objects.get(pk=index.pk).content_version)
         TeacherNote.objects.filter(pk=self.note.pk).update(version=3, body='Encore une autre version.')
         ids = [c.pk for c in self.chunks()]
-        with patch.object(KnowledgeChunk.objects, 'bulk_create', side_effect=DatabaseError('WriteConflict')), self.assertRaises(Conflict):
-            ensure_index(self.provider, self.scope_id)
-        # Each failed attempt rolled back: the previous index is intact.
+        # A write that keeps failing does not fail the question: once the wait is over, the last committed index answers it.
+        with patch.object(KnowledgeChunk.objects, 'bulk_create', side_effect=DatabaseError('WriteConflict')), patch.object(indexing, 'REBUILD_WAIT_SECONDS', 0.3), \
+                self.assertLogs('assistant', 'WARNING') as logs:
+            postponed = ensure_index(self.provider, self.scope_id)
+        self.assertEqual((postponed.pk, postponed.content_version), (index.pk, index.content_version))
+        self.assertIn('assistant index rebuild postponed', logs.output[-1])
+        # Each failed attempt rolled back: the previous index is intact, and the next question rebuilds it.
         self.assertEqual(ScopeIndex.objects.get(pk=index.pk).content_version, index.content_version)
         self.assertEqual([c.pk for c in self.chunks()], ids)
         self.assertNotEqual(index.content_version, stale.content_version)
+        self.assertEqual((ensure_index(self.provider, self.scope_id).chunks_count, [c.text for c in self.chunks()]), (1, ['Encore une autre version.']))
+
+    def test_a_request_that_loses_the_rebuild_waits_for_the_winner(self):
+        ensure_index(self.provider, self.scope_id)
+        TeacherNote.objects.filter(pk=self.note.pk).update(version=2, body='Une norme est une longueur.')
+        # Both requests have built their chunks before either writes, and the first to write keeps its transaction open a moment.
+        barrier, build, create = threading.Barrier(2, timeout=20), indexing.build_chunks, KnowledgeChunk.objects.bulk_create
+        def built(*args):
+            chunks = build(*args); barrier.wait(); return chunks
+        def slow(chunks, *args, **kwargs):
+            time.sleep(0.5); return create(chunks, *args, **kwargs)
+        def rebuild(_):
+            try: return ensure_index(NotesProvider(), self.scope_id).content_version
+            finally: connections.close_all()
+        with patch('assistant.indexing.build_chunks', built), patch.object(KnowledgeChunk.objects, 'bulk_create', slow), ThreadPoolExecutor(max_workers=2) as pool:
+            versions = list(pool.map(rebuild, range(2)))
+        self.assertEqual(versions, [f'{INDEX_FORMAT}:{self.provider.version(self.scope_id)}'] * 2)
+        self.assertEqual([c.text for c in self.chunks()], ['Une norme est une longueur.'])

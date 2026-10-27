@@ -69,7 +69,9 @@ def days(start, end):
 
 def scope_insights(scope, start, end):
     lower, upper = bounds(start, end)
-    messages = list(Message.objects.filter(source_type=scope.source_type, scope_id=scope.scope_id, created_at__gte=lower, created_at__lt=upper))
+    # Texts stay in the database, except those of the questions listed as unanswered, read below.
+    messages = list(Message.objects.filter(source_type=scope.source_type, scope_id=scope.scope_id, created_at__gte=lower,
+        created_at__lt=upper).defer('content', 'follow_ups'))
     owners = {m.owner_id for m in messages}
     # Teachers trying the assistant on their own scope are not students.
     students = set(User.objects.filter(pk__in=list(owners), role='STUDENT').values_list('id', flat=True)) if owners else set()
@@ -90,12 +92,14 @@ def scope_insights(scope, start, end):
         for citation in {(c.source_kind, c.source_id): c for c in answer.citations or []}.values():
             sources[(citation.source_kind, citation.source_id)] += 1; titles[(citation.source_kind, citation.source_id)] = citation.source_title
     unanswered, samples = Counter(), {}
-    for question in sorted(questions, key=lambda m: m.created_at, reverse=True):
-        answer = answer_for.get(question.pk)
-        if answer and answer.status == Message.Status.OUT_OF_SCOPE:
-            key = question_key(question.content)
-            if not key: continue
-            unanswered[key] += 1; samples.setdefault(key, anonymised(' '.join(question.content.split()))[:300])
+    refused = [q for q in questions if q.pk in answer_for and answer_for[q.pk].status == Message.Status.OUT_OF_SCOPE]
+    texts = dict(Message.objects.filter(pk__in=[q.pk for q in refused]).values_list('id', 'content')) if refused else {}
+    for question in sorted(refused, key=lambda m: m.created_at, reverse=True):
+        text = texts.get(question.pk, '')
+        key = question_key(text)
+        if not key: continue
+        unanswered[key] += 1
+        if key not in samples: samples[key] = anonymised(' '.join(text.split()))[:300]
     return {
         'scope': {'source_type': scope.source_type, 'scope_id': scope.scope_id, 'key': scope.key, 'title': scope.title},
         'period': {'from': start.isoformat(), 'to': end.isoformat()},

@@ -141,9 +141,9 @@ class AskFlowTests(AssistantTestCase):
 
     def test_provider_failures_are_saved_as_answers(self):
         conversation = self.start()
-        # A failed answer gives the question back; a blocked one does not.
+        # Only a request that no model processed gives the question back.
         used = 0
-        for marker, status, code, cost in (('#erreur', 'FAILED', 'unavailable', 0), ('#quota', 'FAILED', 'quota', 0), ('#bloque', 'BLOCKED', 'blocked', 1)):
+        for marker, status, code, cost in (('#erreur', 'FAILED', 'unavailable', 1), ('#quota', 'FAILED', 'quota', 0), ('#bloque', 'BLOCKED', 'blocked', 1)):
             with self.subTest(marker=marker):
                 data = self.answered(conversation, f'{IN_SCOPE} {marker}')
                 answer, used = data['answer'], used + cost
@@ -152,13 +152,14 @@ class AskFlowTests(AssistantTestCase):
                 self.assertEqual((stored.error_code, stored.provider, stored.model_name, stored.chunks_used), (code, 'fake', 'fake-gemini', 3))
                 self.assertEqual((data['quota']['used'], self.quota()['used']), (used, used))
                 self.assertTrue(data['conversation']['can_send'])
-        for code in ('auth', 'refused', 'invalid_response', 'disabled'):
+        for code, cost in (('auth', 0), ('refused', 1), ('invalid_response', 1), ('disabled', 0)):
             error = LLMError(code, model='gemini-3.5-flash-lite'); error.provider = 'gemini'
             with self.subTest(code=code), patch('assistant.services.generate_answer', side_effect=error):
-                answer = self.answered(conversation, IN_SCOPE)['answer']
-                self.assertEqual((answer['status'], answer['content']), ('FAILED', MESSAGES[code]))
+                data = self.answered(conversation, IN_SCOPE)
+                answer, used = data['answer'], used + cost
+                self.assertEqual((answer['status'], answer['content'], data['quota']['used']), ('FAILED', MESSAGES[code], used))
                 self.assertEqual(Message.objects.get(pk=answer['id']).error_code, code)
-        self.assertEqual(self.quota()['used'], 1)
+        self.assertEqual((self.quota()['used'], remaining('assistant-global', 'global', 400, DAY)['used']), (4, 4))
         self.assertEqual(Conversation.objects.get(pk=conversation).message_count, 14)
 
     @override_settings(ASSISTANT_LLM_PROVIDER='disabled')
@@ -380,6 +381,22 @@ class AskFlowTests(AssistantTestCase):
         self.assertIn(f'message={answer["id"]}', line); self.assertIn('status=COMPLETE', line); self.assertIn('provider=fake', line)
         for private in ('Léa', 'calculer', answer['content'], self.student.email, str(self.student.pk)):
             self.assertNotIn(private, '\n'.join(logs.output))
+
+    def test_conversation_closed_before_the_question_is_saved(self):
+        # Another tab archives or trashes the conversation while this request searches the course; or the TTL monitor removes it.
+        cases = [(lambda c: Conversation.objects.filter(pk=c).update(status='ARCHIVED'), 409, 'conversation_locked',
+                'Cette conversation est archivée : désarchivez-la pour poser une nouvelle question.'),
+            (lambda c: services.trash(Conversation.objects.get(pk=c)), 409, 'conversation_locked', 'Cette conversation est dans la corbeille : restaurez-la pour continuer.'),
+            (lambda c: Conversation.objects.filter(pk=c).delete(), 404, 'not_found', 'Conversation introuvable.')]
+        for close, status, code, message in cases:
+            conversation, search = self.start(), services.retrieve
+            def closing(*args):
+                close(conversation); return search(*args)
+            with self.subTest(message=message), patch('assistant.services.retrieve', side_effect=closing):
+                self.assertEqual(self.refused(self.ask(conversation), status, code)['message'], message)
+            # Nothing was saved, so nothing escapes the purge, and the question is not counted.
+            self.assertEqual((Message.objects.filter(conversation_id=conversation).count(), Conversation.objects.filter(pk=conversation, message_count__gt=0).exists()), (0, False))
+        self.assertEqual((self.quota()['used'], remaining('assistant-global', 'global', 400, DAY)['used']), (0, 0))
 
     def test_conversation_trashed_while_answering_purges_the_answer_too(self):
         conversation = self.start()

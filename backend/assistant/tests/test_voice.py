@@ -1,5 +1,6 @@
 import glob
 import hashlib
+import http.client
 import importlib.machinery
 import json
 import os
@@ -9,12 +10,14 @@ import tempfile
 import urllib.error
 from io import BytesIO
 from types import ModuleType, SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.uploadhandler import MemoryFileUploadHandler
 from django.db import connection
+from django.http import HttpRequest
 from django.http.multipartparser import MultiPartParser
 from django.test import SimpleTestCase, override_settings
+from rest_framework.test import APIClient
 from accounts.models import RateBucket
 from ai import transcription
 from ai.transcription import (DisabledTranscriber, FakeTranscriber, GroqTranscriber, LocalTranscriber, Transcript, TranscriptSegment, TranscriptionError,
@@ -39,6 +42,28 @@ URLOPEN = 'urllib.request.urlopen'
 def fake_text(content):
     prefix = hashlib.sha256(content).hexdigest()[:8]
     return ' '.join(f'Transcription de démonstration {prefix}, partie {n}.' for n in (1, 2, 3))
+
+
+def pyav(frames=(), audio=True, error=None):
+    """Stand-in for PyAV: frames are (samples, sample rate) pairs, decoded one at a time; 'invalid' is an unreadable packet."""
+    module = ModuleType('av')
+    module.error = SimpleNamespace(InvalidDataError=type('InvalidDataError', (ValueError,), {}))
+    module.opened, module.decoded, module.selection = [], [], None
+    class Container:
+        def __init__(self, path, options):
+            module.opened.append((path, options)); self.streams = SimpleNamespace(audio=(object(),) if audio else ())
+        def __enter__(self): return self
+        def __exit__(self, *exc): return False
+        def decode(self, **selection):
+            module.selection = selection
+            for frame in frames:
+                if frame == 'invalid': raise module.error.InvalidDataError('Invalid data found when processing input')
+                module.decoded.append(frame); yield SimpleNamespace(samples=frame[0], sample_rate=frame[1])
+    def open_(path, **options):
+        if error: raise error
+        return Container(path, options)
+    module.open = open_
+    return module
 
 
 class VoiceQuestionTests(AssistantTestCase):
@@ -103,11 +128,20 @@ class VoiceQuestionTests(AssistantTestCase):
     def test_size_limit(self):
         error = self.post({'audio': self.audio(OGG + b'\x00' * 2000)}).data['error']
         self.assertEqual(error['fields'], {'audio': ['L’enregistrement dépasse la taille maximale de 0.001 Mo.']})
-        # A body far above the limit is refused from its length, before being parsed and written to disk.
-        with patch('assistant.voice.validated', side_effect=AssertionError('parsed')):
-            response = self.post({'audio': self.audio(OGG + b'\x00' * (1100 * 1024))})
-        self.assertEqual((response.status_code, response.data['error']['fields']), (400, {'audio': ['L’enregistrement dépasse la taille maximale de 0.001 Mo.']}))
-        self.assertEqual(self.post({'audio': self.audio(OGG + b'\x00' * 700)}).status_code, 200)
+        # A body far above the limit is refused from its length, before anything parses it and writes it to disk:
+        # the CSRF check itself reads the form, so it runs after.
+        client = APIClient(enforce_csrf_checks=True); client.force_login(self.student)
+        token = client.get('/api/csrf/').data['csrfToken']
+        with patch.object(HttpRequest, '_load_post_and_files', side_effect=AssertionError('parsed')):
+            for headers in ({'HTTP_X_CSRFTOKEN': token}, {}):
+                response = client.post('/api/assistant/transcriptions/', {'audio': self.audio(OGG + b'\x00' * (1100 * 1024))}, format='multipart', **headers)
+                self.assertEqual((response.status_code, response['Cache-Control']), (400, 'private, no-store'))
+                self.assertEqual(response.json(), {'error': {'code': 'invalid', 'message': 'Veuillez corriger les champs indiqués.',
+                    'fields': {'audio': ['L’enregistrement dépasse la taille maximale de 0.001 Mo.']}}})
+            self.assertEqual(APIClient().post('/api/assistant/transcriptions/', {'audio': self.audio(OGG + b'\x00' * (1100 * 1024))}, format='multipart').status_code, 400)
+        # Only the first, smaller recording reached the view and its hourly limit.
+        self.assertEqual(RateBucket.objects.get(key=bucket_key('assistant-voice', str(self.student.pk), 3600)).hits, 1)
+        self.assertEqual(client.post('/api/assistant/transcriptions/', {'audio': self.audio(OGG + b'\x00' * 700)}, format='multipart', HTTP_X_CSRFTOKEN=token).status_code, 200)
         self.assertEqual(self.post({'audio': self.audio()}, CONTENT_LENGTH='beaucoup').status_code, 400)
 
     def test_duration_limit_and_empty_speech(self):
@@ -151,11 +185,70 @@ class VoiceQuestionTests(AssistantTestCase):
                 self.assertEqual(error['message'], 'Les fournisseurs de transcription réels sont désactivés sur une base de test.')
                 self.assertFalse(urlopen.called)
 
-    def test_temporary_file_is_deleted_even_after_an_unexpected_error(self):
-        with self.transcriber(error=RuntimeError('décodeur en panne')), self.assertRaises(RuntimeError):
-            self.post({'audio': self.audio()})
+    def test_unexpected_errors_become_a_failed_transcription(self):
+        # An undecodable file from the local decoder, or a reply from Groq cut short.
+        for failure in (RuntimeError('décodeur en panne'), http.client.IncompleteRead(b'{"text": "Bonj')):
+            with self.subTest(failure=type(failure).__name__), self.transcriber(error=failure), self.assertLogs('assistant', 'ERROR') as logs:
+                error = self.refused(self.post({'audio': self.audio()}), 400, 'transcription_failed')
+            self.assertEqual(error['message'], 'La transcription de cet enregistrement a échoué.')
+            self.assertIn('assistant transcription failed', logs.output[0])
         self.assert_no_temporary_file()
         self.assertFalse(glob.glob(os.path.join(tempfile.gettempdir(), 'assistant-voice-*')))
+
+    def measured(self, av, provider, data=None):
+        with patch.dict(sys.modules, {'av': av}), patch('assistant.voice.get_transcriber', return_value=provider):
+            return self.post(data or {'audio': self.audio()})
+
+    def test_a_long_recording_is_refused_before_the_provider_runs(self):
+        # Opus at 6 kbit/s fits more than an hour and a half in 5 MB, and a declared duration can lie: decoding tells.
+        calls = []
+        provider = SimpleNamespace(name='local', transcribe=lambda path, language=None: calls.append(path))
+        av = pyav([(48000, 48000)] * 6300)
+        response = self.measured(av, provider)
+        self.assertEqual((response.status_code, response.data['error']['fields']), (400, {'audio': ['L’enregistrement dépasse la durée maximale de 60 secondes.']}))
+        # Decoding stops just past the limit of 60 s plus 2 s of margin, and the provider is never called.
+        self.assertEqual((len(av.decoded), calls, av.selection), (63, [], {'audio': 0}))
+        (path, options), = av.opened
+        self.assertEqual((options, os.path.exists(path)), ({'metadata_errors': 'ignore'}, False))
+
+    def test_a_recording_within_the_limit_is_measured_then_transcribed(self):
+        calls = []
+        def transcribe(path, language=None):
+            calls.append(language); return Transcript([TranscriptSegment(0, 61.5, 'La norme ?')], 'fr', 61.5)
+        for name in ('local', 'groq'):
+            with self.subTest(provider=name):
+                av = pyav([(16000, 16000)] * 61 + [(8000, 16000)])
+                response = self.measured(av, SimpleNamespace(name=name, transcribe=transcribe), {'audio': self.audio(), 'language': 'fr'})
+                self.assertEqual((response.status_code, response.data), (200, {'text': 'La norme ?', 'language': 'fr', 'duration_seconds': 61.5}))
+                self.assertEqual(len(av.decoded), 62)
+        self.assertEqual(calls, ['fr', 'fr'])
+        # The decoder stops at the first unreadable packet, as faster-whisper does: what came before is measured.
+        av = pyav([(16000, 16000)] * 10 + ['invalid'] + [(16000, 16000)] * 100)
+        self.assertEqual(self.measured(av, SimpleNamespace(name='local', transcribe=transcribe)).status_code, 200)
+        self.assertEqual(len(av.decoded), 10)
+
+    def test_files_without_readable_sound_are_refused(self):
+        calls = []
+        provider = SimpleNamespace(name='local', transcribe=lambda path, language=None: calls.append(path))
+        # A screen recording without its sound, for instance.
+        response = self.measured(pyav(audio=False), provider)
+        self.assertEqual((response.status_code, response.data['error']['fields']), (400, {'audio': ['Cet enregistrement ne contient aucune piste audio.']}))
+        # Right magic bytes, then garbage.
+        broken = pyav()
+        broken.open = Mock(side_effect=broken.error.InvalidDataError('Invalid data found when processing input'))
+        with self.assertLogs('assistant', 'ERROR'):
+            self.refused(self.measured(broken, provider), 400, 'transcription_failed')
+        self.assertEqual(calls, [])
+
+    def test_without_pyav_the_reported_duration_still_decides(self):
+        provider = SimpleNamespace(name='groq', transcribe=lambda path, language=None: Transcript([TranscriptSegment(0, 6300, 'Cours entier.')], 'fr', 6300.0))
+        response = self.measured(None, provider)
+        self.assertEqual((response.status_code, response.data['error']['fields']), (400, {'audio': ['L’enregistrement dépasse la durée maximale de 60 secondes.']}))
+
+    def test_providers_that_ignore_the_audio_are_not_measured(self):
+        with patch.dict(sys.modules, {'av': pyav(error=AssertionError('measured'))}):
+            self.assertEqual(self.post({'audio': self.audio()}).status_code, 200)
+            with self.settings(WHISPER_PROVIDER='disabled'): self.refused(self.post({'audio': self.audio()}), 400, 'transcription_failed')
 
     @override_settings(ASSISTANT_VOICE_PER_HOUR=2)
     def test_hourly_limit_per_user(self):

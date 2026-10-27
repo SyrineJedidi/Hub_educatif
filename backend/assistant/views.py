@@ -10,7 +10,7 @@ from .serializers import (ConversationCreateSerializer, ConversationUpdateSerial
 from .services import (SendAccess, ask, can_send, chat_scopes, check_conversation_rate, check_spam, create_conversation, delete_feedback, export_markdown,
     feedback_by_message, filtered_conversations, message_page, own_conversation, own_message, put_feedback, question_quota,
     restore, settings_rows, settings_row, teachers_by_id, trash, update_conversation)
-from .voice import transcribe_question
+from .voice import oversized_body, transcribe_question
 
 
 class AssistantView(SecureView):
@@ -102,6 +102,11 @@ class FeedbackView(AssistantView):
 
 
 class TranscriptionView(AssistantView):
+    def dispatch(self, request, *args, **kwargs):
+        # SecureView.dispatch starts with the CSRF check, which parses the whole body: an oversized one is refused first.
+        refusal = oversized_body(request)
+        return refusal if refusal is not None else super().dispatch(request, *args, **kwargs)
+
     def post(self, request):
         return Response(transcribe_question(request))
 

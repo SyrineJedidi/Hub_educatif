@@ -8,7 +8,7 @@ from assistant import retrieval
 from assistant.content import CoursesProvider, NotesProvider, note_blocks, provider_for, providers
 from assistant.indexing import INDEX_FORMAT, ensure_index
 from assistant.models import KnowledgeChunk, ScopeIndex, TeacherNote, ValidatedAnswer
-from .base import AssistantTestCase, CoursesStub, segment
+from .base import AssistantTestCase, CoursesStub, segment, without_courses
 
 
 class NotesProviderTests(AssistantTestCase):
@@ -91,6 +91,8 @@ class NotesProviderTests(AssistantTestCase):
             body='Premier paragraphe.\r\n\r\n   \n\nDeuxième paragraphe\nsur deux lignes.')
         ValidatedAnswer.objects.create(source_type='group', scope_id=str(self.group.pk), question='Comment noter une norme ?', answer='Avec deux barres.', teacher=self.teacher)
         ValidatedAnswer.objects.create(source_type='group', scope_id=str(self.other_group.pk), question='Autre groupe', answer='Jamais ici.', teacher=self.other_teacher)
+        # Published without a question, a correction is the whole passage.
+        ValidatedAnswer.objects.create(source_type='group', scope_id=str(self.group.pk), question='', answer='Une norme est positive.', teacher=self.teacher)
         segments = list(self.provider.segments(str(self.group.pk)))
         self.assertEqual([(s.source_kind, s.source_title, s.chapter_title, s.text) for s in segments], [
             ('NOTE', 'Les vecteurs', 'Définition', 'Un vecteur est défini par une direction, un sens et une norme. La norme d’un vecteur est sa longueur.'),
@@ -98,7 +100,8 @@ class NotesProviderTests(AssistantTestCase):
             ('NOTE', 'Les vecteurs', 'Colinéarité', 'Deux vecteurs sont colinéaires lorsqu’ils ont la même direction. Leur déterminant est alors égal à zéro.'),
             ('NOTE', 'Sans titre de partie', '', 'Premier paragraphe.'),
             ('NOTE', 'Sans titre de partie', '', 'Deuxième paragraphe\nsur deux lignes.'),
-            ('VALIDATED', 'Réponse validée par l’enseignant', 'Comment noter une norme ?', 'Comment noter une norme ?\n\nAvec deux barres.')])
+            ('VALIDATED', 'Réponse validée par l’enseignant', '', 'Comment noter une norme ?\n\nAvec deux barres.'),
+            ('VALIDATED', 'Réponse validée par l’enseignant', '', 'Une norme est positive.')])
         self.assertEqual({(s.source_id, s.page, s.start_seconds, s.url) for s in segments[:3]}, {(str(self.note.pk), None, None, '')})
 
     def test_markdown_headings_name_the_following_paragraphs(self):
@@ -180,7 +183,7 @@ class CoursesProviderTests(AssistantTestCase):
             ('RESOURCE', self.pdf, 'Cours PDF', 'Les forces', 4, None, f'/espace/cours/{self.course_id}/ressources/{self.pdf}?page=4'),
             ('RESOURCE', self.audio, 'Vidéo', 'Mesures', None, 83.4, f'/espace/cours/{self.course_id}/ressources/{self.audio}?t=83'),
             ('VALIDATED', next(str(v.pk) for v in ValidatedAnswer.objects.filter(source_type='course')), 'Réponse validée par l’enseignant',
-                'Qu’est-ce que le poids ?', None, None, '')])
+                '', None, None, '')])
 
     def test_version_follows_the_course_and_its_validated_answers(self):
         first = self.provider.version(self.course_id)
@@ -238,6 +241,7 @@ class CoursesProviderTests(AssistantTestCase):
 
 class RegistryTests(AssistantTestCase):
     def test_without_the_courses_module_only_notes_are_available(self):
+        absent = without_courses(); absent.start(); self.addCleanup(absent.stop)
         self.assertEqual(sorted(providers()), ['group'])
         for value in ('course', 'video', ''):
             with self.subTest(value=value), self.assertRaises(ValidationError) as caught: provider_for(value)
