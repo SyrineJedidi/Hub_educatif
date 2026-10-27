@@ -13,6 +13,7 @@ import {
   statuses,
 } from "../components/UI";
 import SessionForm from "./SessionForm";
+import AssistantHomePanel from "../assistant/AssistantHomePanel";
 export default function LearningHome() {
   const { user } = useAuth();
   const teacher = user!.role === "TEACHER";
@@ -101,6 +102,7 @@ export default function LearningHome() {
           </Link>
         ))}
       </section>
+      <AssistantHomePanel teacher={teacher} />
       <section className="learning-upcoming panel">
         <div className="panel-heading">
           <div>
