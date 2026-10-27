@@ -1828,3 +1828,79 @@ dialog:has(.sheets-dialog) {
     print-color-adjust: exact;
   }
 }
+
+/* --- Training quiz written by the AI ------------------------------------------ */
+.self-quiz {
+  display: grid;
+  gap: 14px;
+  max-width: 620px;
+}
+.self-quiz fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 12px;
+  display: grid;
+  gap: 8px;
+}
+.self-quiz legend {
+  font-weight: 700;
+  color: #1f3b36;
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+.self-quiz-count {
+  grid-template-columns: repeat(3, max-content);
+  column-gap: 20px;
+}
+.self-quiz-question label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border: 1.5px solid #ecdfcb;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+}
+.self-quiz-question label:has(input:checked) {
+  border-color: #17786a;
+  background: #f1faf6;
+}
+/* After the check, right and wrong win over the "selected" look (same weight as :has(input:checked)). */
+.self-quiz-question label.is-right,
+.self-quiz-question label.is-right:has(input:checked) {
+  border-color: #1f7a5f;
+  background: #dcf3ea;
+}
+.self-quiz-question label.is-wrong,
+.self-quiz-question label.is-wrong:has(input:checked) {
+  border-color: #b3261e;
+  background: #fff1ef;
+}
+.self-quiz .notice {
+  background: #dcf3ea;
+  border: 1px solid #9fd3bf;
+  color: #1f3b36;
+}
+.self-quiz .notice.notice-error {
+  background: #fff1ef;
+  border-color: #e8b3ad;
+  color: #6b1d16;
+}
+.self-quiz-progress {
+  font-size: 14px;
+  color: #55635f;
+  margin: 0;
+}
+.self-quiz-score {
+  font-family: Jost, sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  color: #0f5c52;
+  margin: 0;
+}
+.self-quiz-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

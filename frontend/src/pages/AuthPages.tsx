@@ -1,5 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams, Navigate } from "react-router-dom";
-import { api } from "../api/client";
+import { api, ApiError } from "../api/client";
+import { useCaptcha } from "../auth/Captcha";
 import { useAuth, destination } from "../auth/AuthContext";
 import type { User } from "../api/types";
 import { Field, Select, Form, val, Loading } from "../components/UI";
@@ -13,6 +15,18 @@ export default function AuthPage({ mode }: { mode: keyof typeof titles }) {
   const { user, setUser, loading } = useAuth(),
     navigate = useNavigate();
   const [params] = useSearchParams();
+  const captcha = useCaptcha(
+    mode === "login" ? "login" : mode === "register" ? "register" : "reset",
+  );
+  // Address waiting for confirmation: after registration, or after a refused login.
+  const [pending, setPending] = useState<{ email: string; registered: boolean } | null>(null);
+  const [resent, setResent] = useState("");
+  const resend = useCaptcha("verify");
+  const pendingBox = useRef<HTMLDivElement>(null);
+  // The confirmation message replaces the form: move the focus (and the screen) to it.
+  useEffect(() => {
+    if (pending) pendingBox.current?.focus();
+  }, [pending]);
   if (loading) return <Loading />;
   if (user && (mode === "login" || mode === "register"))
     return <Navigate to={destination(user)} replace />;
@@ -22,26 +36,40 @@ export default function AuthPage({ mode }: { mode: keyof typeof titles }) {
       confirmation = val(form, "confirmation");
     if ((mode === "register" || mode === "reset") && password !== confirmation)
       throw new Error("Les mots de passe ne correspondent pas.");
-    if (mode === "login") {
-      const result = await api<{ user: User }>("auth/login/", "POST", {
-        email,
-        password,
-      });
-      setUser(result.user);
-      navigate(destination(result.user), { replace: true });
+    const headers = mode === "reset" ? {} : captcha.headers();
+    try {
+      if (mode === "login") {
+        try {
+          const result = await api<{ user: User }>("auth/login/", "POST", { email, password }, headers);
+          setUser(result.user);
+          navigate(destination(result.user), { replace: true });
+        } catch (error) {
+          if (error instanceof ApiError && error.code === "email_not_verified")
+            setPending({ email, registered: false });
+          throw error;
+        }
+      }
+      if (mode === "register") {
+        const result = await api<{ verification: boolean }>(
+          "auth/register/",
+          "POST",
+          {
+            email,
+            password,
+            confirmation,
+            role: val(form, "role"),
+            first_name: val(form, "first_name"),
+            last_name: val(form, "last_name"),
+          },
+          headers,
+        );
+        if (result.verification) setPending({ email, registered: true });
+        else navigate("/connexion?inscription=ok");
+      }
+      if (mode === "forgot") await api("auth/password/reset/", "POST", { email }, headers);
+    } finally {
+      captcha.reset();
     }
-    if (mode === "register") {
-      await api("auth/register/", "POST", {
-        email,
-        password,
-        confirmation,
-        role: val(form, "role"),
-        first_name: val(form, "first_name"),
-        last_name: val(form, "last_name"),
-      });
-      navigate("/connexion?inscription=ok");
-    }
-    if (mode === "forgot") await api("auth/password/reset/", "POST", { email });
     if (mode === "reset") {
       await api("auth/password/confirm/", "POST", {
         token: params.get("token") || "",
@@ -98,6 +126,45 @@ export default function AuthPage({ mode }: { mode: keyof typeof titles }) {
                   Mot de passe réinitialisé. Reconnectez-vous.
                 </p>
               )}
+              {params.has("verification") && (
+                <p className="notice" role="status">
+                  Adresse confirmée. Vous pouvez vous connecter.
+                </p>
+              )}
+              {pending && (
+                <div ref={pendingBox} tabIndex={-1} className="notice auth-pending" role="status">
+                  <p>
+                    {pending.registered
+                      ? `Compte créé ! Un email de confirmation a été envoyé à ${pending.email}. Ouvrez le lien qu’il contient pour activer votre compte.`
+                      : `Votre adresse ${pending.email} n’est pas encore confirmée.`}
+                  </p>
+                  <p className="field-help">Rien reçu ? Vérifiez les courriers indésirables, ou demandez un nouvel email.</p>
+                  {resend.element}
+                  <button
+                    type="button"
+                    className="text-button"
+                    onClick={async () => {
+                      try {
+                        const result = await api<{ message: string }>(
+                          "auth/email/resend/",
+                          "POST",
+                          { email: pending.email },
+                          resend.headers(),
+                        );
+                        setResent(result.message);
+                      } catch (error) {
+                        setResent(error instanceof Error ? error.message : "La demande a échoué.");
+                      } finally {
+                        resend.reset();
+                      }
+                    }}
+                  >
+                    Renvoyer l’email de confirmation
+                  </button>
+                  {resent && <p className="field-help">{resent}</p>}
+                </div>
+              )}
+              {!(pending?.registered) && (
               <Form
                 key={mode}
                 onSubmit={submit}
@@ -178,7 +245,14 @@ export default function AuthPage({ mode }: { mode: keyof typeof titles }) {
                     />
                   </>
                 )}
+                {mode !== "reset" && captcha.element}
+                {captcha.enabled && mode !== "reset" && (
+                  <p className="field-help captcha-help">
+                    Protégé par ALTCHA : une vérification automatique, sans énigme à résoudre ni service tiers.
+                  </p>
+                )}
               </Form>
+              )}
               {mode === "forgot" && (
                 <p className="field-help">
                   La réponse reste identique, que l’adresse corresponde ou non à

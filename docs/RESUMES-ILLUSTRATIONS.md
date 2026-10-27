@@ -8,16 +8,16 @@ Module de gestion des fiches de révision : création, modification, organisatio
 |---|---|---|
 | CRUD et cohérence | Fiches (CRUD complet, publication, archivage, duplication, export) et illustrations (import, génération, légende, ordre, suppression) ; validations serveur et client | Bibliothèque, fiche, éditeur |
 | Tests unitaires et API | 27 tests du module + 2 tests de la commande de données, IA simulée | `manage.py test revisions` |
-| Couverture | **94 %** du module | [coverage-revisions.txt](coverage-revisions.txt) |
+| Couverture | **92,8 %** du module (97 % sur tout le projet) | [coverage-summary.txt](coverage-summary.txt) |
 | Sécurité | CSRF, ORM uniquement, clés IA côté serveur dans `.env`, images privées servies après contrôle d’accès, limites d’usage IA, téléchargement d’images restreint à l’adresse du Space | Code `revisions/`, `.env.example` |
 | Permissions | Contrôle par rôle et par propriétaire sur chaque route (404 hors périmètre, y compris les images et les tâches IA), testé explicitement | Tests `test_isolation_*`, `test_rating_metrics_and_job_permissions` |
 | Robustesse | Erreurs IA traduites, nouvelles tentatives automatiques, secours Ollama, tâches interrompues expirées, validation des fichiers | Studio IA, tableau de bord |
-| Accessibilité | **0 violation axe** (WCAG 2.1 A/AA) sur 15 écrans dont mobile ; navigation clavier, focus visible, textes alternatifs obligatoires | `docs/axe-revisions-*.json` |
+| Accessibilité | **0 violation axe** (WCAG 2.1 A/AA) sur toutes les pages du module, pour chaque rôle ; navigation clavier, focus visible, textes alternatifs obligatoires | [axe-audit-complet.json](axe-audit-complet.json) |
 | IA : pertinence et intégration | Résumé structuré d’un cours, illustration pédagogique ; vues dédiées, clés en variables d’environnement | Studio IA |
 | IA : retour utilisateur | Bouton flottant Studio IA, bandeau de progression avec chronomètre, statuts, messages d’erreur explicites, note de pertinence | Fiche |
 | IA : métriques | Couverture des mots-clés, compression, conformité de structure, notes, taux de relecture, latences p50/p95 | [AI-EVALUATION.md](AI-EVALUATION.md), Pilotage IA |
 | IA : asynchronisme | Réponse HTTP **202 en ~0,2 s**, génération dans un worker Celery (Redis) | Pilotage IA, journal du worker |
-| UX/UI | Interface Eduleb cohérente, responsive (390 px sans débordement), impression A4 | Captures `docs/screenshots/revisions-*` |
+| UX/UI | Identité visuelle commune au hub, responsive (390 px sans débordement), impression A4 | Démonstration |
 
 ## Configuration et démarrage
 
@@ -92,6 +92,11 @@ Limites : 20 résumés et 12 illustrations par utilisateur et par heure ; une se
 - **Note de pertinence** de 1 à 5 étoiles après chaque résumé, aussi proposée dans le bandeau de relecture.
 - **Pilotage IA** (`/administration/pilotage-ia` ; `/espace/fiches/pilotage-ia` pour un enseignant, limité à ses générations) : indicateurs clés, générations par jour, latences p50/p95 par moteur, distribution des notes, qualité mesurée, erreurs principales, journal des dernières générations.
 
+### Aide à l’étudiant
+
+- **Quiz d’entraînement IA** (`POST /api/sheets/{id}/self-quiz/`, bouton sur la fiche) : l’IA rédige 3, 5 ou 10 QCM à partir de la fiche seule (résumé, points clés, glossaire). Tâche en arrière-plan comme les résumés ; correction immédiate avec explication ; rien n’est noté. Les questions sont validées (quatre propositions distinctes, une bonne réponse) et les bonnes réponses réparties sur les quatre positions. Mesures par tâche : questions valides, **ancrage dans la fiche** (part des mots de la bonne réponse présents dans la fiche), répartition des réponses. Essai réel : 4 questions valides sur 4, ancrage 90 %.
+- **Plan de révision du jour** (`GET /api/revisions/plan/`, accueil étudiant) : la plateforme repère les fiches partagées non lues, les cartes peu maîtrisées, les quiz réussis à moins de 60 % et les tâches du planning ; l’IA rédige un conseil et choisit l’ordre, **parmi ces éléments seulement**. Chaque élément garde la raison factuelle qui l’a fait retenir (« quiz réussi à 17 % ») : le modèle n’écrit pas de justification inventée. Sans IA disponible, l’ordre et le conseil sont calculés par des règles. Plan conservé trois heures.
+
 ### Métriques et évaluation
 
 Chaque résumé est mesuré automatiquement (`revisions/metrics.py`) :
@@ -112,7 +117,7 @@ La commande `manage.py evaluate_ai` passe un corpus fixe de 6 cours (biologie, i
 | Durée médiane / p95 | 19,2 s / 34,0 s | 42,1 s / 127,7 s (surcharge de Gemini et recours au modèle local) |
 | Illustrations | 3 / 3, médiane 14,4 s | 3 / 3, médiane 11,6 s |
 
-Lecture : la v1 révélait que, sur des extraits courts, le modèle respectait la longueur demandée au lieu de condenser. L’adaptation de la cible au cours a corrigé la compression et la structure. Les durées de la v2 reflètent une surcharge réelle du service de Google ; le secours local a évité tout échec, au prix d’une génération plus lente, ce qui justifie le traitement asynchrone. Rapport initial conservé : [AI-EVALUATION-v1.md](AI-EVALUATION-v1.md).
+Lecture : la v1 révélait que, sur des extraits courts, le modèle respectait la longueur demandée au lieu de condenser. L’adaptation de la cible au cours a corrigé la compression et la structure. Les durées de la v2 reflètent une surcharge réelle du service de Google ; le secours local a évité tout échec, au prix d’une génération plus lente, ce qui justifie le traitement asynchrone.
 
 ## API
 
@@ -154,11 +159,11 @@ Le résumé est rendu par un mini-moteur Markdown produisant des éléments Reac
 
 ## Accessibilité
 
-Audit **axe-core** (règles WCAG 2.1 A et AA) sur 15 écrans : bibliothèque, fiche, fiche IA à relire, panneau Studio IA, dialogue de résumé, édition, création guidée, statistiques (enseignant, étudiant, administrateur), et vues mobiles 390 px. Résultat : **0 violation** ; aucun débordement horizontal en mobile. Rapports : `docs/axe-revisions-*.json`. L’audit a permis de corriger une structure de liste de définitions invalide et un tableau trop large en mobile. Mesures appliquées : boutons-icônes étiquetés, groupes de boutons `aria-pressed`, étoiles de notation en boutons radio, régions de progression `role="status"`, graphique doublé d’un tableau de données et accessible au clavier, `prefers-reduced-motion` respecté.
+Audit **axe-core** (règles WCAG 2.1 A et AA) sur 15 écrans : bibliothèque, fiche, fiche IA à relire, panneau Studio IA, dialogue de résumé, édition, création guidée, statistiques (enseignant, étudiant, administrateur), et vues mobiles 390 px. Résultat : **0 violation** ; aucun débordement horizontal en mobile. L’audit est refait sur tout le site après la refonte : [axe-audit-complet.json](axe-audit-complet.json). L’audit a permis de corriger une structure de liste de définitions invalide et un tableau trop large en mobile. Mesures appliquées : boutons-icônes étiquetés, groupes de boutons `aria-pressed`, étoiles de notation en boutons radio, régions de progression `role="status"`, graphique doublé d’un tableau de données et accessible au clavier, `prefers-reduced-motion` respecté.
 
 ## Comptes et données de test
 
-`manage.py seed_demo --password "<mot de passe>"` remplit toute l’application (8 comptes, 3 groupes, 9 séances, 4 quiz, 4 tentatives, 8 fiches). Scénarios : [SCENARIO-COMPLET.md](SCENARIO-COMPLET.md) (toute l’application) et [SCENARIO-RESUMES-ILLUSTRATIONS.md](SCENARIO-RESUMES-ILLUSTRATIONS.md) (ce module).
+`manage.py seed_complete --password "<mot de passe>"` remplit toute l’application pour tous les comptes et tous les modules (voir le README). Scénarios : [SCENARIO-COMPLET.md](SCENARIO-COMPLET.md) (toute l’application) et [SCENARIO-RESUMES-ILLUSTRATIONS.md](SCENARIO-RESUMES-ILLUSTRATIONS.md) (ce module).
 
 ## Vérifications
 

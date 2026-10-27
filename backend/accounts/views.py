@@ -25,7 +25,8 @@ from .serializers import (
     ResetSerializer, ChangePasswordSerializer, ProfileSerializer, AvatarSerializer,
     AdminUpdateSerializer, user_data,
 )
-from .services import limit, send_link
+from .captcha import ACTIONS, captcha_enabled, create_challenge, verify_captcha
+from .services import limit, send_link, send_verification, VERIFY_MAX_AGE, VERIFY_SALT
 
 
 def validated(cls, request, **context):
@@ -64,12 +65,22 @@ class RegisterView(PublicView):
     def post(self, request):
         limit(request, 'register', maximum=10, seconds=3600)
         data = validated(RegistrationSerializer, request)
+        verify_captcha(request, 'register')
         data.pop('confirmation')
         try:
             user = User.objects.create_user(**data)
         except IntegrityError:
             raise ValidationError({'email': ['Cette adresse email est déjà utilisée.']})
-        return Response({'message': 'Compte créé. Vous pouvez vous connecter.'}, status=201)
+        if not settings.EMAIL_VERIFICATION_REQUIRED:
+            User.objects.filter(pk=user.pk).update(email_verified=True)
+            return Response({'message': 'Compte créé. Vous pouvez vous connecter.', 'verification': False}, status=201)
+        try:
+            send_verification(user)
+        except (OSError, SMTPException):
+            # The account exists: the person can ask for a new link from the login page.
+            pass
+        return Response({'message': f'Compte créé. Un email de confirmation a été envoyé à {user.email} : ouvrez le lien qu’il contient pour activer votre compte.',
+                         'verification': True}, status=201)
 
 
 class EmailRequestView(PublicView):
@@ -78,8 +89,9 @@ class EmailRequestView(PublicView):
     def post(self, request):
         limit(request, 'email-ip', maximum=10, seconds=3600)
         email = validated(EmailSerializer, request)['email']
-        limit(request, 'email-account', maximum=3, seconds=3600, identity=email)
-        user = User.objects.filter(email=email, is_active=True).first()
+        verify_captcha(request, self.kind)
+        limit(request, 'email-account', maximum=3, seconds=3600, identity=f'{self.kind}:{email}')
+        user = self.recipient(email)
         if user:
             try:
                 send_link(user, self.kind)
@@ -89,18 +101,73 @@ class EmailRequestView(PublicView):
         return Response({'message': 'Si un compte correspond à cette adresse, un email vous sera envoyé. Vous pourrez réessayer plus tard si nécessaire.'})
 
 
+    def recipient(self, email):
+        return User.objects.filter(email=email, is_active=True).first()
+
+
 class ResetRequestView(EmailRequestView):
     kind = 'reset'
+
+
+class ResendVerificationView(EmailRequestView):
+    kind = 'verify'
+
+    def recipient(self, email):
+        return User.objects.filter(email=email, is_active=True, email_verified=False).first()
+
+
+class VerifyEmailView(PublicView):
+    def post(self, request):
+        limit(request, 'verify-email', maximum=20, seconds=3600)
+        data = validated(LinkSerializer, request)
+        try:
+            payload = signing.loads(data['token'], salt=VERIFY_SALT, max_age=VERIFY_MAX_AGE)
+        except signing.SignatureExpired:
+            raise ValidationError({'token': ['Ce lien a expiré. Demandez un nouvel email de confirmation depuis la page de connexion.']})
+        except signing.BadSignature:
+            raise ValidationError({'token': ['Lien de confirmation invalide.']})
+        uid = payload.get('uid', '')
+        user = User.objects.filter(pk=uid if ObjectId.is_valid(uid) else None, email=payload.get('email'), is_active=True).first()
+        if not user:
+            raise ValidationError({'token': ['Lien de confirmation invalide.']})
+        User.objects.filter(pk=user.pk).update(email_verified=True)
+        return Response({'message': 'Adresse confirmée. Vous pouvez vous connecter.'})
+
+
+class AuthConfigView(PublicView):
+    """Public settings of the account forms."""
+    def get(self, request):
+        return Response({'captcha': {'enabled': captcha_enabled(), 'provider': 'altcha'},
+                         'email_verification': settings.EMAIL_VERIFICATION_REQUIRED})
+
+
+class CaptchaChallengeView(PublicView):
+    """A new signed ALTCHA challenge for one account form."""
+    def get(self, request):
+        action = request.query_params.get('action', '')
+        if action not in ACTIONS: raise ValidationError({'action': ['Formulaire inconnu.']})
+        limit(request, 'captcha-challenge', maximum=120, seconds=600)
+        return Response(create_challenge(action))  # Never cached: the API middleware sends no-store.
+
+
+class EmailNotVerified(APIException):
+    status_code = 403
+    default_code = 'email_not_verified'
+    default_detail = 'Confirmez d’abord votre adresse email : ouvrez le lien reçu après l’inscription, ou demandez un nouvel email.'
 
 
 class LoginView(PublicView):
     def post(self, request):
         limit(request, 'login-ip', maximum=20)
         data = validated(LoginSerializer, request)
+        verify_captcha(request, 'login')
         limit(request, 'login-account', maximum=10, identity=data['email'])
         user = authenticate(request, username=data['email'], password=data['password'])
         if not user:
             raise AuthenticationFailed('Email ou mot de passe incorrect.')
+        # Checked after the password, so the answer never reveals whether an address has an account.
+        if settings.EMAIL_VERIFICATION_REQUIRED and not user.email_verified:
+            raise EmailNotVerified()
         login(request, user)
         return Response({'user': user_data(user), 'csrfToken': get_token(request)})
 

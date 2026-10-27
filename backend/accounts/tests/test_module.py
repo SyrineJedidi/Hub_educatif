@@ -19,7 +19,8 @@ from accounts.services import reset_token
 from classrooms.models import LearningGroup, Enrollment
 from attendance.models import LearningSession, AttendanceSheet
 
-@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend', PASSWORD_HASHERS=['django.contrib.auth.hashers.MD5PasswordHasher'])
+@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend', PASSWORD_HASHERS=['django.contrib.auth.hashers.MD5PasswordHasher'],
+                   EMAIL_VERIFICATION_REQUIRED=True, CAPTCHA_ENABLED=False)
 class ModuleTests(TransactionTestCase):
     def setUp(self):
         self.password = secrets.token_urlsafe(24)
@@ -34,7 +35,13 @@ class ModuleTests(TransactionTestCase):
         self.enrollment = Enrollment.objects.create(student=self.student,group=self.group,starts_at=self.now-timedelta(days=10))
         Enrollment.objects.create(student=self.other_student,group=self.group,starts_at=self.now-timedelta(days=10))
         self.session = LearningSession.objects.create(group=self.group,title='Algorithmique',starts_at=self.now-timedelta(hours=2),ends_at=self.now-timedelta(hours=1),creator=self.teacher)
+        User.objects.update(email_verified=True)  # Fixture accounts are already confirmed.
         self.client = self.as_user(self.admin)
+    def confirm_email(self,email,client):
+        # Opens the link of the confirmation email, like the person would.
+        message=[m for m in mail.outbox if email in m.to][-1]
+        token=re.search(r'verifier-email\?token=(\S+)',message.body).group(1)
+        self.assertEqual(self.post('auth/email/verify/',dict(token=token),client).status_code,200)
     def as_user(self,user):
         client=APIClient();client.force_login(user);return client
     def post(self,path,data=None,client=None):
@@ -59,6 +66,8 @@ class ModuleTests(TransactionTestCase):
         c=APIClient();data=dict(email=' NEW@EXAMPLE.TEST ',role='STUDENT',first_name='Nouveau',last_name='Compte',password=self.password,confirmation=self.password)
         response=self.post('auth/register/',data,c);self.assertEqual(response.status_code,201,response.data)
         user=User.objects.get(email='new@example.test');self.assertEqual(user.role,'STUDENT');self.assertFalse(user.email_verified);self.assertNotEqual(user.password,self.password)
+        self.assertEqual(self.post('auth/login/',dict(email=user.email,password=self.password),c).status_code,403)
+        self.confirm_email(user.email,c)
         self.assertEqual(self.post('auth/login/',dict(email=user.email,password=self.password),c).status_code,200)
         self.assertEqual(c.get('/api/auth/me/').data['user']['id'],str(user.pk))
         self.assertTrue(c.cookies[settings.SESSION_COOKIE_NAME]['httponly'])
@@ -234,6 +243,7 @@ class ModuleTests(TransactionTestCase):
     def test_full_scenario(self):
         c=APIClient();new=secrets.token_urlsafe(24)
         self.assertEqual(self.post('auth/register/',dict(email='scenario@example.test',role='STUDENT',first_name='Scénario',last_name='Élève',password=new,confirmation=new),c).status_code,201)
+        self.confirm_email('scenario@example.test',c)
         self.assertEqual(self.post('auth/login/',dict(email='scenario@example.test',password=new),c).status_code,200)
         new_user=User.objects.get(email='scenario@example.test')
         future_teacher=User.objects.create_user('future@example.test',self.password)
@@ -329,6 +339,7 @@ class ModuleTests(TransactionTestCase):
         teacher=User.objects.get(email=payload['email'])
         self.assertEqual(teacher.role,'TEACHER')
         self.assertFalse(teacher.is_staff);self.assertFalse(teacher.is_superuser)
+        self.confirm_email(teacher.email,c)
         response=self.post('auth/login/',dict(email=teacher.email,password=self.password),c)
         self.assertEqual(response.status_code,200,response.data)
         self.assertEqual(response.data['user']['role'],'TEACHER')

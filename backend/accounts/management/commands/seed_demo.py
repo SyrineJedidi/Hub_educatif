@@ -163,13 +163,14 @@ class Command(BaseCommand):
     def accounts(self, password):
         def account(login, first, last, role):
             user, _ = User.objects.get_or_create(email=f'{login}@{DOMAIN}', defaults=dict(first_name=first, last_name=last, role=role))
-            user.first_name, user.last_name, user.is_active = first, last, True
+            # Demo accounts are trusted: their addresses do not need the confirmation email.
+            user.first_name, user.last_name, user.is_active, user.email_verified = first, last, True, True
             user.set_password(password); user.save()
             return user
         users = {}
         admin = User.objects.filter(role='ADMIN').first()
         if not admin: admin = account('admin', 'Admin', 'Nexora', 'ADMIN')
-        elif admin.email.endswith('@' + DOMAIN): admin.set_password(password); admin.save()
+        elif admin.email.endswith('@' + DOMAIN): admin.set_password(password); admin.email_verified = True; admin.save()
         else: self.stdout.write(self.style.WARNING(f'Administrateur existant conservé sans modification : {admin.email}'))
         users['admin'] = admin
         for login, first, last in TEACHERS: users[login] = account(login, first, last, 'TEACHER')

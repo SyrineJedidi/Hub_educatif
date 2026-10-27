@@ -4,7 +4,7 @@ L’application se déploie avec Docker Compose : six conteneurs, une seule comm
 
 | Service | Image | Rôle |
 |---|---|---|
-| `frontend` | nginx 1.27 + build Vite | Sert l’application React, relaie `/api/` vers Django, compresse (gzip) et met en cache les fichiers versionnés pendant un an. Seul port exposé : **8080**. |
+| `frontend` | nginx 1.27 + build Vite | Sert l’application React, relaie `/api/` vers Django, compresse (gzip) et met en cache les fichiers versionnés pendant un an. Seul port exposé : **8080** (`HUB_PORT=8090 docker compose up -d` si ce port est déjà pris, par exemple par Oracle). |
 | `backend` | Python 3.12 + gunicorn | API Django. Au démarrage : migrations puis `collectstatic`. Vérification de santé sur `/api/health/` (ping MongoDB). |
 | `worker` | même image que `backend` | Worker Celery qui traite les générations IA en arrière-plan. |
 | `courses-worker` | même image que `backend` | Extraction des PDF et transcription Whisper des enregistrements de cours (`process_course_jobs`). |
@@ -45,8 +45,18 @@ docker compose exec backend python manage.py createsuperuser
 Données de démonstration (facultatif, base de recette uniquement) :
 
 ```bash
-docker compose exec backend python manage.py seed_demo --password "<mot de passe>"
+docker compose exec backend python manage.py seed_complete --password "<mot de passe>"
 ```
+
+### Comptes : confirmation par email et anti-robot
+
+Avant la mise en ligne publique :
+
+1. **Emails (Gmail)** : activer la validation en deux étapes du compte Google, créer un *mot de passe d’application* (Compte Google > Sécurité > Mots de passe des applications), puis renseigner dans `deploy/.env.production` : `EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`, `EMAIL_HOST=smtp.gmail.com`, `EMAIL_PORT=587`, `EMAIL_USE_TLS=true`, `EMAIL_HOST_USER=<adresse Gmail>`, `EMAIL_HOST_PASSWORD=<mot de passe d’application>`, `DEFAULT_FROM_EMAIL=Nexora <adresse Gmail>`.
+2. **Anti-robot ALTCHA** : rien à créer, aucun compte externe. Optionnel : `ALTCHA_HMAC_KEY` (sinon dérivée de `DJANGO_SECRET_KEY`).
+3. `FRONTEND_URL` doit être l’adresse publique : c’est elle qui figure dans les liens envoyés par email.
+
+Avec `CAPTCHA_ENABLED=false`, l’anti-robot est désactivé ; avec `EMAIL_VERIFICATION_REQUIRED=false`, un compte est utilisable dès l’inscription.
 
 ## 3. HTTPS
 

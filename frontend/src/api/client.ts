@@ -11,17 +11,25 @@ export class ApiError extends Error {
   }
 }
 export async function csrf() {
-  const r = await fetch("/api/csrf/", { credentials: "same-origin" });
-  const data = await r.json();
+  // A stopped or restarting server answers with an empty body: say so instead of a JSON error.
+  const data = await fetch("/api/csrf/", { credentials: "same-origin" })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  if (!data?.csrfToken)
+    throw new ApiError(
+      0,
+      "Le serveur est injoignable. Vérifiez votre connexion puis réessayez.",
+    );
   csrfToken = data.csrfToken;
 }
 export async function api<T>(
   path: string,
   method = "GET",
   body?: unknown,
+  extraHeaders: Record<string, string> = {},
 ): Promise<T> {
   if (method !== "GET" && !csrfToken) await csrf();
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = { ...extraHeaders };
   if (method !== "GET") headers["X-CSRFToken"] = csrfToken;
   if (body && !(body instanceof FormData))
     headers["Content-Type"] = "application/json";

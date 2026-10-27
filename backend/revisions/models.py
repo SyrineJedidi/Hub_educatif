@@ -105,6 +105,7 @@ class AIJob(models.Model):
     class Kind(models.TextChoices):
         SUMMARY = 'SUMMARY', 'Résumé'
         ILLUSTRATION = 'ILLUSTRATION', 'Illustration'
+        QUIZ = 'QUIZ', 'Quiz d’entraînement'
 
     class Status(models.TextChoices):
         QUEUED = 'QUEUED', 'En attente'
@@ -128,6 +129,8 @@ class AIJob(models.Model):
     error = models.CharField(max_length=500, blank=True)
     illustration = models.ForeignKey(Illustration, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     metrics = models.JSONField(default=dict, blank=True)
+    # Output that is not written to the sheet itself (the training quiz).
+    result = models.JSONField(null=True, blank=True)
     rating = models.PositiveSmallIntegerField(null=True, blank=True)
     duration_ms = models.PositiveIntegerField(null=True, blank=True)
     queue_ms = models.PositiveIntegerField(null=True, blank=True)

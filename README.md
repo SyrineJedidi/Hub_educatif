@@ -4,7 +4,7 @@ Deux interfaces séparées : le **site public** (template Eduleb, accueil et esp
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Modules disponibles : le socle commun utilisateurs/groupes/assiduité ; Cours et ressources (matières, chapitres, PDF, transcription audio Whisper — voir [docs/COURS.md](docs/COURS.md)) ; Quiz et progression (conception, génération locale de propositions avec Ollama, passage, correction, calendrier, progression, export PDF et retours étudiants — voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md)) ; Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face — voir [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md)) ; l’assistant pédagogique (réponses Gemini sourcées, questions vocales Whisper) ; Planification et coaching (objectifs, disponibilités, planning de révision proposé par Gemini, suivi par l’enseignant — voir [docs/PLANNING.md](docs/PLANNING.md)). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Modules disponibles : le socle commun utilisateurs/groupes/assiduité ; Cours et ressources (matières, chapitres, PDF, transcription audio Whisper — voir [docs/COURS.md](docs/COURS.md)) ; Quiz et progression (conception, génération locale de propositions avec Ollama, passage, correction, calendrier, progression, export PDF et retours étudiants — voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md)) ; Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face — voir [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md)) ; l’assistant pédagogique (réponses Gemini sourcées, questions vocales Whisper) ; Planification et coaching (objectifs, disponibilités, planning de révision proposé par Gemini, suivi par l’enseignant — voir [docs/PLANNING.md](docs/PLANNING.md)). Données de démonstration complètes : `manage.py seed_complete --password <mot de passe>` (voir ci-dessous) ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md).
 
 ## Organisation du dépôt
 
@@ -23,7 +23,6 @@ frontend/           application React (Vite)
 deploy/             Dockerfiles, configuration nginx, modèle de configuration de production
 docker-compose.yml  pile complète : nginx + React, Django/gunicorn, worker Celery, MongoDB, Redis
 docs/               documentation, scénarios de test, preuves (couverture, accessibilité)
-template/           template Eduleb original, conservé comme référence
 ```
 
 ## Déploiement
@@ -100,6 +99,15 @@ npm.cmd ci
 npm.cmd run dev
 ```
 
+### Lancement en une commande (après l’installation)
+
+Avec Docker Desktop démarré, `scripts\Start-Hub.ps1` lance MongoDB, Redis et Mailpit en conteneurs (redémarrage automatique), applique les migrations, ouvre Django, Celery, le worker des cours et Vite dans des fenêtres réduites, puis vérifie que l’API répond. Les parties déjà lancées sont conservées. `scripts\Stop-Hub.ps1` arrête les processus de l’application sans toucher aux données.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Hub.ps1
+.\backend\.venv\Scripts\python.exe backend\manage.py seed_complete --password "Nexora-Test-2026"   # données de démonstration, une fois
+```
+
 Ouvrir **http://127.0.0.1:5173/**. Le proxy Vite relaie `/api/` vers Django ; aucune session dans localStorage. Utiliser le même nom d’hôte pendant un parcours. Les séances sont affichées en **Africa/Tunis**, indépendamment du fuseau de Windows.
 
 ## MongoDB et emails
@@ -161,3 +169,31 @@ Calendrier, priorités, progression, export PDF, retours et interface FR/EN/AR :
 ## Grille de validation
 
 Preuves par critère (tests, couverture, sécurité, accessibilité, métriques IA, CI et déploiement) : [docs/GRILLE-VALIDATION.md](docs/GRILLE-VALIDATION.md).
+
+## Comptes de démonstration
+
+`python manage.py seed_complete --password "<mot de passe>"` crée ou complète, à travers l’API, des données pour tous les comptes et tous les modules : groupes et séances avec appel, cours publiés avec supports PDF, quiz et tentatives aux scores variés, fiches de révision, notes de cours pour l’assistant, plannings de révision actifs. Les comptes partagent le mot de passe choisi et sont déjà confirmés :
+
+| Compte (`@demo.nexora.test`) | Rôle et contenu |
+|---|---|
+| `admin` | Administrateur : back-office complet |
+| `enseignant` | Biologie L1 (BIO-L1) : cours, fiches, quiz, notes de l’assistant |
+| `enseignant2` | Informatique L2 (INFO-L2) : cours d’algorithmique, fiches, quiz |
+| `etudiant`, `etudiant4`, `etudiant5`, `etudiant7` | Étudiants de BIO-L1 (plans de révision, tentatives, lectures) |
+| `etudiante2`, `etudiant3`, `etudiant6` | Étudiants d’INFO-L2 (`etudiante2` et `etudiant5` suivent les deux groupes) |
+| `etudiant.sans.groupe`, `ancien.etudiant` | Cas limites : aucun groupe, inscription terminée |
+
+## Comptes et sécurité
+
+Inscription, connexion et demandes d’email sont protégées par **ALTCHA** (anti-robot invisible et auto-hébergé : le navigateur résout une preuve de travail signée par le serveur, sans énigme ni service tiers — conforme au critère WCAG 2.2 3.3.8). Un nouveau compte s’active par le **lien de confirmation envoyé par email** ; la connexion reste refusée tant que l’adresse n’est pas confirmée, avec la possibilité de renvoyer l’email. Configuration : [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
+
+### Emails en développement et en démonstration
+
+Les emails (confirmation d’inscription, mot de passe oublié) sont envoyés en SMTP vers **Mailpit**, une boîte de réception locale :
+
+```bash
+docker run -d --name mailpit --restart unless-stopped -p 127.0.0.1:8025:8025 -p 127.0.0.1:1025:1025 axllent/mailpit:v1.20
+```
+
+Dans `backend/.env` : `EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`, `EMAIL_HOST=127.0.0.1`, `EMAIL_PORT=1025`, `EMAIL_USE_TLS=false`. Les messages se lisent sur http://localhost:8025 (bouton « Confirmer mon adresse » cliquable). Pour de vrais envois vers les boîtes des utilisateurs, configurer Gmail ou un autre SMTP : voir [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
+

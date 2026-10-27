@@ -23,6 +23,8 @@ urlpatterns = [
     path('sheets/<str:uid>/review/', v.ReviewView.as_view()),
     path('sheets/<str:uid>/generate/', v.GenerateSummaryView.as_view()),
     path('sheets/<str:uid>/jobs/', v.SheetJobsView.as_view()),
+    path('sheets/<str:uid>/self-quiz/', v.SelfQuizView.as_view()),
+    path('revisions/plan/', v.RevisionPlanView.as_view()),
     path('sheets/<str:uid>/illustrations/', v.IllustrationsView.as_view()),
     path('sheets/<str:uid>/illustrations/generate/', v.GenerateIllustrationView.as_view()),
     path('sheets/<str:uid>/illustrations/reorder/', v.ReorderIllustrationsView.as_view()),

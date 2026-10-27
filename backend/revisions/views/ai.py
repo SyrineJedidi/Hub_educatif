@@ -6,11 +6,14 @@ from accounts.services import limit
 from accounts.views import validated
 from classrooms.services import paginated, get_object
 from django.conf import settings
+from django.core.cache import cache
+from django.utils import timezone
 from ..ai.jobs import dispatch, expire_stale
 from ..ai.metrics import dashboard
 from ..models import AIJob, RevisionSheet, Illustration, MAX_ILLUSTRATIONS
-from ..serializers import GenerateSummarySerializer, IllustrationGenerateSerializer, RatingSerializer, job_data
-from ..services import editable_sheet, not_archived, extract_text
+from ..serializers import GenerateSummarySerializer, IllustrationGenerateSerializer, RatingSerializer, SelfQuizSerializer, job_data
+from ..services import editable_sheet, not_archived, extract_text, readable_sheet
+from ..ai.tutor import revision_plan
 from .base import SheetView
 
 
@@ -62,6 +65,34 @@ class GenerateIllustrationView(SheetView):
         return job_response(request, job)
 
 
+
+
+class SelfQuizView(SheetView):
+    """Training quiz written by the AI from a sheet the person can read (student or teacher)."""
+    def post(self, request, uid):
+        sheet = readable_sheet(request.user, uid)
+        data = validated(SelfQuizSerializer, request)
+        if len((sheet.summary or '').strip()) < 40 and not sheet.key_points:
+            raise ValidationError({'sheet': ['Cette fiche n’a pas encore assez de contenu pour un quiz.']})
+        running = AIJob.objects.filter(sheet=sheet, user=request.user, kind='QUIZ', status__in=['QUEUED', 'RUNNING']).first()
+        if running: return Response(job_data(running, request.user), status=202)
+        limit(request, 'ai-self-quiz', maximum=15, seconds=86400, identity=str(request.user.pk))
+        job = AIJob.objects.create(kind='QUIZ', sheet=sheet, sheet_title=sheet.title, user=request.user, params={'count': data['count']})
+        return job_response(request, job)
+
+
+class RevisionPlanView(SheetView):
+    """Today's revision plan of a student: items found by the platform, ordered and explained by the AI."""
+    def get(self, request):
+        if request.user.role != 'STUDENT':
+            raise ValidationError({'role': ['Le plan de révision est proposé aux étudiants.']})
+        key = f'revision-plan:{request.user.pk}:{timezone.localdate()}'
+        plan = cache.get(key)
+        if plan is None or request.query_params.get('refresh') == '1':
+            limit(request, 'ai-revision-plan', maximum=20, seconds=86400, identity=str(request.user.pk))
+            plan = {**revision_plan(request.user), 'generated_at': timezone.now()}
+            cache.set(key, plan, 3 * 3600)
+        return Response(plan)
 
 
 class SheetJobsView(SheetView):
@@ -148,7 +179,7 @@ class JobsView(SheetView):
         jobs = (AIJob.objects.all() if request.user.role == 'ADMIN' else AIJob.objects.filter(user=request.user)).select_related('user', 'illustration')
         params = request.query_params
         if params.get('kind'):
-            if params['kind'] not in ('SUMMARY', 'ILLUSTRATION'): raise ValidationError({'kind': ['Type invalide.']})
+            if params['kind'] not in AIJob.Kind.values: raise ValidationError({'kind': ['Type invalide.']})
             jobs = jobs.filter(kind=params['kind'])
         if params.get('status'):
             if params['status'] not in AIJob.Status.values: raise ValidationError({'status': ['Statut invalide.']})

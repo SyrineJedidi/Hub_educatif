@@ -279,6 +279,10 @@ class ReviewSerializer(SheetInputSerializer):
     known = serializers.ListField(child=serializers.CharField(max_length=40), max_length=40, allow_empty=True)
 
 
+class SelfQuizSerializer(SheetInputSerializer):
+    count = serializers.IntegerField(min_value=3, max_value=10, default=5)
+
+
 class RatingSerializer(SheetInputSerializer):
     rating = serializers.IntegerField(min_value=1, max_value=5, error_messages={
         'invalid': 'Choisissez une note de 1 à 5.', 'min_value': 'Choisissez une note de 1 à 5.', 'max_value': 'Choisissez une note de 1 à 5.'})
@@ -288,11 +292,14 @@ def job_data(job, viewer=None):
     data = {
         'id': str(job.pk), 'kind': job.kind, 'status': job.status, 'sheet_id': str(job.sheet_id) if job.sheet_id else None,
         'sheet_title': job.sheet_title, 'engine': job.engine, 'model': job.model, 'fallback': job.fallback, 'error': job.error,
-        'params': {k: v for k, v in job.params.items() if k in ('length', 'style', 'caption', 'prompt', 'source_characters')},
+        'params': {k: v for k, v in job.params.items() if k in ('length', 'style', 'caption', 'prompt', 'source_characters', 'count')},
         'source_name': job.source_name, 'metrics': job.metrics, 'rating': job.rating, 'duration_ms': job.duration_ms,
         'queue_ms': job.queue_ms, 'created_at': job.created_at, 'started_at': job.started_at, 'finished_at': job.finished_at,
         'illustration': IllustrationReadSerializer(job.illustration).data if job.illustration_id else None,
     }
+    # The training quiz belongs to the person who asked for it.
+    if job.kind == AIJob.Kind.QUIZ and viewer is not None and viewer.pk == job.user_id:
+        data['result'] = job.result or {}
     if viewer is not None and viewer.role == 'ADMIN':
         data['user_name'] = f'{job.user.first_name} {job.user.last_name}'.strip() or job.user.email
     return data

@@ -139,10 +139,24 @@ def _clean_summary(result, engine):
     }
 
 
+def gemini_models():
+    """The configured model, then a lighter one: each has its own free quota, and it answers in seconds
+    where the local model needs about a minute."""
+    return list(dict.fromkeys(m for m in (settings.REVISIONS_GEMINI_MODEL, settings.REVISIONS_GEMINI_FALLBACK_MODEL) if m))
+
+
 def gemini_summary(text, *, title, course, length):
     """Return a dict {summary, key_points, glossary, tags, illustration_prompt, model, duration_ms}."""
     if not settings.GEMINI_API_KEY: raise AIUnavailable('Gemini n’est pas configuré : ajoutez GEMINI_API_KEY dans backend/.env.')
-    model = settings.REVISIONS_GEMINI_MODEL
+    models = gemini_models()
+    for position, model in enumerate(models):
+        try:
+            return _gemini_summary_with(model, text, title, course, length)
+        except AIServiceError:
+            if position + 1 == len(models): raise
+
+
+def _gemini_summary_with(model, text, title, course, length):
     payload = {
         'systemInstruction': {'parts': [{'text': SUMMARY_INSTRUCTIONS}]},
         'contents': [{'role': 'user', 'parts': [{'text': _prompt(text, title, course, length)}]}],
@@ -261,3 +275,62 @@ def _space_image(prompt):
     if not url.startswith(base + '/'): raise AIServiceError('Le Space Hugging Face a renvoyé une adresse inattendue.')
     image, _ = _get(url, auth)
     return image
+
+
+def _gemini_json(instructions, prompt, schema, temperature):
+    if not settings.GEMINI_API_KEY: raise AIUnavailable('Gemini n’est pas configuré : ajoutez GEMINI_API_KEY dans backend/.env.')
+    models = gemini_models()
+    for position, model in enumerate(models):
+        try:
+            return _gemini_json_with(model, instructions, prompt, schema, temperature)
+        except AIServiceError:
+            if position + 1 == len(models): raise
+
+
+def _gemini_json_with(model, instructions, prompt, schema, temperature):
+    payload = {'systemInstruction': {'parts': [{'text': instructions}]},
+               'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
+               'generationConfig': {'temperature': temperature, 'responseMimeType': 'application/json', 'responseSchema': schema}}
+    body, _ = _post(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
+                    {'x-goog-api-key': settings.GEMINI_API_KEY}, payload)
+    try:
+        data = json.loads(body)
+        candidate = data['candidates'][0]
+        if data.get('promptFeedback', {}).get('blockReason') or candidate.get('finishReason') in ('SAFETY', 'RECITATION', 'PROHIBITED_CONTENT'):
+            raise AIServiceError('Gemini a refusé ce contenu.')
+        return json.loads(''.join(part.get('text', '') for part in candidate['content']['parts'])), model
+    except (ValueError, KeyError, IndexError, TypeError):
+        raise AIServiceError('La réponse de Gemini est incomplète. Réessayez.')
+
+
+def _ollama_json(instructions, prompt, schema, temperature):
+    if not settings.REVISIONS_OLLAMA_MODEL: raise AIUnavailable('Aucun modèle d’IA n’est disponible sur ce serveur.')
+    model = settings.REVISIONS_OLLAMA_MODEL
+    payload = {'model': model, 'stream': False, 'think': False, 'format': _lowercase_schema(schema),
+               'options': {'temperature': temperature, 'num_ctx': 8192},
+               'messages': [{'role': 'system', 'content': instructions}, {'role': 'user', 'content': prompt}]}
+    body, _ = _post(settings.OLLAMA_URL.rstrip('/') + '/api/chat', {}, payload, timeout=settings.REVISIONS_OLLAMA_TIMEOUT_SECONDS)
+    try:
+        return json.loads(json.loads(body)['message']['content']), f'ollama/{model}'
+    except (ValueError, KeyError, TypeError):
+        raise AIServiceError('La réponse d’Ollama est incomplète. Réessayez.')
+
+
+def generate_json(instructions, prompt, schema, *, temperature=0.3):
+    """Any structured answer, by the same path as summaries: Gemini first, the local model if it fails.
+
+    Returns (data, model, fallback, duration_ms)."""
+    started = time.monotonic()
+    if not settings.GEMINI_API_KEY:
+        data, model = _ollama_json(instructions, prompt, schema, temperature)
+        return data, model, False, int((time.monotonic() - started) * 1000)
+    try:
+        data, model = _gemini_json(instructions, prompt, schema, temperature)
+        return data, model, False, int((time.monotonic() - started) * 1000)
+    except (AIServiceError, AIUnavailable) as gemini_error:
+        if not settings.REVISIONS_OLLAMA_MODEL: raise
+        try:
+            data, model = _ollama_json(instructions, prompt, schema, temperature)
+        except APIException:
+            raise gemini_error
+        return data, model, True, int((time.monotonic() - started) * 1000)

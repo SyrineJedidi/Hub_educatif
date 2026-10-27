@@ -33,7 +33,7 @@ class Command(BaseCommand):
         data={'run':run,'password':password,'admin':admin.email}
         for key,role in [('teacher','STUDENT'),('outsider','TEACHER'),('other_student','STUDENT')]:
             email=f'{key}-{run}@example.test'
-            User.objects.create_user(email,password,role=role,first_name=key.title(),last_name=run)
+            User.objects.create_user(email,password,role=role,first_name=key.title(),last_name=run,email_verified=True)
             data[key]=email
         data['student']=f'student-{run}@example.test'
         (root/'browser.json').write_text(json.dumps(data),encoding='utf-8')

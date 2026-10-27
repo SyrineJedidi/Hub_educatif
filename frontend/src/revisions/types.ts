@@ -107,7 +107,7 @@ export interface QualityMetrics {
 }
 export interface AIJob {
   id: string;
-  kind: "SUMMARY" | "ILLUSTRATION";
+  kind: "SUMMARY" | "ILLUSTRATION" | "QUIZ";
   status: JobStatus;
   sheet_id: string | null;
   sheet_title: string;
@@ -121,6 +121,7 @@ export interface AIJob {
     caption?: string;
     prompt?: string;
     source_characters?: number;
+    count?: number;
   };
   source_name: string;
   metrics: Partial<QualityMetrics>;
@@ -132,6 +133,14 @@ export interface AIJob {
   finished_at: string | null;
   illustration: Illustration | null;
   user_name?: string;
+  result?: { questions?: SelfQuizQuestion[] };
+}
+/** Question of the training quiz written by the AI from a sheet. */
+export interface SelfQuizQuestion {
+  question: string;
+  choices: string[];
+  answer: number;
+  explanation: string;
 }
 export interface AIStatus {
   summary: boolean;

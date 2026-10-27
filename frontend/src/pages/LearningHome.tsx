@@ -15,6 +15,7 @@ import {
 import SessionForm from "./SessionForm";
 import { QuizPriorities } from "../quizzes/Progress";
 import AssistantHomePanel from "../assistant/AssistantHomePanel";
+import RevisionPlan from "../revisions/components/RevisionPlan";
 export default function LearningHome() {
   const { user } = useAuth();
   const teacher = user!.role === "TEACHER";
@@ -57,6 +58,7 @@ export default function LearningHome() {
         </div>
         <img src="/assets/img/home-img2.webp" alt="" />
       </section>
+      {!teacher && <RevisionPlan />}
       {!teacher && <QuizPriorities />}
       <section className="learning-access" aria-label="Accès à vos activités">
         {[

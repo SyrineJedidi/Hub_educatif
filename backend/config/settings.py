@@ -90,6 +90,13 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'false').lower() == 'true'
 EMAIL_TIMEOUT = 5
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Nexora <noreply@hub.local>')
 PASSWORD_RESET_TIMEOUT = 3600
+# Accounts: a new account signs in once its address is confirmed by the emailed link.
+EMAIL_VERIFICATION_REQUIRED = os.getenv('EMAIL_VERIFICATION_REQUIRED', 'true').lower() == 'true'
+# ALTCHA proof of work on registration, login and email requests (self-hosted, no third party).
+CAPTCHA_ENABLED = os.getenv('CAPTCHA_ENABLED', 'true').lower() == 'true'
+ALTCHA_HMAC_KEY = os.getenv('ALTCHA_HMAC_KEY', '')
+ALTCHA_MAX_NUMBER = int(os.getenv('ALTCHA_MAX_NUMBER', '100000'))
+ALTCHA_EXPIRES = int(os.getenv('ALTCHA_EXPIRES', '600'))
 VERIFICATION_TIMEOUT = 86400
 MEDIA_ROOT = Path(os.getenv('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
 STATIC_URL = '/static/'
@@ -99,6 +106,8 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024
 # AI services (module « Résumés et illustrations »). Keys stay server-side only.
 # GEMINI_API_KEY is shared with the teaching assistant (defined below); each module picks its own model.
 REVISIONS_GEMINI_MODEL = os.getenv('REVISIONS_GEMINI_MODEL', 'gemini-3.5-flash')
+# Tried before the local model when the first one is out of quota (empty = straight to Ollama).
+REVISIONS_GEMINI_FALLBACK_MODEL = os.getenv('REVISIONS_GEMINI_FALLBACK_MODEL', 'gemini-3.5-flash-lite')
 HF_TOKEN = os.getenv('HF_TOKEN', '')
 HF_IMAGE_MODEL = os.getenv('HF_IMAGE_MODEL', 'stabilityai/stable-diffusion-3-medium-diffusers')
 # Public Gradio Space running the image model (free GPU quota); empty = Inference Providers API.

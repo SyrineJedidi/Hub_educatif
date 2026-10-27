@@ -73,6 +73,7 @@ const ReviewDetail = lazy(() => import("./assistant/ReviewDetail"));
 const AdminUsage = lazy(() => import("./assistant/AdminUsage"));
 const LearningHome = lazy(() => import("./pages/LearningHome"));
 const AuthPage = lazy(() => import("./pages/AuthPages"));
+const VerifyEmail = lazy(() => import("./pages/VerifyEmail"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Users = lazy(() => import("./pages/Users"));
 const Groups = lazy(() => import("./pages/Groups"));
@@ -113,6 +114,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="connexion" element={<AuthPage mode="login" />} />
         <Route path="inscription" element={<AuthPage mode="register" />} />
+        <Route path="verifier-email" element={<VerifyEmail />} />
         <Route
           path="mot-de-passe-oublie"
           element={<AuthPage mode="forgot" />}

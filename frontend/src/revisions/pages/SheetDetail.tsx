@@ -13,6 +13,7 @@ import { engines, seconds, statusLabel } from "../types";
 import { AiBadge, PinButton } from "../components/SheetCard";
 import Markdown from "../components/Markdown";
 import GeneratePanel from "../components/GeneratePanel";
+import SelfQuiz from "../components/SelfQuiz";
 import Illustrations, { IllustrationDialog } from "../components/Illustrations";
 import {
   RatingStars,
@@ -62,6 +63,7 @@ export default function SheetDetail() {
     [generating, setGenerating] = useState(false),
     [illustrating, setIllustrating] = useState(false),
     [studio, setStudio] = useState(false),
+    [training, setTraining] = useState(false),
     [busy, setBusy] = useState(false),
     [actionError, setActionError] = useState<unknown>(),
     [notice, setNotice] = useState(""),
@@ -271,6 +273,11 @@ export default function SheetDetail() {
                 </span>
               )}
             </Link>
+          )}
+          {(sheet.summary.trim().length >= 40 || sheet.key_points.length > 0) && (
+            <button className="sheets-ghost-button" onClick={() => setTraining(true)}>
+              <span className="ti-help-alt" aria-hidden="true" /> Quiz d’entraînement IA
+            </button>
           )}
           {editable && (
             <Link
@@ -551,6 +558,7 @@ export default function SheetDetail() {
           onClick={() => setStudio(true)}
         />
       )}
+      {training && <SelfQuiz sheetId={sheet.id} onClose={() => setTraining(false)} />}
       {studio && (
         <StudioDrawer
           jobs={jobs}

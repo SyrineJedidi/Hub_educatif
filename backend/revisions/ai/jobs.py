@@ -19,6 +19,7 @@ from rest_framework.exceptions import APIException, ValidationError
 from accounts.models import AdminGuard
 from .clients import generate_summary, hf_illustration
 from .metrics import summary_quality
+from .tutor import self_quiz
 from ..models import AIJob, Illustration, RevisionSheet, MAX_ILLUSTRATIONS
 from ..services import normalized_image, store_image, next_position, remove_files
 
@@ -72,7 +73,7 @@ def run_job(job_id):
     job.refresh_from_db()
     started = timezone.now()
     try:
-        (_summary if job.kind == AIJob.Kind.SUMMARY else _illustration)(job)
+        {AIJob.Kind.SUMMARY: _summary, AIJob.Kind.ILLUSTRATION: _illustration, AIJob.Kind.QUIZ: _quiz}[job.kind](job)
         job.status = AIJob.Status.SUCCEEDED
     except (APIException, ValidationError, JobAborted) as exc:
         job.status, job.error = AIJob.Status.FAILED, _message(exc)
@@ -110,6 +111,14 @@ def _summary(job):
         sheet.generated_at, sheet.source_name = timezone.now(), job.source_name
         sheet.save()
     _guarded(write)
+
+
+def _quiz(job):
+    sheet = RevisionSheet.objects.filter(pk=job.sheet_id).first()
+    if not sheet: raise JobAborted('La fiche a été supprimée pendant la préparation du quiz.')
+    questions, model, fallback, _, metrics = self_quiz(sheet, job.params['count'], seed=str(job.pk))
+    job.engine = 'ollama' if model.startswith('ollama/') else 'gemini'
+    job.model, job.fallback, job.metrics, job.result = model, fallback, metrics, {'questions': questions}
 
 
 def _illustration(job):

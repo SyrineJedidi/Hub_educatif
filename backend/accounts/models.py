@@ -17,7 +17,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **extra):
-        extra.update(role='ADMIN', is_staff=True, is_superuser=True, is_active=True)
+        extra.update(role='ADMIN', is_staff=True, is_superuser=True, is_active=True, email_verified=True)
         return self.create_user(email, password, **extra)
 
 
