@@ -1,0 +1,12 @@
+{
+  "executed": true,
+  "model": "qwen3:8b",
+  "generation_seconds": 25.432,
+  "generated": 3,
+  "saved_after_confirmation": 2,
+  "saved_before_confirmation": 0,
+  "status": "DRAFT",
+  "direct_browser_calls_to_ollama": 0,
+  "javascript_errors": [],
+  "database_isolated": true
+}

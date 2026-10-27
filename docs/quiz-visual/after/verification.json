@@ -1,0 +1,1032 @@
+{
+  "phase": "after",
+  "checks": [
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 1440,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 768,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "width": 390,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 1440,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 768,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "en",
+      "width": 390,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 1440,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 768,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "question-form",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "generation",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "preview",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "width": 390,
+      "name": "answers",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 1440,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 1440,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 1440,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 1440,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 768,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 768,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 768,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 768,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 390,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 390,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 390,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "width": 390,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 1440,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 1440,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 1440,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 1440,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 768,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 768,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 768,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 768,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 390,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 390,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 390,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "en",
+      "width": 390,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 1440,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 1440,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 1440,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 1440,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 768,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 768,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 768,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 768,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 390,
+      "name": "presentation",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 390,
+      "name": "attempt",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 390,
+      "name": "correction",
+      "overflow": false
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "width": 390,
+      "name": "progress",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "en",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 1440,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 1440,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 1440,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 768,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 768,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 768,
+      "name": "results",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 390,
+      "name": "list",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 390,
+      "name": "quiz-form",
+      "overflow": false
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "width": 390,
+      "name": "results",
+      "overflow": false
+    }
+  ],
+  "accessibility": [
+    {
+      "role": "teacher",
+      "language": "fr",
+      "name": "quiz-form",
+      "violations": []
+    },
+    {
+      "role": "teacher",
+      "language": "fr",
+      "name": "results",
+      "violations": []
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "name": "quiz-form",
+      "violations": []
+    },
+    {
+      "role": "teacher",
+      "language": "ar",
+      "name": "results",
+      "violations": []
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "name": "attempt",
+      "violations": []
+    },
+    {
+      "role": "student",
+      "language": "fr",
+      "name": "correction",
+      "violations": []
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "name": "attempt",
+      "violations": []
+    },
+    {
+      "role": "student",
+      "language": "ar",
+      "name": "correction",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "name": "quiz-form",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "language": "fr",
+      "name": "results",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "name": "quiz-form",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "language": "ar",
+      "name": "results",
+      "violations": []
+    },
+    {
+      "name": "generation-proposals",
+      "language": "fr",
+      "violations": []
+    }
+  ],
+  "javascript_errors": [],
+  "generation_api_simulated": true,
+  "zoom": "200% reflow emulation: 720 CSS px, DPR 2, 1440 px screen; FR and AR"
+}

@@ -32,7 +32,7 @@ HF_IMAGE_MODEL=stabilityai/stable-diffusion-3-medium-diffusers
 AI_TIMEOUT_SECONDS=90
 OLLAMA_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=qwen3:8b         # secours local facultatif (vide = désactivé)
-OLLAMA_TIMEOUT_SECONDS=300
+REVISIONS_OLLAMA_TIMEOUT_SECONDS=300
 CELERY_BROKER_URL=redis://127.0.0.1:6379/0   # vide = file de tâches intégrée (sans infrastructure)
 ```
 

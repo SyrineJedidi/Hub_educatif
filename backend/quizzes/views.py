@@ -125,7 +125,9 @@ class DuplicateView(ManagerView):
     def post(self, request, uid):
         original = managed_quiz(request.user, uid)
         if original.status not in ('PUBLISHED', 'ARCHIVED'): raise ValidationError('Seul un quiz publié ou archivé peut être dupliqué.')
-        initial = {field: getattr(original, field) for field in ('title', 'description', 'level', 'duration_minutes', 'max_attempts')}
+        initial = {field: getattr(original, field) for field in ('title', 'description', 'level', 'duration_minutes', 'max_attempts', 'opens_at', 'closes_at')}
+        for field in ('opens_at', 'closes_at'):
+            if initial[field]: initial[field] = initial[field].isoformat()
         initial['title'] = duplicate_title(original.title)
         initial['learning_group_id'] = str(original.learning_group_id)
         if request.user.role == 'ADMIN': initial['teacher_id'] = str(original.teacher_id)
@@ -133,7 +135,8 @@ class DuplicateView(ManagerView):
         initial.update(request.data)
         quiz = Quiz.objects.create(**quiz_values(request, initial))
         for old in Question.objects.filter(quiz=original):
-            attrs = {field: getattr(old, field) for field in ('statement','choice_a','choice_b','choice_c','choice_d','correct_answer','explanation','points','position')}
+            attrs = {field: getattr(old, field) for field in ('statement','choice_a','choice_b','choice_c','choice_d','correct_answer','explanation','notion','points','position')}
+            if not attrs['notion']: attrs.pop('notion')
             copied = Question(quiz=quiz, **attrs)
             try: model_errors(copied)
             except ValidationError as exc:

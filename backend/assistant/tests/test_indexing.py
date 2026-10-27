@@ -8,7 +8,7 @@ from assistant import indexing
 from assistant.content import NotesProvider, Segment
 from assistant.indexing import CHUNK_SIZE, INDEX_FORMAT, OVERLAP, build_chunks, ensure_index, overlap_tail, paragraphs, word_slices
 from assistant.models import KnowledgeChunk, ScopeIndex, TeacherNote
-from .base import AssistantTestCase, resource_url
+from .base import AssistantTestCase, recorded_sleeps, resource_url
 
 WORDS = 'la norme d’un vecteur mesure sa longueur et se calcule avec les coordonnées dans un repère orthonormé'.split()
 
@@ -187,10 +187,10 @@ class IndexTests(AssistantTestCase):
             if len(calls) < 3: raise DatabaseError('WriteConflict')
             return real(chunks, *args, **kwargs)
         # Two conflicts, each followed by a growing pause, then the write succeeds.
-        with patch.object(KnowledgeChunk.objects, 'bulk_create', flaky), patch.object(indexing.time, 'sleep') as sleep:
+        with patch.object(KnowledgeChunk.objects, 'bulk_create', flaky), recorded_sleeps() as pauses:
             index = ensure_index(self.provider, self.scope_id)
         self.assertEqual((calls, [c.text for c in self.chunks()]), ([1, 1, 1], ['Une norme est une longueur.']))
-        self.assertEqual([c.args[0] for c in sleep.call_args_list], [0.05, 0.1])
+        self.assertEqual(pauses, [0.05, 0.1])
         self.assertEqual(index.content_version, ScopeIndex.objects.get(pk=index.pk).content_version)
         TeacherNote.objects.filter(pk=self.note.pk).update(version=3, body='Encore une autre version.')
         ids = [c.pk for c in self.chunks()]

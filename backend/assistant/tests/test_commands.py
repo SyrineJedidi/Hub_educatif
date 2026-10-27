@@ -8,7 +8,7 @@ from django.core.management import CommandError, call_command
 from accounts.models import RateBucket, User
 from classrooms.models import LearningGroup
 from assistant.models import Conversation, KnowledgeChunk, Message, ScopeIndex, TeacherNote
-from .base import AssistantTestCase, without_courses
+from .base import AssistantTestCase, recorded_sleeps, without_courses
 
 DEMO_TITLES = ['Le dioxyde de carbone et l’effet de serre', 'Les fonctions affines', 'Probabilités : bases']
 ROW_KEYS = {'question', 'expected_source', 'expected_out_of_scope', 'retrieved_sources', 'top_score', 'retrieval_ms', 'hit_at_1', 'hit_at_5', 'status',
@@ -105,9 +105,9 @@ class EvaluationCommandTests(AssistantTestCase):
         path = self.dataset([{'question': 'Comment calculer le coefficient directeur ?', 'expected_source': 'Les fonctions affines'},
             {'question': 'Quelle est la capitale de l’Australie ?', 'out_of_scope': True},
             {'question': 'Qu’est-ce qu’un événement contraire ?', 'expected_source': 'Probabilités : bases'}])
-        with patch('assistant.management.commands.evaluate_assistant.time.sleep') as sleep:
+        with recorded_sleeps() as pauses:
             self.report(dataset=path, pause=0.5)
-        sleep.assert_called_once_with(0.5)
+        self.assertEqual(pauses, [0.5])
 
     def test_text_report(self):
         text = self.evaluate(scope='DEMO')

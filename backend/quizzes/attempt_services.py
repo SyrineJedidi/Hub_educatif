@@ -7,6 +7,7 @@ from classrooms.models import Enrollment, LearningGroup
 from classrooms.services import get_object, mutation
 from .models import Attempt, Answer, Question
 from .attempt_serializers import answer_data
+from .schedule import attempt_deadline
 
 
 def mongo_now():
@@ -57,9 +58,9 @@ def attempt_percentage(attempt):
     return round(100 * attempt.points_earned / attempt.total_points, 2)
 
 
-def finalize(attempt, expired=False):
+def finalize(attempt, expired=False, answers=None):
     if attempt.status != Attempt.Status.IN_PROGRESS: return
-    attempt.points_earned = score_saved_answers(attempt)
+    attempt.points_earned = score_saved_answers(attempt, answers)
     attempt.status = Attempt.Status.EXPIRED if expired else Attempt.Status.SUBMITTED
     attempt.ended_at = attempt.deadline if expired else mongo_now()
     attempt.save(update_fields=['points_earned', 'status', 'ended_at'])
@@ -72,9 +73,14 @@ def expire_if_due(attempt):
 
 @mutation
 def finalize_expired(_self, request, ids):
-    for uid in ids:
-        attempt = own_attempt(request.user, uid)
-        expire_if_due(attempt)
+    attempts = list(accessible_attempts(request.user).filter(pk__in=ids))
+    answers = {}
+    for answer in Answer.objects.filter(attempt_id__in=[a.pk for a in attempts]):
+        answers.setdefault(answer.attempt_id, {})[str(answer.question_id)] = answer
+    now = timezone.now()
+    for attempt in attempts:
+        if attempt.status == 'IN_PROGRESS' and attempt.deadline and now >= attempt.deadline:
+            finalize(attempt, expired=True, answers=answers.get(attempt.pk, {}))
 
 
 def refresh_expired(request, attempts):
@@ -82,8 +88,11 @@ def refresh_expired(request, attempts):
     due = [str(a.pk) for a in attempts if a.status == 'IN_PROGRESS' and a.deadline and now >= a.deadline]
     if due:
         finalize_expired(None, request, due)
+        fresh = {str(a.pk): a for a in Attempt.objects.filter(pk__in=due)}
         for attempt in attempts:
-            if str(attempt.pk) in due: attempt.refresh_from_db()
+            if str(attempt.pk) in fresh:
+                updated = fresh[str(attempt.pk)]
+                for field in ('status', 'points_earned', 'ended_at'): setattr(attempt, field, getattr(updated, field))
 
 
 def attempt_summary(attempt):
@@ -125,5 +134,5 @@ def create_attempt(student, quiz, number):
     now = mongo_now()
     return Attempt.objects.create(student=student, quiz=quiz, learning_group=quiz.learning_group,
         number=number, quiz_title=quiz.title, question_snapshot=snapshot,
-        started_at=now, deadline=now + timedelta(minutes=quiz.duration_minutes) if quiz.duration_minutes else None,
+        started_at=now, deadline=attempt_deadline(quiz, now),
         total_points=sum(q['points'] for q in snapshot))

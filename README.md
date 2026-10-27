@@ -4,12 +4,12 @@ Deux interfaces séparées : le **site public** (template Eduleb, accueil et esp
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Le module Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face) est documenté dans [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md). Les autres modules et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Modules disponibles : le socle commun utilisateurs/groupes/assiduité ; Quiz et progression (conception, génération locale de propositions avec Ollama, passage, correction, calendrier, progression, export PDF et retours étudiants — voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md)) ; Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face — voir [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md)) ; l’assistant pédagogique (réponses Gemini sourcées, questions vocales Whisper). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md).
 
 ## Organisation du dépôt
 
 ```
-backend/            API Django (une application par module : accounts, classrooms, attendance, quizzes, revisions)
+backend/            API Django (une application par module : accounts, classrooms, attendance, quizzes, revisions, assistant)
   revisions/        module Résumés et illustrations
     ai/             clients Gemini / Ollama / Hugging Face, tâches de fond, métriques de qualité
     services/       règles métier (périmètres d’accès, contenu des fiches, suivi des étudiants)
@@ -153,3 +153,7 @@ Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).
 Module Quiz–Question : [gestion des quiz](docs/QUIZ.md), [validations](docs/QUIZ-VALIDATION.md), [passage et correction](docs/QUIZ-PASSAGE.md). Branche de livraison : `Syrine`, destinée à une Pull Request vers `main`. Le périmètre actuel et les contrôles de publication sont décrits dans [docs/PUBLICATION-SYRINE.md](docs/PUBLICATION-SYRINE.md).
 
 Consultation des résultats des étudiants, réservée à l’enseignant propriétaire et à l’administrateur : [docs/QUIZ-RESULTATS.md](docs/QUIZ-RESULTATS.md).
+
+Génération locale de propositions depuis un texte de cours, avec révision et confirmation avant ajout : [IA locale — Qwen3 via Ollama](docs/QUIZ-OLLAMA.md).
+
+Calendrier, priorités, progression, export PDF, retours et interface FR/EN/AR : [compléments du module Quiz](docs/QUIZ-PROGRESSION.md).

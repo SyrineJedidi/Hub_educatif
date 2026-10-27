@@ -1,0 +1,92 @@
+{
+  "verified_at": "2026-10-26T13:43:45.167418+00:00",
+  "repository": "C:\\Users\\USER\\Downloads\\edu\\.local\\publication",
+  "branch": "Syrine",
+  "head": "e29cede310db89a5e0eaa6a281e40aaee1d9fc60",
+  "git_actions": {
+    "commit": false,
+    "push": false,
+    "merge": false
+  },
+  "django": {
+    "check": "passed",
+    "migration_drift": false,
+    "migration_added": "quizzes/0004_question_notion_and_import_receipt.py",
+    "migration_applied_locally": true
+  },
+  "backend_tests": [
+    {
+      "command": "python backend/manage.py test quizzes --noinput",
+      "passed": 92,
+      "failed": 0,
+      "new_gemini_tests": 20
+    },
+    {
+      "command": "python backend/manage.py test quizzes.test_gemini --noinput",
+      "passed": 20,
+      "failed": 0,
+      "reason": "Final server-only credential handling adjustment"
+    },
+    {
+      "command": "python backend/manage.py test quizzes.test_gemini --noinput",
+      "passed": 22,
+      "failed": 0,
+      "reason": "Model availability, bounded Gemini 3 reasoning and completed HTTP response handling"
+    }
+  ],
+  "frontend": {
+    "command": "npm.cmd run build",
+    "typescript": "passed",
+    "vite": "passed"
+  },
+  "browser": {
+    "command": "E2E_BASE_URL=http://127.0.0.1:5181 npm run test:e2e -- tests/gemini.spec.ts",
+    "stats": {
+      "startTime": "2026-10-26T13:40:09.875Z",
+      "duration": 11428.853000000001,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "mocked": "generation response in Playwright; actual Django confirmation and replay",
+    "provider_mocked_in_backend_tests": true,
+    "database_isolated": true,
+    "general_browser_suite_rerun": false,
+    "viewport_checks": [
+      "1440x1000",
+      "390x844"
+    ],
+    "axe_violations": 0,
+    "covered": [
+      "empty and invalid fields",
+      "missing server configuration",
+      "no questions saved before confirmation",
+      "editing selection removal",
+      "field errors retained",
+      "lost response after commit",
+      "identical payload retry without duplicates",
+      "question order and draft status"
+    ]
+  },
+  "real_gemini_call": {
+    "executed": true,
+    "verified_at": "2026-10-26T14:24:12.779855+00:00",
+    "model": "gemini-3.1-flash-lite",
+    "questions_generated": 1,
+    "status": 200,
+    "via": "actual teacher front-office on port 5173",
+    "automatic_question_save": false,
+    "question_count_after": 0
+  },
+  "no_new_dependencies": true,
+  "runtime_route_verification": {
+    "path": "/espace/quiz/{id}/generer",
+    "direct_open": "passed",
+    "reload": "passed",
+    "javascript_errors": 0,
+    "module_errors": 0,
+    "vite_restarted_with_dependency_cache_refresh": true,
+    "model_configuration_updated_without_changing_key": true
+  }
+}

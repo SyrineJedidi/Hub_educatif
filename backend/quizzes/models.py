@@ -32,6 +32,8 @@ class Quiz(models.Model):
     level = models.CharField(max_length=6, choices=Level.choices, default=Level.EASY)
     duration_minutes = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(2147483647)])
     max_attempts = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    opens_at = models.DateTimeField(null=True, blank=True)
+    closes_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=9, choices=Status.choices, default=Status.DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -40,6 +42,13 @@ class Quiz(models.Model):
         indexes = [models.Index(fields=['teacher', 'status']), models.Index(fields=['learning_group', 'status'])]
     def clean(self):
         errors = {}
+        from datetime import datetime
+        for field in ('opens_at', 'closes_at'):
+            value = getattr(self, field)
+            if value is not None and (not isinstance(value, datetime) or timezone.is_naive(value)):
+                errors[field] = 'Précisez une date avec son fuseau horaire.'
+        if not errors and self.opens_at and self.closes_at and self.opens_at >= self.closes_at:
+            errors['closes_at'] = 'La fermeture doit être postérieure à l’ouverture.'
         if not isinstance(self.title, str) or not self.title.strip(): errors['title'] = 'Renseignez un titre non vide.'
         if not isinstance(self.description, str) or not self.description.strip(): errors['description'] = 'Renseignez une description non vide.'
         if self.teacher_id and (self.teacher.role != 'TEACHER' or not self.teacher.is_active):
@@ -60,6 +69,7 @@ class Question(models.Model):
     choice_d = models.CharField(max_length=500)
     correct_answer = models.CharField(max_length=1, choices=[(x, x) for x in 'ABCD'])
     explanation = models.TextField()
+    notion = models.CharField(max_length=200, blank=True, default='')
     points = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     position = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)])
     created_at = models.DateTimeField(auto_now_add=True)
@@ -118,3 +128,30 @@ class Answer(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['attempt', 'question'], name='unique_attempt_question_answer')]
+
+
+class QuestionImport(models.Model):
+    """Receipt only: unconfirmed generated content is never persisted."""
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='question_imports')
+    key = models.CharField(max_length=36)
+    fingerprint = models.CharField(max_length=64)
+    question_ids = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['quiz', 'key'], name='unique_quiz_question_import')]
+
+
+class QuizFeedback(models.Model):
+    class Rating(models.TextChoices):
+        TOO_EASY = 'TOO_EASY', 'Trop facile'
+        SUITABLE = 'SUITABLE', 'Adapté'
+        TOO_HARD = 'TOO_HARD', 'Trop difficile'
+    quiz = models.ForeignKey(Quiz, on_delete=models.PROTECT, related_name='feedback')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='quiz_feedback')
+    rating = models.CharField(max_length=8, choices=Rating.choices)
+    comment = models.TextField(max_length=1000, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['quiz', 'student'], name='unique_student_quiz_feedback')]

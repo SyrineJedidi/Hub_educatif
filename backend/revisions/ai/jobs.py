@@ -138,7 +138,7 @@ def _illustration(job):
 
 def expire_stale(jobs):
     """Mark jobs interrupted by a server restart (thread backend) as failed."""
-    limit = timezone.now() - timedelta(seconds=max(settings.AI_TIMEOUT_SECONDS, settings.OLLAMA_TIMEOUT_SECONDS) * 2 + 60)
+    limit = timezone.now() - timedelta(seconds=max(settings.AI_TIMEOUT_SECONDS, settings.REVISIONS_OLLAMA_TIMEOUT_SECONDS) * 2 + 60)
     stale = [j.pk for j in jobs if j.status in (AIJob.Status.QUEUED, AIJob.Status.RUNNING) and j.created_at < limit]
     if stale:
         AIJob.objects.filter(pk__in=stale, status__in=[AIJob.Status.QUEUED, AIJob.Status.RUNNING]).update(

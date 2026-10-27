@@ -1,7 +1,9 @@
 """Shared fixtures: two teachers with one group each, an enrolled student per group, and short course notes."""
 import secrets
 import sys
-from contextlib import ExitStack
+import threading
+import time
+from contextlib import ExitStack, contextmanager
 from datetime import timedelta
 from types import ModuleType, SimpleNamespace
 from unittest.mock import patch
@@ -27,6 +29,21 @@ IN_SCOPE = 'Qu’est-ce que la norme d’un vecteur ?'
 OUT_OF_SCOPE = 'Quelle est la capitale de l’Australie ?'
 FIRST_SENTENCE = 'Un vecteur est défini par une direction, un sens et une norme.'
 DAY = 86400
+
+
+@contextmanager
+def recorded_sleeps():
+    """Records time.sleep calls made by the test's own thread without waiting.
+
+    time.sleep is patched process-wide, so the MongoDB driver's monitor threads, which sleep
+    in a loop, would otherwise be recorded too and spin without pause: they keep sleeping normally.
+    """
+    pauses, owner, real = [], threading.get_ident(), time.sleep
+    def sleep(seconds):
+        if threading.get_ident() == owner: pauses.append(seconds)
+        else: real(seconds)
+    with patch.object(time, 'sleep', sleep):
+        yield pauses
 
 
 @override_settings(PASSWORD_HASHERS=['django.contrib.auth.hashers.MD5PasswordHasher'], ASSISTANT_LLM_PROVIDER='fake', WHISPER_PROVIDER='fake',

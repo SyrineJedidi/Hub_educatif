@@ -1,0 +1,86 @@
+{
+  "branch": "Syrine",
+  "django_tests": {
+    "passed": 116,
+    "result": "OK"
+  },
+  "django_check": "passed",
+  "migration_consistency": "No changes detected",
+  "applied_migrations": [
+    "0005_quiz_opening_closing_dates",
+    "0006_student_quiz_feedback"
+  ],
+  "typescript": "passed",
+  "react_build": "passed",
+  "build_warning": "JavaScript chunk exceeds 500 kB",
+  "browser": [
+    {
+      "spec": "quiz-completion",
+      "startTime": "2026-10-26T17:08:15.322Z",
+      "duration": 19505.991,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "spec": "attempts",
+      "startTime": "2026-10-26T17:08:39.976Z",
+      "duration": 30130.476,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "spec": "quizzes",
+      "startTime": "2026-10-26T17:10:35.452Z",
+      "duration": 29444.192000000003,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "spec": "student-results",
+      "startTime": "2026-10-26T17:09:40.028Z",
+      "duration": 11734.563,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  ],
+  "pdf": [
+    {
+      "file": "grades-visual.pdf",
+      "pages": 5,
+      "first_and_last_pages_visually_inspected": true
+    },
+    {
+      "file": "grades-arabic-visual.pdf",
+      "pages": 5,
+      "first_and_last_pages_visually_inspected": true
+    }
+  ],
+  "runtime": [
+    {
+      "url": "http://127.0.0.1:8000/api/csrf/",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/api/student/quiz-progress/",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "http://127.0.0.1:5173/src/App.tsx",
+      "status": 200,
+      "expected": 200
+    }
+  ],
+  "browser_retry": "CRUD scenario rerun successfully after a Windows report-file write error.",
+  "real_ollama_call_for_this_task": false,
+  "commit_push_merge_performed": false
+}

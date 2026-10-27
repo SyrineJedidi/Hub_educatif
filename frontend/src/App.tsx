@@ -5,13 +5,14 @@ import {
 } from "./quizzes/QuizRoutes";
 import ManagementLayout from "./layouts/backoffice/ManagementLayout";
 import { SheetModuleEntry, SheetManagerRoute } from "./revisions/routes";
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, useLayoutEffect } from "react";
 import { Loading } from "./components/UI";
 import {
   AssistantManagerRoute,
   AssistantModuleEntry,
   AssistantUserRoute,
 } from "./assistant/AssistantRoutes";
+import { setQuizLanguageScope, useQuizLanguage } from "./quizzes/i18n";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/front/FrontOfficeLayout";
 import ProtectedLearningLayout from "./layouts/front/ProtectedLearningLayout";
@@ -24,6 +25,7 @@ const QuizList = lazy(() => import("./quizzes/QuizList"));
 const QuizDetail = lazy(() => import("./quizzes/QuizDetail"));
 const QuizEditor = lazy(() => import("./quizzes/QuizEditor"));
 const QuestionEditor = lazy(() => import("./quizzes/QuestionEditor"));
+const GenerateQuestions = lazy(() => import("./quizzes/GenerateQuestions"));
 const QuizPreview = lazy(() => import("./quizzes/QuizPreview"));
 const AttemptPage = lazy(() => import("./quizzes/AttemptPage"));
 const AttemptResult = lazy(() => import("./quizzes/AttemptResult"));
@@ -66,6 +68,16 @@ function WorkspaceIndex() {
 }
 export default function App() {
   const { pathname } = useLocation();
+  // The interface language chosen in the quiz module applies to its pages only.
+  const quizPage = /\/(quiz|resultats-quiz)(\/|$)/.test(pathname);
+  setQuizLanguageScope(quizPage);
+  const language = useQuizLanguage();
+  useLayoutEffect(() => {
+    document.documentElement.lang = language;
+    // The back-office template (Soft UI) has no right-to-left layout.
+    const backOffice = /^\/(administration|gestion)(\/|$)/.test(pathname);
+    document.documentElement.dir = language === "ar" && !backOffice ? "rtl" : "ltr";
+  }, [language, pathname]);
   const previousPath = useRef(pathname);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -110,6 +122,7 @@ export default function App() {
           </Route>
           <Route path="modules/quiz" element={<QuizModuleEntry />} />
           <Route element={<QuizManagerRoute />}>
+            <Route path="quiz/:id/generer" element={<GenerateQuestions />} />
             <Route path="quiz/:id/resultats" element={<StudentResults />} />
             <Route path="resultats-quiz" element={<StudentResults />} />
             <Route
@@ -192,6 +205,7 @@ export default function App() {
         <Route path="quiz/:id" element={<QuizDetail />} />
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
         <Route element={<QuizManagerRoute />}>
+          <Route path="quiz/:id/generer" element={<GenerateQuestions />} />
           <Route path="quiz/:id/resultats" element={<StudentResults />} />
           <Route path="resultats-quiz" element={<StudentResults />} />
           <Route

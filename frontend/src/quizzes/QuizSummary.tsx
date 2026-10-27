@@ -1,51 +1,79 @@
+import { t, n } from "./i18n";
 import { Badge } from "../components/UI";
 import type { Quiz } from "./types";
 import { levels, quizStatuses, quizVisibility } from "./types";
 import { useQuizContext } from "./useQuizContext";
+import { date } from "../api/client";
 export default function QuizSummary({ quiz }: { quiz: Quiz }) {
   const { student } = useQuizContext();
   return (
     <>
       <div className="quiz-badges">
-        <Badge>{quizStatuses[quiz.status]}</Badge>
-        <Badge>{levels[quiz.level]}</Badge>
+        <Badge>{t(quizStatuses[quiz.status])}</Badge>
+        <Badge>{t(levels[quiz.level])}</Badge>
+        {(quiz.opens_at || quiz.closes_at) && (
+          <Badge>
+            {quiz.availability?.state === "UPCOMING"
+              ? t("À venir")
+              : quiz.availability?.state === "CLOSED"
+                ? t("Fermé")
+                : t("Ouvert")}
+          </Badge>
+        )}
       </div>
       <dl className="quiz-facts">
         <div>
-          <dt>Groupe</dt>
+          <dt>{t("Groupe")}</dt>
           <dd>{quiz.learning_group_name}</dd>
         </div>
         <div>
-          <dt>Questions</dt>
-          <dd>{quiz.question_count}</dd>
+          <dt>{t("Questions")}</dt>
+          <dd>{n(quiz.question_count)}</dd>
         </div>
         <div>
-          <dt>Total des points</dt>
-          <dd>{quiz.total_points}</dd>
+          <dt>{t("Total des points")}</dt>
+          <dd>{n(quiz.total_points)}</dd>
         </div>
         <div>
-          <dt>Durée</dt>
+          <dt>{t("Durée")}</dt>
           <dd>
             {quiz.duration_minutes === null
-              ? "Illimitée"
-              : quiz.duration_minutes + " min"}
+              ? t("Illimitée")
+              : n(quiz.duration_minutes) + t(" min")}
           </dd>
         </div>
         <div>
-          <dt>Tentatives autorisées</dt>
-          <dd>{quiz.max_attempts}</dd>
+          <dt>{t("Tentatives autorisées")}</dt>
+          <dd>{n(quiz.max_attempts)}</dd>
         </div>
         {quiz.teacher_name && (
           <div>
-            <dt>Enseignant</dt>
+            <dt>{t("Enseignant")}</dt>
             <dd>{quiz.teacher_name}</dd>
           </div>
         )}
       </dl>
+      {(quiz.opens_at || quiz.closes_at) && (
+        <p className="field-help">
+          {quiz.opens_at && (
+            <>
+              {t("Ouverture : ")}
+              {date(quiz.opens_at)}.{" "}
+            </>
+          )}
+          {quiz.closes_at && (
+            <>
+              {t("Fermeture : ")}
+              {date(quiz.closes_at)}.{" "}
+            </>
+          )}
+          {t(" Fuseau : Africa/Tunis (UTC+01:00).")}
+        </p>
+      )}
       {!student && (
         <p className="field-help">
-          <strong>Visibilité : </strong>
-          {quizVisibility[quiz.status]}
+          <strong>{t("Visibilité : ")}</strong>
+          {t(quizVisibility[quiz.status])}
         </p>
       )}
     </>

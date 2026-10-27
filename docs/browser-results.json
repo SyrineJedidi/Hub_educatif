@@ -58,18 +58,18 @@
   },
   "suites": [
     {
-      "title": "student-results.spec.ts",
-      "file": "student-results.spec.ts",
+      "title": "quiz-validation.spec.ts",
+      "file": "quiz-validation.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "résultats en lecture seule, enseignant propriétaire, administrateur et refus étudiant",
+          "title": "contrôles de chaque champ Quiz et Question en création, modification et duplication",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 150000,
+              "timeout": 120000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "",
@@ -79,12 +79,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 10002,
+                  "duration": 15957,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-26T12:59:33.524Z",
+                  "startTime": "2026-10-26T18:39:58.571Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -92,9 +92,9 @@
               "status": "expected"
             }
           ],
-          "id": "b021d14753ed51d2e803-333cc99351f6a3ac9dee",
-          "file": "student-results.spec.ts",
-          "line": 6,
+          "id": "5af7d66664365548a53e-7f15564dc5283c3efbb6",
+          "file": "quiz-validation.spec.ts",
+          "line": 9,
           "column": 1
         }
       ]
@@ -102,8 +102,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-26T12:59:32.721Z",
-    "duration": 11461.706,
+    "startTime": "2026-10-26T18:39:56.697Z",
+    "duration": 18098.017,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

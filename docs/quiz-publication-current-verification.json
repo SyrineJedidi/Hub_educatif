@@ -1,0 +1,151 @@
+{
+  "verified_at": "2026-10-26T18:41:29.572044+00:00",
+  "branch": "Syrine",
+  "repository": "https://github.com/SyrineJedidi/Hub_educatif",
+  "base_commit": "e29cede310db89a5e0eaa6a281e40aaee1d9fc60",
+  "backup_created_and_archive_verified": true,
+  "backup_directory": "before-publish-Syrine-20261026-193232",
+  "django_check": "passed",
+  "migration_consistency": "No changes detected",
+  "backend_tests": {
+    "command": "python backend/manage.py test accounts classrooms attendance quizzes --noinput",
+    "passed": 155
+  },
+  "typescript": "passed",
+  "react_build": "passed",
+  "build_warning": "JavaScript bundle exceeds 500 kB",
+  "browser": [
+    {
+      "spec": "quizzes",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:35:04.558Z",
+        "duration": 37749.14,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "attempts",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:35:48.065Z",
+        "duration": 16702.238,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "student-results",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:36:10.431Z",
+        "duration": 12053.231,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "quiz-completion",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:36:28.129Z",
+        "duration": 17183.704,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "generation",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:36:50.959Z",
+        "duration": 11369.648000000001,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "quiz-visual",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:37:08.038Z",
+        "duration": 112906.906,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "ollama-live",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:39:06.675Z",
+        "duration": 34063.275,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "spec": "quiz-validation",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-26T18:39:56.697Z",
+        "duration": 18098.017,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ],
+  "visual": {
+    "combinations": 135,
+    "axe_analyses": 13,
+    "axe_violations": 0,
+    "zoom": "200% reflow emulation: 720 CSS px, DPR 2, 1440 px screen; FR and AR"
+  },
+  "ollama_live": {
+    "executed": true,
+    "model": "qwen3:8b",
+    "generation_seconds": 25.432,
+    "generated": 3,
+    "saved_after_confirmation": 2,
+    "saved_before_confirmation": 0,
+    "status": "DRAFT",
+    "direct_browser_calls_to_ollama": 0,
+    "javascript_errors": [],
+    "database_isolated": true
+  },
+  "file_review": {
+    "secret_findings": 0,
+    "deleted_files": 0,
+    "shared_migrations_modified": 0,
+    "new_migrations": [
+      "0004_question_notion_and_import_receipt",
+      "0005_quiz_opening_closing_dates",
+      "0006_student_quiz_feedback"
+    ]
+  },
+  "local_scripts": "Private diagnostics, backups and machine-specific orchestration remain ignored; reusable tests, fixtures and Django test settings are included.",
+  "remote_integration_required": false,
+  "main_merged": false,
+  "main_pushed": false,
+  "limits": [
+    "Chromium only; zoom reflow is emulated.",
+    "One live Ollama generation of three questions from a short course; no large-course load test."
+  ]
+}

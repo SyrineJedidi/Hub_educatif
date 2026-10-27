@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import { Alert, Loading, statuses } from "../../components/UI";
 import { useTemplate } from "../template";
+import { LanguageSelect, t } from "../../quizzes/i18n";
 import "../../styles/backoffice/backoffice.css";
 export interface BackOfficeLink {
   to: string;
@@ -99,7 +100,7 @@ export default function BackOfficeShell({
             {sections.map((section) => (
               <li className="nav-item bo-group" key={section.title}>
                 <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder bo-group-title" id={"bo-" + section.title}>
-                  {section.title}
+                  {t(section.title)}
                 </h6>
                 <ul className="navbar-nav" aria-labelledby={"bo-" + section.title}>
                   {section.links.map((link) => {
@@ -115,7 +116,7 @@ export default function BackOfficeShell({
                           <span className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center" aria-hidden="true">
                             <span className={link.icon} />
                           </span>
-                          <span className="nav-link-text ms-1">{link.label}</span>
+                          <span className="nav-link-text ms-1">{t(link.label)}</span>
                           {link.soon && <span className="badge badge-sm bg-gradient-secondary ms-auto">Bientôt</span>}
                         </NavLink>
                       </li>
@@ -152,12 +153,15 @@ export default function BackOfficeShell({
                   <span className="opacity-7 text-dark">Back-office {area}</span>
                 </li>
                 <li className="breadcrumb-item text-sm text-dark active" aria-current="page">
-                  {current?.section || area}
+                  {t(current?.section || area)}
                 </li>
               </ol>
-              <p className="font-weight-bolder mb-0 bo-page-name">{current?.label || area}</p>
+              <p className="font-weight-bolder mb-0 bo-page-name">{t(current?.label || area)}</p>
             </nav>
             <ul className="navbar-nav ms-auto flex-row align-items-center justify-content-end gap-3">
+              <li className="nav-item d-flex align-items-center">
+                <LanguageSelect />
+              </li>
               <li className="nav-item d-none d-md-flex align-items-center">
                 <Link className="btn btn-outline-primary btn-sm mb-0" to={siteLink}>
                   <span className="ti-new-window me-1" aria-hidden="true" /> Voir le site

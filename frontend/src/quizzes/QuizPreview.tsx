@@ -1,3 +1,4 @@
+import { t, n, publicationReason, LanguageNotice } from "./i18n";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/client";
@@ -21,17 +22,21 @@ export default function QuizPreview() {
   const { quiz, questions, publication_blockers: blockers } = data;
   return (
     <div className="quiz-module">
+      <LanguageNotice />
       <div className="page-heading">
         <div>
-          <p className="eyebrow">ESPACE DE CONCEPTION · CORRECTION VISIBLE</p>
-          <h1>Prévisualisation enseignant</h1>
+          <p className="eyebrow">
+            {t("ESPACE DE CONCEPTION · CORRECTION VISIBLE")}
+          </p>
+          <h1>{t("Prévisualisation enseignant")}</h1>
           <p>
-            Vérifiez les questions et leurs explications avant de partager le
-            quiz.
+            {t(
+              "Vérifiez les questions et leurs explications avant de partager le quiz. ",
+            )}
           </p>
         </div>
         <Link className="text-button" to={base + "/" + quiz.id}>
-          Revenir au quiz ↗
+          {t("Revenir au quiz ↗ ")}
         </Link>
       </div>
       <section className="panel quiz-introduction">
@@ -39,8 +44,9 @@ export default function QuizPreview() {
         <p className="quiz-description">{quiz.description}</p>
         <QuizSummary quiz={quiz} />
         <p className="field-help">
-          Ceci est une prévisualisation de gestion. Elle ne constitue pas un
-          passage de quiz et ne calcule aucun résultat étudiant.
+          {t(
+            "Ceci est une prévisualisation de gestion. Elle ne constitue pas un passage de quiz et ne calcule aucun résultat étudiant. ",
+          )}
         </p>
       </section>
       {quiz.status === "DRAFT" && (
@@ -51,29 +57,30 @@ export default function QuizPreview() {
         >
           <h2>
             {blockers.length
-              ? "À compléter avant publication"
-              : "Votre quiz est prêt à être publié"}
+              ? t("À compléter avant publication")
+              : t("Votre quiz est prêt à être publié")}
           </h2>
           {blockers.length ? (
             <>
-              <p>Les éléments suivants empêchent la publication :</p>
+              <p>{t("Les éléments suivants empêchent la publication :")}</p>
               <ul>
                 {blockers.map((reason, i) => (
-                  <li key={i}>{reason}</li>
+                  <li key={i}>{publicationReason(reason)}</li>
                 ))}
               </ul>
               <Link className="text-button" to={base + "/" + quiz.id}>
-                Revenir aux questions pour corriger ↗
+                {t("Revenir aux questions pour corriger ↗ ")}
               </Link>
             </>
           ) : (
             <>
               <p className="intro">
-                Toutes les questions possèdent quatre propositions distinctes,
-                une bonne réponse et une explication.
+                {t(
+                  "Toutes les questions possèdent quatre propositions distinctes, une bonne réponse et une explication. ",
+                )}
               </p>
               <button className="btn_one" onClick={() => setConfirm(true)}>
-                Publier le quiz
+                {t("Publier le quiz ")}
               </button>
             </>
           )}
@@ -87,19 +94,22 @@ export default function QuizPreview() {
         ))
       ) : (
         <section className="panel">
-          <Empty>Ce quiz ne contient pas encore de question.</Empty>
+          <Empty>{t("Ce quiz ne contient pas encore de question.")}</Empty>
         </section>
       )}
       {confirm && (
-        <Modal title="Publier ce quiz ?" onClose={() => setConfirm(false)}>
+        <Modal title={t("Publier ce quiz ?")} onClose={() => setConfirm(false)}>
           <p className="intro">
-            Les étudiants autorisés du groupe « {quiz.learning_group_name} »
-            verront sa présentation. Le quiz et ses {questions.length} questions
-            seront verrouillés. Pour les retravailler ensuite, il faudra
-            dupliquer le quiz.
+            {t("Les étudiants autorisés du groupe « ")}
+            {quiz.learning_group_name}
+            {t(" » verront sa présentation. Le quiz et ses ")}
+            {n(questions.length)}
+            {t(
+              " questions seront verrouillés. Pour les retravailler ensuite, il faudra dupliquer le quiz. ",
+            )}
           </p>
           <Form
-            label="Confirmer la publication"
+            label={t("Confirmer la publication")}
             onSubmit={() => api("quizzes/" + quiz.id + "/publish/", "POST", {})}
             onSuccess={() => {
               setConfirm(false);

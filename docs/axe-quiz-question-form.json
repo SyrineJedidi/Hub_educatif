@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-10-26T12:58:23.049Z",
-  "url": "http://127.0.0.1:5181/espace/quiz/6adf4e6c1b6ec3fc3e239357/questions/nouvelle",
+  "timestamp": "2026-10-26T18:35:22.594Z",
+  "url": "http://127.0.0.1:5181/espace/quiz/6adf9d6803a203b474cf1d94/questions/nouvelle",
   "toolOptions": {
     "reporter": "v1"
   },
@@ -668,26 +668,6 @@
       "nodes": []
     },
     {
-      "id": "select-name",
-      "impact": null,
-      "tags": [
-        "cat.forms",
-        "wcag2a",
-        "wcag412",
-        "section508",
-        "section508.22.n",
-        "TTv5",
-        "TT5.c",
-        "EN-301-549",
-        "EN-9.4.1.2",
-        "ACT"
-      ],
-      "description": "Ensure select element has an accessible name",
-      "help": "Select element must have an accessible name",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/select-name?application=playwright",
-      "nodes": []
-    },
-    {
       "id": "server-side-image-map",
       "impact": null,
       "tags": [
@@ -880,6 +860,32 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -932,7 +938,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -984,9 +990,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -1044,6 +1050,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1080,7 +1104,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1116,9 +1140,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -1574,6 +1598,24 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1610,7 +1652,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1646,9 +1688,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -1712,6 +1754,38 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1776,7 +1850,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1840,9 +1914,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -1906,6 +1980,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1942,7 +2034,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1978,9 +2070,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -2088,7 +2180,7 @@
                 {
                   "html": "<h2>L’énoncé</h2>",
                   "target": [
-                    "form > section:nth-child(2) > h2"
+                    "section:nth-child(2) > h2"
                   ]
                 },
                 {
@@ -2143,7 +2235,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -2187,9 +2279,59 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#4a5355",
+                "bgColor": "#ffffff",
+                "contrastRatio": 7.89,
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 7.89"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            ".quiz-language > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#000000",
+                "bgColor": "#ffffff",
+                "contrastRatio": 21,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 21"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
           ]
         },
         {
@@ -2262,7 +2404,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -2362,7 +2504,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -2387,7 +2529,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span>",
+          "html": "<span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span>",
           "target": [
             ".front-profile-name"
           ]
@@ -2422,16 +2564,41 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#566179",
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 5.85,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.85"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".quiz-language-notice"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
-                "fontSize": "7.5pt (10px)",
+                "contrastRatio": 7,
+                "fontSize": "8.3pt (11px)",
                 "fontWeight": "bold",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
@@ -2472,7 +2639,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "11.3pt (15px)",
@@ -2498,15 +2665,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#424ebd",
-                "bgColor": "#f9f9fe",
-                "contrastRatio": 6.54,
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 6.47,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "bold",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.54"
+              "message": "Element has sufficient color contrast of 6.47"
             }
           ],
           "all": [],
@@ -2523,15 +2690,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f9f9fe",
-                "contrastRatio": 16.85,
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 16.66,
                 "fontSize": "19.5pt (26px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.85"
+              "message": "Element has sufficient color contrast of 16.66"
             }
           ],
           "all": [],
@@ -2547,22 +2714,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
-                "bgColor": "#f9f9fe",
-                "contrastRatio": 7.52,
+                "fgColor": "#0b104a",
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 16.66,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.52"
+              "message": "Element has sufficient color contrast of 16.66"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Python · Atelier quiz 1793019489243 · 0 questions · 0 points</p>",
+          "html": "<p>Python · Atelier quiz 1793039707862 · 0 questions · 0 points </p>",
           "target": [
             ".quiz-context > p:nth-child(3)"
           ]
@@ -2572,22 +2739,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires, y compris l’explication dès l’enregistrement du brouillon. La position suivante est proposée automatiquement.</p>",
+          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires, y compris l’explication dès l’enregistrement du brouillon. La position suivante est proposée automatiquement. </p>",
           "target": [
             "form > .field-help"
           ]
@@ -2614,7 +2781,7 @@
           "impact": null,
           "html": "<h2>L’énoncé</h2>",
           "target": [
-            "form > section:nth-child(2) > h2"
+            "section:nth-child(2) > h2"
           ]
         },
         {
@@ -2637,9 +2804,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_d_\">Énoncé de la question</label>",
+          "html": "<label for=\"_r_f_\">Énoncé de la question</label>",
           "target": [
-            "label[for=\"_r_d_\"]"
+            "label[for=\"_r_f_\"]"
           ]
         },
         {
@@ -2650,9 +2817,9 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "19.5pt (26px)",
+                "fontSize": "16.5pt (22px)",
                 "fontWeight": "normal",
-                "expectedContrastRatio": "3:1"
+                "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
@@ -2672,22 +2839,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Chaque proposition doit être différente. Cochez exactement une bonne réponse.</p>",
+          "html": "<p class=\"field-help\">Chaque proposition doit être différente. Cochez exactement une bonne réponse. </p>",
           "target": [
             "fieldset > .field-help"
           ]
@@ -2697,16 +2864,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#303b9e",
-                "bgColor": "#ecedff",
-                "contrastRatio": 8.07,
-                "fontSize": "12.0pt (16px)",
+                "fgColor": "#3f4bc2",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 6.25,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 8.07"
+              "message": "Element has sufficient color contrast of 6.25"
             }
           ],
           "all": [],
@@ -2723,23 +2890,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f4f4fe",
-                "contrastRatio": 16.18,
+                "bgColor": "#f0f8f3",
+                "contrastRatio": 16.36,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.18"
+              "message": "Element has sufficient color contrast of 16.36"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_e_\">Proposition A</label>",
+          "html": "<label for=\"_r_g_\">Proposition A</label>",
           "target": [
-            "label[for=\"_r_e_\"]"
+            "label[for=\"_r_g_\"]"
           ]
         },
         {
@@ -2748,21 +2915,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f4f4fe",
-                "contrastRatio": 16.18,
+                "bgColor": "#f0f8f3",
+                "contrastRatio": 16.36,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.18"
+              "message": "Element has sufficient color contrast of 16.36"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse </label>",
           "target": [
             ".is-correct > .quiz-answer-radio"
           ]
@@ -2772,16 +2939,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#303b9e",
-                "bgColor": "#ecedff",
-                "contrastRatio": 8.07,
-                "fontSize": "12.0pt (16px)",
+                "fgColor": "#3f4bc2",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 6.25,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 8.07"
+              "message": "Element has sufficient color contrast of 6.25"
             }
           ],
           "all": [],
@@ -2798,23 +2965,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_f_\">Proposition B</label>",
+          "html": "<label for=\"_r_h_\">Proposition B</label>",
           "target": [
-            "label[for=\"_r_f_\"]"
+            "label[for=\"_r_h_\"]"
           ]
         },
         {
@@ -2823,21 +2990,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(2) > .quiz-answer-radio"
           ]
@@ -2847,16 +3014,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#303b9e",
-                "bgColor": "#ecedff",
-                "contrastRatio": 8.07,
-                "fontSize": "12.0pt (16px)",
+                "fgColor": "#3f4bc2",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 6.25,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 8.07"
+              "message": "Element has sufficient color contrast of 6.25"
             }
           ],
           "all": [],
@@ -2873,23 +3040,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_g_\">Proposition C</label>",
+          "html": "<label for=\"_r_i_\">Proposition C</label>",
           "target": [
-            "label[for=\"_r_g_\"]"
+            "label[for=\"_r_i_\"]"
           ]
         },
         {
@@ -2898,21 +3065,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(3) > .quiz-answer-radio"
           ]
@@ -2922,16 +3089,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#303b9e",
-                "bgColor": "#ecedff",
-                "contrastRatio": 8.07,
-                "fontSize": "12.0pt (16px)",
+                "fgColor": "#3f4bc2",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 6.25,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 8.07"
+              "message": "Element has sufficient color contrast of 6.25"
             }
           ],
           "all": [],
@@ -2948,23 +3115,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_h_\">Proposition D</label>",
+          "html": "<label for=\"_r_j_\">Proposition D</label>",
           "target": [
-            "label[for=\"_r_h_\"]"
+            "label[for=\"_r_j_\"]"
           ]
         },
         {
@@ -2973,21 +3140,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#fafafe",
-                "contrastRatio": 16.98,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.98"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(4) > .quiz-answer-radio"
           ]
@@ -3037,9 +3204,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_i_\">Explication de correction</label>",
+          "html": "<label for=\"_r_k_\">Explication de correction</label>",
           "target": [
-            "label[for=\"_r_i_\"]"
+            "label[for=\"_r_k_\"]"
           ]
         },
         {
@@ -3047,24 +3214,24 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#922d27",
-                "bgColor": "#fff0ef",
-                "contrastRatio": 7.21,
+                "fgColor": "#982f36",
+                "bgColor": "#fff4f3",
+                "contrastRatio": 6.97,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.21"
+              "message": "Element has sufficient color contrast of 6.97"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p id=\"_r_i_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
+          "html": "<p id=\"_r_k_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
           "target": [
-            "#_r_i_-error"
+            "#_r_k_-error"
           ]
         },
         {
@@ -3072,22 +3239,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Expliquez la correction dès l’enregistrement du brouillon. Les extraits de code, accents, apostrophes et symboles sont autorisés.</p>",
+          "html": "<p class=\"field-help\">Expliquez la correction dès l’enregistrement du brouillon. Les extraits de code, accents, apostrophes et symboles sont autorisés. </p>",
           "target": [
             "section:nth-child(4) > .field-help:nth-child(3)"
           ]
@@ -3112,9 +3279,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_j_\">Points de la question</label>",
+          "html": "<label for=\"_r_l_\">Points de la question</label>",
           "target": [
-            "label[for=\"_r_j_\"]"
+            "label[for=\"_r_l_\"]"
           ]
         },
         {
@@ -3123,23 +3290,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
           "target": [
-            "#_r_j_"
+            "#_r_l_"
           ]
         },
         {
@@ -3162,9 +3329,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_k_\">Position dans le quiz</label>",
+          "html": "<label for=\"_r_m_\">Position dans le quiz</label>",
           "target": [
-            "label[for=\"_r_k_\"]"
+            "label[for=\"_r_m_\"]"
           ]
         },
         {
@@ -3173,23 +3340,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0b104a",
-                "bgColor": "#f8f8fc",
-                "contrastRatio": 16.69,
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.68,
                 "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 16.69"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
           "target": [
-            "#_r_k_"
+            "#_r_m_"
           ]
         },
         {
@@ -3197,22 +3364,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#555d6e",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.6,
+                "contrastRatio": 6.2,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.6"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">La position suivante est proposée automatiquement. Vous pourrez déplacer les questions depuis la liste.</p>",
+          "html": "<p class=\"field-help\">La position suivante est proposée automatiquement. Vous pourrez déplacer les questions depuis la liste. </p>",
           "target": [
             ".field-help:nth-child(5)"
           ]
@@ -3222,22 +3389,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
+                "contrastRatio": 7,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/quiz/6adf4e6c1b6ec3fc3e239357\" data-discover=\"true\">Annuler</a>",
+          "html": "<a href=\"/espace/quiz/6adf9d6803a203b474cf1d94\" data-discover=\"true\">Annuler</a>",
           "target": [
             ".quiz-form-cancel > a[data-discover=\"true\"]"
           ]
@@ -3250,7 +3417,7 @@
                 "fgColor": "#ffffff",
                 "bgColor": "#525fe1",
                 "contrastRatio": 5.14,
-                "fontSize": "12.0pt (16px)",
+                "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -3337,7 +3504,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -3487,7 +3654,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -3512,7 +3679,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -3537,7 +3704,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -3687,7 +3854,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -3799,7 +3966,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -3842,42 +4009,6 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "_r_d_",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
-          "target": [
-            "#_r_d_"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "_r_e_",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
-          "target": [
-            "#_r_e_"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
               "data": "_r_f_",
               "relatedNodes": [],
               "impact": "critical",
@@ -3887,7 +4018,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
             "#_r_f_"
           ]
@@ -3905,7 +4036,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
           "target": [
             "#_r_g_"
           ]
@@ -3923,7 +4054,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
             "#_r_h_"
           ]
@@ -3941,27 +4072,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
             "#_r_i_"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "_r_i_-error",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<p id=\"_r_i_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
-          "target": [
-            "#_r_i_-error"
           ]
         },
         {
@@ -3977,7 +4090,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
           "target": [
             "#_r_j_"
           ]
@@ -3995,9 +4108,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
             "#_r_k_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "_r_k_-error",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p id=\"_r_k_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
+          "target": [
+            "#_r_k_-error"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "_r_l_",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "target": [
+            "#_r_l_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "_r_m_",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "target": [
+            "#_r_m_"
           ]
         }
       ]
@@ -4064,7 +4231,7 @@
           "impact": null,
           "html": "<h2>L’énoncé</h2>",
           "target": [
-            "form > section:nth-child(2) > h2"
+            "section:nth-child(2) > h2"
           ]
         },
         {
@@ -4184,9 +4351,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_d_\">Énoncé de la question</label>",
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
                   "target": [
-                    "label[for=\"_r_d_\"]"
+                    ".quiz-language"
                   ]
                 }
               ],
@@ -4195,9 +4362,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
           "target": [
-            "#_r_d_"
+            "select"
           ]
         },
         {
@@ -4209,9 +4376,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_e_\">Proposition A</label>",
+                  "html": "<label for=\"_r_f_\">Énoncé de la question</label>",
                   "target": [
-                    "label[for=\"_r_e_\"]"
+                    "label[for=\"_r_f_\"]"
                   ]
                 }
               ],
@@ -4220,9 +4387,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
-            "#_r_e_"
+            "#_r_f_"
           ]
         },
         {
@@ -4234,7 +4401,32 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse</label>",
+                  "html": "<label for=\"_r_g_\">Proposition A</label>",
+                  "target": [
+                    "label[for=\"_r_g_\"]"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "target": [
+            "#_r_g_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse </label>",
                   "target": [
                     ".is-correct > .quiz-answer-radio"
                   ]
@@ -4259,9 +4451,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_f_\">Proposition B</label>",
+                  "html": "<label for=\"_r_h_\">Proposition B</label>",
                   "target": [
-                    "label[for=\"_r_f_\"]"
+                    "label[for=\"_r_h_\"]"
                   ]
                 }
               ],
@@ -4270,9 +4462,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
-            "#_r_f_"
+            "#_r_h_"
           ]
         },
         {
@@ -4284,7 +4476,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(2) > .quiz-answer-radio"
                   ]
@@ -4309,9 +4501,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_g_\">Proposition C</label>",
+                  "html": "<label for=\"_r_i_\">Proposition C</label>",
                   "target": [
-                    "label[for=\"_r_g_\"]"
+                    "label[for=\"_r_i_\"]"
                   ]
                 }
               ],
@@ -4320,9 +4512,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
-            "#_r_g_"
+            "#_r_i_"
           ]
         },
         {
@@ -4334,7 +4526,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(3) > .quiz-answer-radio"
                   ]
@@ -4359,9 +4551,9 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_h_\">Proposition D</label>",
+                  "html": "<label for=\"_r_j_\">Proposition D</label>",
                   "target": [
-                    "label[for=\"_r_h_\"]"
+                    "label[for=\"_r_j_\"]"
                   ]
                 }
               ],
@@ -4370,9 +4562,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
           "target": [
-            "#_r_h_"
+            "#_r_j_"
           ]
         },
         {
@@ -4384,7 +4576,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(4) > .quiz-answer-radio"
                   ]
@@ -4409,57 +4601,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_i_\">Explication de correction</label>",
-                  "target": [
-                    "label[for=\"_r_i_\"]"
-                  ]
-                }
-              ],
-              "impact": "moderate",
-              "message": "Form field does not have multiple label elements"
-            }
-          ],
-          "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
-          "target": [
-            "#_r_i_"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "multiple-label",
-              "data": null,
-              "relatedNodes": [
-                {
-                  "html": "<label for=\"_r_j_\">Points de la question</label>",
-                  "target": [
-                    "label[for=\"_r_j_\"]"
-                  ]
-                }
-              ],
-              "impact": "moderate",
-              "message": "Form field does not have multiple label elements"
-            }
-          ],
-          "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
-          "target": [
-            "#_r_j_"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "multiple-label",
-              "data": null,
-              "relatedNodes": [
-                {
-                  "html": "<label for=\"_r_k_\">Position dans le quiz</label>",
+                  "html": "<label for=\"_r_k_\">Explication de correction</label>",
                   "target": [
                     "label[for=\"_r_k_\"]"
                   ]
@@ -4470,9 +4612,59 @@
             }
           ],
           "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
             "#_r_k_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_l_\">Points de la question</label>",
+                  "target": [
+                    "label[for=\"_r_l_\"]"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "target": [
+            "#_r_l_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_m_\">Position dans le quiz</label>",
+                  "target": [
+                    "label[for=\"_r_m_\"]"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "target": [
+            "#_r_m_"
           ]
         }
       ]
@@ -4496,25 +4688,25 @@
                 "headingOrder": [
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(1) > div > h1:nth-child(2)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > div > h1:nth-child(2)"
                     ],
                     "level": 1
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > section:nth-child(2) > h2:nth-child(2)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > section:nth-child(3) > h2:nth-child(2)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > form:nth-child(3) > section:nth-child(2) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > form:nth-child(4) > section:nth-child(2) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > form:nth-child(3) > section:nth-child(4) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > form:nth-child(4) > section:nth-child(4) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
@@ -4590,7 +4782,7 @@
           "impact": null,
           "html": "<h2>L’énoncé</h2>",
           "target": [
-            "form > section:nth-child(2) > h2"
+            "section:nth-child(2) > h2"
           ]
         },
         {
@@ -4715,7 +4907,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -4752,7 +4944,7 @@
             }
           ],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -4783,9 +4975,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
           "target": [
-            "#_r_d_"
+            "select"
           ]
         },
         {
@@ -4801,9 +4993,27 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
-            "#_r_e_"
+            "#_r_f_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "target": [
+            "#_r_g_"
           ]
         },
         {
@@ -4837,9 +5047,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
-            "#_r_f_"
+            "#_r_h_"
           ]
         },
         {
@@ -4873,9 +5083,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
-            "#_r_g_"
+            "#_r_i_"
           ]
         },
         {
@@ -4909,9 +5119,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
           "target": [
-            "#_r_h_"
+            "#_r_j_"
           ]
         },
         {
@@ -4945,45 +5155,45 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
-          "target": [
-            "#_r_i_"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "title-only",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Form element does not solely use title attribute for its label"
-            }
-          ],
-          "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
-          "target": [
-            "#_r_j_"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "title-only",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Form element does not solely use title attribute for its label"
-            }
-          ],
-          "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
             "#_r_k_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "target": [
+            "#_r_l_"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "target": [
+            "#_r_m_"
           ]
         }
       ]
@@ -5016,9 +5226,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_d_\">Énoncé de la question</label>",
+                  "html": "<label for=\"_r_f_\">Énoncé de la question</label>",
                   "target": [
-                    "label[for=\"_r_d_\"]"
+                    "label[for=\"_r_f_\"]"
                   ]
                 }
               ],
@@ -5037,9 +5247,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
-            "#_r_d_"
+            "#_r_f_"
           ]
         },
         {
@@ -5051,9 +5261,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_e_\">Proposition A</label>",
+                  "html": "<label for=\"_r_g_\">Proposition A</label>",
                   "target": [
-                    "label[for=\"_r_e_\"]"
+                    "label[for=\"_r_g_\"]"
                   ]
                 }
               ],
@@ -5072,9 +5282,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
           "target": [
-            "#_r_e_"
+            "#_r_g_"
           ]
         },
         {
@@ -5086,7 +5296,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse </label>",
                   "target": [
                     ".is-correct > .quiz-answer-radio"
                   ]
@@ -5121,9 +5331,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_f_\">Proposition B</label>",
+                  "html": "<label for=\"_r_h_\">Proposition B</label>",
                   "target": [
-                    "label[for=\"_r_f_\"]"
+                    "label[for=\"_r_h_\"]"
                   ]
                 }
               ],
@@ -5142,9 +5352,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
-            "#_r_f_"
+            "#_r_h_"
           ]
         },
         {
@@ -5156,7 +5366,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(2) > .quiz-answer-radio"
                   ]
@@ -5191,9 +5401,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_g_\">Proposition C</label>",
+                  "html": "<label for=\"_r_i_\">Proposition C</label>",
                   "target": [
-                    "label[for=\"_r_g_\"]"
+                    "label[for=\"_r_i_\"]"
                   ]
                 }
               ],
@@ -5212,9 +5422,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
-            "#_r_g_"
+            "#_r_i_"
           ]
         },
         {
@@ -5226,7 +5436,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(3) > .quiz-answer-radio"
                   ]
@@ -5261,9 +5471,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_h_\">Proposition D</label>",
+                  "html": "<label for=\"_r_j_\">Proposition D</label>",
                   "target": [
-                    "label[for=\"_r_h_\"]"
+                    "label[for=\"_r_j_\"]"
                   ]
                 }
               ],
@@ -5282,9 +5492,9 @@
             }
           ],
           "impact": null,
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
           "target": [
-            "#_r_h_"
+            "#_r_j_"
           ]
         },
         {
@@ -5296,7 +5506,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse</label>",
+                  "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse </label>",
                   "target": [
                     ".quiz-answer:nth-child(4) > .quiz-answer-radio"
                   ]
@@ -5331,77 +5541,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label for=\"_r_i_\">Explication de correction</label>",
-                  "target": [
-                    "label[for=\"_r_i_\"]"
-                  ]
-                }
-              ],
-              "impact": "critical",
-              "message": "Element has an explicit <label>"
-            }
-          ],
-          "all": [],
-          "none": [
-            {
-              "id": "hidden-explicit-label",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Form element has a visible explicit <label>"
-            }
-          ],
-          "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
-          "target": [
-            "#_r_i_"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "explicit-label",
-              "data": {
-                "explicitLabel": "Points de la question"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<label for=\"_r_j_\">Points de la question</label>",
-                  "target": [
-                    "label[for=\"_r_j_\"]"
-                  ]
-                }
-              ],
-              "impact": "critical",
-              "message": "Element has an explicit <label>"
-            }
-          ],
-          "all": [],
-          "none": [
-            {
-              "id": "hidden-explicit-label",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Form element has a visible explicit <label>"
-            }
-          ],
-          "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
-          "target": [
-            "#_r_j_"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "explicit-label",
-              "data": {
-                "explicitLabel": "Position dans le quiz"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<label for=\"_r_k_\">Position dans le quiz</label>",
+                  "html": "<label for=\"_r_k_\">Explication de correction</label>",
                   "target": [
                     "label[for=\"_r_k_\"]"
                   ]
@@ -5422,9 +5562,79 @@
             }
           ],
           "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
             "#_r_k_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "explicit-label",
+              "data": {
+                "explicitLabel": "Points de la question"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_l_\">Points de la question</label>",
+                  "target": [
+                    "label[for=\"_r_l_\"]"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an explicit <label>"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "target": [
+            "#_r_l_"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "explicit-label",
+              "data": {
+                "explicitLabel": "Position dans le quiz"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label for=\"_r_m_\">Position dans le quiz</label>",
+                  "target": [
+                    "label[for=\"_r_m_\"]"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an explicit <label>"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "target": [
+            "#_r_m_"
           ]
         }
       ]
@@ -5652,7 +5862,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -5912,7 +6122,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -5971,7 +6181,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -6075,7 +6285,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/quiz/6adf4e6c1b6ec3fc3e239357\" data-discover=\"true\">Annuler</a>",
+          "html": "<a href=\"/espace/quiz/6adf9d6803a203b474cf1d94\" data-discover=\"true\">Annuler</a>",
           "target": [
             ".quiz-form-cancel > a[data-discover=\"true\"]"
           ]
@@ -6212,7 +6422,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -6238,7 +6448,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -6264,7 +6474,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -6446,7 +6656,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -6552,7 +6762,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -6570,7 +6780,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -6588,7 +6798,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -6744,6 +6954,60 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<summary>Mes activités <span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".front-dropdown:nth-child(3) > summary"
@@ -6780,7 +7044,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -6908,7 +7172,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -6981,7 +7245,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -7024,6 +7288,126 @@
           "html": "<div class=\"container-fluid hub-header\">",
           "target": [
             ".container-fluid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+          "target": [
+            ".quiz-language"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            ".quiz-language > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
           ]
         },
         {
@@ -7121,7 +7505,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil</a>",
+          "html": "<a class=\"\" href=\"/\" data-discover=\"true\">Accueil </a>",
           "target": [
             "#public-nav > a[href=\"/\"][data-discover=\"true\"]"
           ]
@@ -7261,7 +7645,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -7281,7 +7665,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -7301,7 +7685,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span>",
+          "html": "<span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span>",
           "target": [
             ".front-profile-name"
           ]
@@ -7541,6 +7925,26 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".quiz-language-notice"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<div class=\"page-heading\"><div><p class=\"eyebrow\">QCM À RÉPONSE UNIQUE</p><h1>Ajouter une question</h1><p>Quatre propositions distinctes, une seule bonne réponse.</p></div></div>",
           "target": [
             ".page-heading"
@@ -7641,7 +8045,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<section class=\"panel quiz-context\"><p class=\"eyebrow\">VOTRE BROUILLON</p><h2>Les bases de Python</h2><p>Python · Atelier quiz 1793019489243 · 0 questions · 0 points</p></section>",
+          "html": "<section class=\"panel quiz-context\"><p class=\"eyebrow\">VOTRE BROUILLON</p><h2>Les bases de Python</h2><p>Python · Atelier quiz 1793039707862 · 0 questions · 0 points </p></section>",
           "target": [
             ".quiz-context"
           ]
@@ -7701,7 +8105,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Python · Atelier quiz 1793019489243 · 0 questions · 0 points</p>",
+          "html": "<p>Python · Atelier quiz 1793039707862 · 0 questions · 0 points </p>",
           "target": [
             ".quiz-context > p:nth-child(3)"
           ]
@@ -7741,7 +8145,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires, y compris l’explication dès l’enregistrement du brouillon. La position suivante est proposée automatiquement.</p>",
+          "html": "<p class=\"field-help\">Tous les champs affichés sont obligatoires, y compris l’explication dès l’enregistrement du brouillon. La position suivante est proposée automatiquement. </p>",
           "target": [
             "form > .field-help"
           ]
@@ -7761,9 +8165,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<section class=\"panel\"><h2>L’énoncé</h2><div class=\"field\"><label for=\"_r_d_\">Énoncé de la question</label><textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea></div></section>",
+          "html": "<section class=\"panel\"><h2>L’énoncé</h2><div class=\"field\"><label for=\"_r_f_\">Énoncé de la question</label><textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea></div></section>",
           "target": [
-            "form > section:nth-child(2)"
+            "section:nth-child(2)"
           ]
         },
         {
@@ -7783,7 +8187,7 @@
           "impact": null,
           "html": "<h2>L’énoncé</h2>",
           "target": [
-            "form > section:nth-child(2) > h2"
+            "section:nth-child(2) > h2"
           ]
         },
         {
@@ -7801,7 +8205,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_d_\">Énoncé de la question</label><textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea></div>",
+          "html": "<div class=\"field\"><label for=\"_r_f_\">Énoncé de la question</label><textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea></div>",
           "target": [
             "section:nth-child(2) > .field"
           ]
@@ -7821,9 +8225,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_d_\">Énoncé de la question</label>",
+          "html": "<label for=\"_r_f_\">Énoncé de la question</label>",
           "target": [
-            "label[for=\"_r_d_\"]"
+            "label[for=\"_r_f_\"]"
           ]
         },
         {
@@ -7841,9 +8245,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
-            "#_r_d_"
+            "#_r_f_"
           ]
         },
         {
@@ -7863,7 +8267,7 @@
           "impact": null,
           "html": "<section class=\"panel\">",
           "target": [
-            "section:nth-child(3)"
+            "form > section:nth-child(3)"
           ]
         },
         {
@@ -7921,7 +8325,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Chaque proposition doit être différente. Cochez exactement une bonne réponse.</p>",
+          "html": "<p class=\"field-help\">Chaque proposition doit être différente. Cochez exactement une bonne réponse. </p>",
           "target": [
             "fieldset > .field-help"
           ]
@@ -7981,7 +8385,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_e_\">Proposition A</label><textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea></div>",
+          "html": "<div class=\"field\"><label for=\"_r_g_\">Proposition A</label><textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea></div>",
           "target": [
             ".is-correct > .field"
           ]
@@ -8001,9 +8405,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_e_\">Proposition A</label>",
+          "html": "<label for=\"_r_g_\">Proposition A</label>",
           "target": [
-            "label[for=\"_r_e_\"]"
+            "label[for=\"_r_g_\"]"
           ]
         },
         {
@@ -8021,9 +8425,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
           "target": [
-            "#_r_e_"
+            "#_r_g_"
           ]
         },
         {
@@ -8041,7 +8445,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"A\" name=\"correct_answer\"> A est la bonne réponse </label>",
           "target": [
             ".is-correct > .quiz-answer-radio"
           ]
@@ -8101,7 +8505,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_f_\">Proposition B</label><textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea></div>",
+          "html": "<div class=\"field\"><label for=\"_r_h_\">Proposition B</label><textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea></div>",
           "target": [
             ".quiz-answer:nth-child(2) > .field"
           ]
@@ -8121,9 +8525,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_f_\">Proposition B</label>",
+          "html": "<label for=\"_r_h_\">Proposition B</label>",
           "target": [
-            "label[for=\"_r_f_\"]"
+            "label[for=\"_r_h_\"]"
           ]
         },
         {
@@ -8141,9 +8545,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
-            "#_r_f_"
+            "#_r_h_"
           ]
         },
         {
@@ -8161,7 +8565,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"B\" name=\"correct_answer\"> B est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(2) > .quiz-answer-radio"
           ]
@@ -8221,7 +8625,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_g_\">Proposition C</label><textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea></div>",
+          "html": "<div class=\"field\"><label for=\"_r_i_\">Proposition C</label><textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea></div>",
           "target": [
             ".quiz-answer:nth-child(3) > .field"
           ]
@@ -8241,9 +8645,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_g_\">Proposition C</label>",
+          "html": "<label for=\"_r_i_\">Proposition C</label>",
           "target": [
-            "label[for=\"_r_g_\"]"
+            "label[for=\"_r_i_\"]"
           ]
         },
         {
@@ -8261,9 +8665,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
-            "#_r_g_"
+            "#_r_i_"
           ]
         },
         {
@@ -8281,7 +8685,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"C\" name=\"correct_answer\"> C est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(3) > .quiz-answer-radio"
           ]
@@ -8341,7 +8745,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_h_\">Proposition D</label><textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea></div>",
+          "html": "<div class=\"field\"><label for=\"_r_j_\">Proposition D</label><textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea></div>",
           "target": [
             ".quiz-answer:nth-child(4) > .field"
           ]
@@ -8361,9 +8765,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_h_\">Proposition D</label>",
+          "html": "<label for=\"_r_j_\">Proposition D</label>",
           "target": [
-            "label[for=\"_r_h_\"]"
+            "label[for=\"_r_j_\"]"
           ]
         },
         {
@@ -8381,9 +8785,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
           "target": [
-            "#_r_h_"
+            "#_r_j_"
           ]
         },
         {
@@ -8401,7 +8805,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse</label>",
+          "html": "<label class=\"quiz-answer-radio\"><input required=\"\" type=\"radio\" value=\"D\" name=\"correct_answer\"> D est la bonne réponse </label>",
           "target": [
             ".quiz-answer:nth-child(4) > .quiz-answer-radio"
           ]
@@ -8501,9 +8905,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_i_\">Explication de correction</label>",
+          "html": "<label for=\"_r_k_\">Explication de correction</label>",
           "target": [
-            "label[for=\"_r_i_\"]"
+            "label[for=\"_r_k_\"]"
           ]
         },
         {
@@ -8521,9 +8925,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
           "target": [
-            "#_r_i_"
+            "#_r_k_"
           ]
         },
         {
@@ -8541,9 +8945,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p id=\"_r_i_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
+          "html": "<p id=\"_r_k_-error\" class=\"field-help notice-error\">L’explication de correction est obligatoire.</p>",
           "target": [
-            "#_r_i_-error"
+            "#_r_k_-error"
           ]
         },
         {
@@ -8561,7 +8965,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">Expliquez la correction dès l’enregistrement du brouillon. Les extraits de code, accents, apostrophes et symboles sont autorisés.</p>",
+          "html": "<p class=\"field-help\">Expliquez la correction dès l’enregistrement du brouillon. Les extraits de code, accents, apostrophes et symboles sont autorisés. </p>",
           "target": [
             "section:nth-child(4) > .field-help:nth-child(3)"
           ]
@@ -8601,7 +9005,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_j_\">Points de la question</label><input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\"></div>",
+          "html": "<div class=\"field\"><label for=\"_r_l_\">Points de la question</label><input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\"></div>",
           "target": [
             ".field:nth-child(1)"
           ]
@@ -8621,9 +9025,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_j_\">Points de la question</label>",
+          "html": "<label for=\"_r_l_\">Points de la question</label>",
           "target": [
-            "label[for=\"_r_j_\"]"
+            "label[for=\"_r_l_\"]"
           ]
         },
         {
@@ -8641,9 +9045,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_j_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
+          "html": "<input id=\"_r_l_\" class=\"form-control\" min=\"1\" max=\"10\" step=\"1\" required=\"\" type=\"number\" value=\"2\" name=\"points\">",
           "target": [
-            "#_r_j_"
+            "#_r_l_"
           ]
         },
         {
@@ -8661,7 +9065,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"field\"><label for=\"_r_k_\">Position dans le quiz</label><input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\"></div>",
+          "html": "<div class=\"field\"><label for=\"_r_m_\">Position dans le quiz</label><input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\"></div>",
           "target": [
             ".form-grid > .field:nth-child(2)"
           ]
@@ -8681,9 +9085,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label for=\"_r_k_\">Position dans le quiz</label>",
+          "html": "<label for=\"_r_m_\">Position dans le quiz</label>",
           "target": [
-            "label[for=\"_r_k_\"]"
+            "label[for=\"_r_m_\"]"
           ]
         },
         {
@@ -8701,9 +9105,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input id=\"_r_k_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
+          "html": "<input id=\"_r_m_\" class=\"form-control\" min=\"1\" max=\"2147483647\" step=\"1\" required=\"\" type=\"number\" value=\"1\" name=\"position\">",
           "target": [
-            "#_r_k_"
+            "#_r_m_"
           ]
         },
         {
@@ -8721,7 +9125,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"field-help\">La position suivante est proposée automatiquement. Vous pourrez déplacer les questions depuis la liste.</p>",
+          "html": "<p class=\"field-help\">La position suivante est proposée automatiquement. Vous pourrez déplacer les questions depuis la liste. </p>",
           "target": [
             ".field-help:nth-child(5)"
           ]
@@ -8741,7 +9145,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"quiz-form-cancel\"><a href=\"/espace/quiz/6adf4e6c1b6ec3fc3e239357\" data-discover=\"true\">Annuler</a></div>",
+          "html": "<div class=\"quiz-form-cancel\"><a href=\"/espace/quiz/6adf9d6803a203b474cf1d94\" data-discover=\"true\">Annuler</a></div>",
           "target": [
             ".quiz-form-cancel"
           ]
@@ -8761,7 +9165,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/quiz/6adf4e6c1b6ec3fc3e239357\" data-discover=\"true\">Annuler</a>",
+          "html": "<a href=\"/espace/quiz/6adf9d6803a203b474cf1d94\" data-discover=\"true\">Annuler</a>",
           "target": [
             ".quiz-form-cancel > a[data-discover=\"true\"]"
           ]
@@ -8981,7 +9385,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -9221,7 +9625,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul></div>",
+          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer"
           ]
@@ -9261,7 +9665,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -9281,7 +9685,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -9301,7 +9705,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -9321,7 +9725,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -9341,7 +9745,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -9361,7 +9765,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -9381,7 +9785,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -9601,7 +10005,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div></div>",
+          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5)"
           ]
@@ -9621,7 +10025,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div>",
+          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer"
           ]
@@ -9661,7 +10065,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -9789,6 +10193,69 @@
       ]
     },
     {
+      "id": "select-name",
+      "impact": null,
+      "tags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.n",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT"
+      ],
+      "description": "Ensure select element has an accessible name",
+      "help": "Select element must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/select-name?application=playwright",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "implicit-label",
+              "data": {
+                "implicitLabel": "Langue de l’interfaceLangue de l’interface"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+                  "target": [
+                    ".quiz-language"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an implicit (wrapped) <label>"
+            },
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        }
+      ]
+    },
+    {
       "id": "summary-name",
       "impact": null,
       "tags": [
@@ -9862,7 +10329,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Outsider b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Outsider b2815e8214f4<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Outsider 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Outsider 22315872b8db<small>Enseignant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -10091,71 +10558,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
-                  "target": [
-                    "#_r_d_"
-                  ]
-                }
-              ],
-              "impact": "serious",
-              "message": "Element's background color could not be determined because it's partially obscured by another element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<textarea id=\"_r_d_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
-          "target": [
-            "#_r_d_"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "contrastRatio": 0,
-                "fontSize": "11.3pt (15px)",
-                "fontWeight": "normal",
-                "messageKey": "elmPartiallyObscured",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
-                  "target": [
-                    "#_r_e_"
-                  ]
-                }
-              ],
-              "impact": "serious",
-              "message": "Element's background color could not be determined because it's partially obscured by another element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<textarea id=\"_r_e_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
-          "target": [
-            "#_r_e_"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "contrastRatio": 0,
-                "fontSize": "11.3pt (15px)",
-                "fontWeight": "normal",
-                "messageKey": "elmPartiallyObscured",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+                  "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
                   "target": [
                     "#_r_f_"
                   ]
@@ -10168,7 +10571,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
+          "html": "<textarea id=\"_r_f_\" class=\"form-control\" name=\"statement\" rows=\"4\" required=\"\" maxlength=\"2000\">Quel mot-clé définit une fonction en Python ?</textarea>",
           "target": [
             "#_r_f_"
           ],
@@ -10187,7 +10590,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+                  "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
                   "target": [
                     "#_r_g_"
                   ]
@@ -10200,7 +10603,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
+          "html": "<textarea id=\"_r_g_\" class=\"form-control\" name=\"choice_a\" required=\"\" maxlength=\"500\" rows=\"3\">def</textarea>",
           "target": [
             "#_r_g_"
           ],
@@ -10219,7 +10622,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+                  "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
                   "target": [
                     "#_r_h_"
                   ]
@@ -10232,7 +10635,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "html": "<textarea id=\"_r_h_\" class=\"form-control\" name=\"choice_b\" required=\"\" maxlength=\"500\" rows=\"3\">class</textarea>",
           "target": [
             "#_r_h_"
           ],
@@ -10251,7 +10654,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+                  "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
                   "target": [
                     "#_r_i_"
                   ]
@@ -10264,9 +10667,73 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_i_-error\"></textarea>",
+          "html": "<textarea id=\"_r_i_\" class=\"form-control\" name=\"choice_c\" required=\"\" maxlength=\"500\" rows=\"3\">return</textarea>",
           "target": [
             "#_r_i_"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "11.3pt (15px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+                  "target": [
+                    "#_r_j_"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<textarea id=\"_r_j_\" class=\"form-control\" name=\"choice_d\" required=\"\" maxlength=\"500\" rows=\"3\">import</textarea>",
+          "target": [
+            "#_r_j_"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "11.3pt (15px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
+                  "target": [
+                    "#_r_k_"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<textarea id=\"_r_k_\" class=\"form-control\" name=\"explanation\" required=\"\" rows=\"4\" aria-invalid=\"true\" aria-describedby=\"_r_k_-error\"></textarea>",
+          "target": [
+            "#_r_k_"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
         }

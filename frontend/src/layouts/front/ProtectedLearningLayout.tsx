@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Navigate, Outlet, useLocation, Link } from "react-router-dom";
 import { useAuth, destination } from "../../auth/AuthContext";
 import { Alert, Loading } from "../../components/UI";
+import { t } from "../../quizzes/i18n";
 const sections: Record<string, string> = {
   fiches: "Fiches de révision",
   quiz: "Quiz",
@@ -25,7 +26,7 @@ export default function ProtectedLearningLayout() {
       <div className="container section-padding">
         <Alert error={error} />
         <button className="btn_one" onClick={() => void refresh()}>
-          Réessayer
+          {t("Réessayer")}
         </button>
       </div>
     );
@@ -43,20 +44,20 @@ export default function ProtectedLearningLayout() {
     <>
       <div className="learning-trail">
         <div className="container">
-          <nav aria-label="Fil d’Ariane">
-            <Link to="/">Accueil</Link>
+          <nav aria-label={t("Fil d’Ariane")}>
+            <Link to="/">{t("Accueil")}</Link>
             <span aria-hidden="true"> / </span>
             <Link to={destination(user)}>
-              {user.role === "TEACHER" ? "Espace enseignant" : "Mon espace"}
+              {user.role === "TEACHER" ? t("Espace enseignant") : t("Mon espace")}
             </Link>
             {section && (
               <>
                 <span aria-hidden="true"> / </span>
-                <span aria-current="page">{section}</span>
+                <span aria-current="page">{t(section)}</span>
               </>
             )}
           </nav>
-          <span>Vos cours prennent vie. Votre potentiel aussi.</span>
+          <span>{t("Vos cours prennent vie. Votre potentiel aussi.")}</span>
         </div>
       </div>
       <div className="front-study">

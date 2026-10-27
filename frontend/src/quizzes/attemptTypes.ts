@@ -42,6 +42,7 @@ export interface AttemptResult extends AttemptSummary {
   })[];
 }
 export interface QuizAttempts {
+  availability: import("./types").Availability;
   quiz_status: string;
   attempts_used: number;
   max_attempts: number;

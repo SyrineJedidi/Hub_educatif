@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-10-26T12:58:33.621Z",
-  "url": "http://127.0.0.1:5181/espace/quiz/6adf4e6c1b6ec3fc3e239357",
+  "timestamp": "2026-10-26T18:35:32.421Z",
+  "url": "http://127.0.0.1:5181/espace/quiz/6adf9d6803a203b474cf1d94",
   "toolOptions": {
     "reporter": "v1"
   },
@@ -354,23 +354,6 @@
       "nodes": []
     },
     {
-      "id": "form-field-multiple-labels",
-      "impact": null,
-      "tags": [
-        "cat.forms",
-        "wcag2a",
-        "wcag332",
-        "TTv5",
-        "TT5.c",
-        "EN-301-549",
-        "EN-9.3.3.2"
-      ],
-      "description": "Ensure form field does not have multiple label elements",
-      "help": "Form field must not have multiple label elements",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/form-field-multiple-labels?application=playwright",
-      "nodes": []
-    },
-    {
       "id": "frame-focusable-content",
       "impact": null,
       "tags": [
@@ -528,18 +511,6 @@
       "nodes": []
     },
     {
-      "id": "label-title-only",
-      "impact": null,
-      "tags": [
-        "cat.forms",
-        "best-practice"
-      ],
-      "description": "Ensure that every form element has a visible label and is not solely labeled using hidden labels, or the title or aria-describedby attributes",
-      "help": "Form elements should have a visible label",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/label-title-only?application=playwright",
-      "nodes": []
-    },
-    {
       "id": "label",
       "impact": null,
       "tags": [
@@ -684,26 +655,6 @@
       "description": "Ensure elements that have scrollable content are accessible by keyboard",
       "help": "Scrollable region must have keyboard access",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/scrollable-region-focusable?application=playwright",
-      "nodes": []
-    },
-    {
-      "id": "select-name",
-      "impact": null,
-      "tags": [
-        "cat.forms",
-        "wcag2a",
-        "wcag412",
-        "section508",
-        "section508.22.n",
-        "TTv5",
-        "TT5.c",
-        "EN-301-549",
-        "EN-9.4.1.2",
-        "ACT"
-      ],
-      "description": "Ensure select element has an accessible name",
-      "help": "Select element must have an accessible name",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/select-name?application=playwright",
       "nodes": []
     },
     {
@@ -887,6 +838,32 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -913,7 +890,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1051,6 +1028,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1069,7 +1064,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1453,6 +1448,24 @@
             }
           ],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1471,7 +1484,7 @@
             }
           ],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1591,6 +1604,38 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1623,7 +1668,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -1785,6 +1830,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<a class=\"brand\" aria-label=\"Hub Éducatif Multimodal — accueil\" href=\"/\" data-discover=\"true\"><span class=\"ti-book\" aria-hidden=\"true\"></span><span>Hub Éducatif<small>Multimodal · Nexora</small></span></a>",
           "target": [
             ".container-fluid > .brand[href=\"/\"][data-discover=\"true\"]"
@@ -1803,7 +1866,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -2028,7 +2091,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -2057,10 +2120,60 @@
             {
               "id": "color-contrast",
               "data": {
+                "fgColor": "#4a5355",
+                "bgColor": "#ffffff",
+                "contrastRatio": 7.89,
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 7.89"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            "label > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#000000",
+                "bgColor": "#ffffff",
+                "contrastRatio": 21,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 21"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "18.6pt (24.7766px)",
+                "fontSize": "18.6pt (24.7734px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
@@ -2122,7 +2235,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -2157,16 +2270,41 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#566179",
+                "bgColor": "#f7f8fc",
+                "contrastRatio": 5.85,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.85"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".field-help"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
-                "fontSize": "7.5pt (10px)",
+                "contrastRatio": 7,
+                "fontSize": "8.3pt (11px)",
                 "fontWeight": "bold",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
@@ -2207,7 +2345,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "11.3pt (15px)",
@@ -2222,7 +2360,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Python · Atelier quiz 1793019489243</p>",
+          "html": "<p>Python · Atelier quiz 1793039707862</p>",
           "target": [
             "div > p:nth-child(3)"
           ]
@@ -2232,22 +2370,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
+                "contrastRatio": 7,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗ </a>",
           "target": [
             ".text-button[href$=\"quiz\"][data-discover=\"true\"]"
           ]
@@ -2257,16 +2395,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#434c83",
-                "bgColor": "#eff0fc",
-                "contrastRatio": 7.13,
-                "fontSize": "8.3pt (11px)",
+                "fgColor": "#39457d",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 8.06,
+                "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.13"
+              "message": "Element has sufficient color contrast of 8.06"
             }
           ],
           "all": [],
@@ -2282,16 +2420,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#434c83",
-                "bgColor": "#eff0fc",
-                "contrastRatio": 7.13,
-                "fontSize": "8.3pt (11px)",
+                "fgColor": "#39457d",
+                "bgColor": "#f0f1ff",
+                "contrastRatio": 8.06,
+                "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.13"
+              "message": "Element has sufficient color contrast of 8.06"
             }
           ],
           "all": [],
@@ -2307,7 +2445,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "9.0pt (12px)",
@@ -2335,7 +2473,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "12.8pt (17px)",
+                "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2347,7 +2485,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd>Python · Atelier quiz 1793019489243</dd>",
+          "html": "<dd>Python · Atelier quiz 1793039707862</dd>",
           "target": [
             "div:nth-child(1) > dd"
           ]
@@ -2357,7 +2495,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "9.0pt (12px)",
@@ -2385,7 +2523,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "12.8pt (17px)",
+                "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2407,7 +2545,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "9.0pt (12px)",
@@ -2435,7 +2573,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "12.8pt (17px)",
+                "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2457,7 +2595,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "9.0pt (12px)",
@@ -2485,7 +2623,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "12.8pt (17px)",
+                "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2507,7 +2645,7 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#596174",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.2,
                 "fontSize": "9.0pt (12px)",
@@ -2535,7 +2673,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
                 "contrastRatio": 17.68,
-                "fontSize": "12.8pt (17px)",
+                "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2557,16 +2695,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
+                "fgColor": "#566179",
                 "bgColor": "#ffffff",
-                "contrastRatio": 7.89,
+                "contrastRatio": 6.2,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.89"
+              "message": "Element has sufficient color contrast of 6.2"
             }
           ],
           "all": [],
@@ -2607,24 +2745,49 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4a5355",
+                "fgColor": "#0b104a",
                 "bgColor": "#ffffff",
-                "contrastRatio": 7.89,
+                "contrastRatio": 17.68,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 7.89"
+              "message": "Element has sufficient color contrast of 17.68"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>0 tentative(s) utilisée(s) sur 2. Chaque tentative soumise ou expirée est comptabilisée.</p>",
+          "html": "<p>0 tentative(s) utilisée(s) sur 2. Chaque tentative soumise ou expirée est comptabilisée. </p>",
           "target": [
-            ".quiz-attempt-access > p"
+            ".quiz-attempt-access > p:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#344474",
+                "bgColor": "#f4f5ff",
+                "contrastRatio": 8.69,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 8.69"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"notice\">L’échéance est la plus proche entre la durée et la fermeture du quiz. Temps disponible au départ : 10 min 0 s. L’heure serveur fait référence.</p>",
+          "target": [
+            ".notice"
           ]
         },
         {
@@ -2635,7 +2798,7 @@
                 "fgColor": "#ffffff",
                 "bgColor": "#525fe1",
                 "contrastRatio": 5.14,
-                "fontSize": "12.0pt (16px)",
+                "fontSize": "11.3pt (15px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -2657,22 +2820,22 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#424ebd",
+                "fgColor": "#3f4bc2",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.87,
+                "contrastRatio": 7,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.87"
+              "message": "Element has sufficient color contrast of 7"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗ </a>",
           "target": [
             "a[href$=\"tentatives\"]"
           ]
@@ -2685,7 +2848,7 @@
                 "fgColor": "#0b104a",
                 "bgColor": "#f5f5fd",
                 "contrastRatio": 16.3,
-                "fontSize": "18.6pt (24.7766px)",
+                "fontSize": "18.6pt (24.7734px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
@@ -2747,7 +2910,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -2897,7 +3060,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -2922,7 +3085,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -2947,7 +3110,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -3097,7 +3260,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -3213,7 +3376,7 @@
             }
           ],
           "impact": null,
-          "html": "<dl class=\"quiz-facts\"><div><dt>Groupe</dt><dd>Python · Atelier quiz 1793019489243</dd></div><div><dt>Questions</dt><dd>3</dd></div><div><dt>Total des points</dt><dd>6</dd></div><div><dt>Durée</dt><dd>10 min</dd></div><div><dt>Tentatives autorisées</dt><dd>2</dd></div></dl>",
+          "html": "<dl class=\"quiz-facts\"><div><dt>Groupe</dt><dd>Python · Atelier quiz 1793039707862</dd></div><div><dt>Questions</dt><dd>3</dd></div><div><dt>Total des points</dt><dd>6</dd></div><div><dt>Durée</dt><dd>10 min</dd></div><div><dt>Tentatives autorisées</dt><dd>2</dd></div></dl>",
           "target": [
             "dl"
           ]
@@ -3265,7 +3428,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd>Python · Atelier quiz 1793019489243</dd>",
+          "html": "<dd>Python · Atelier quiz 1793039707862</dd>",
           "target": [
             "div:nth-child(1) > dd"
           ]
@@ -3446,7 +3609,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -3609,6 +3772,49 @@
       ]
     },
     {
+      "id": "form-field-multiple-labels",
+      "impact": null,
+      "tags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag332",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.3.3.2"
+      ],
+      "description": "Ensure form field does not have multiple label elements",
+      "help": "Form field must not have multiple label elements",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/form-field-multiple-labels?application=playwright",
+      "nodes": [
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "multiple-label",
+              "data": null,
+              "relatedNodes": [
+                {
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+                  "target": [
+                    "label"
+                  ]
+                }
+              ],
+              "impact": "moderate",
+              "message": "Form field does not have multiple label elements"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        }
+      ]
+    },
+    {
       "id": "heading-order",
       "impact": null,
       "tags": [
@@ -3627,13 +3833,13 @@
                 "headingOrder": [
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(1) > h1:nth-child(2)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > h1:nth-child(2)"
                     ],
                     "level": 1
                   },
                   {
                     "ancestry": [
-                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > section:nth-child(2) > section:nth-child(4) > h2:nth-child(1)"
+                      "html > body > div:nth-child(1) > div > main:nth-child(3) > div:nth-child(2) > div > div > section:nth-child(3) > section:nth-child(4) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
@@ -3798,7 +4004,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -3835,9 +4041,40 @@
             }
           ],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "label-title-only",
+      "impact": null,
+      "tags": [
+        "cat.forms",
+        "best-practice"
+      ],
+      "description": "Ensure that every form element has a visible label and is not solely labeled using hidden labels, or the title or aria-describedby attributes",
+      "help": "Form elements should have a visible label",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/label-title-only?application=playwright",
+      "nodes": [
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "title-only",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Form element does not solely use title attribute for its label"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
           ]
         }
       ]
@@ -4065,7 +4302,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -4226,7 +4463,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗ </a>",
           "target": [
             "a[href$=\"tentatives\"]"
           ]
@@ -4350,7 +4587,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -4461,7 +4698,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗ </a>",
           "target": [
             ".text-button[href$=\"quiz\"][data-discover=\"true\"]"
           ]
@@ -4487,7 +4724,7 @@
             }
           ],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗ </a>",
           "target": [
             "a[href$=\"tentatives\"]"
           ]
@@ -4624,7 +4861,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -4650,7 +4887,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -4676,7 +4913,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -4858,7 +5095,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -4964,7 +5201,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -4982,7 +5219,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -5000,7 +5237,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -5156,7 +5393,61 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -5230,7 +5521,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<html lang=\"fr\">",
+          "html": "<html lang=\"fr\" dir=\"ltr\">",
           "target": [
             "html"
           ]
@@ -5303,7 +5594,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -5346,6 +5637,126 @@
           "html": "<div class=\"container-fluid hub-header\">",
           "target": [
             ".container-fluid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+          "target": [
+            "label"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Langue de l’interface</span>",
+          "target": [
+            "label > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"fr\">Français</option>",
+          "target": [
+            "option[value=\"fr\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"en\">English</option>",
+          "target": [
+            "option[value=\"en\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"ar\">العربية</option>",
+          "target": [
+            "option[value=\"ar\"]"
           ]
         },
         {
@@ -5443,7 +5854,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]
@@ -5463,7 +5874,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"avatar\">Ob</span>",
+          "html": "<span class=\"avatar\">O2</span>",
           "target": [
             ".avatar"
           ]
@@ -5683,7 +6094,27 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"page-heading\"><div><p class=\"eyebrow\">DÉCOUVRIR LE QUIZ</p><h1>Les bases de Python</h1><p>Python · Atelier quiz 1793019489243</p></div><a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗</a></div>",
+          "html": "<p class=\"field-help quiz-language-notice\">La langue choisie traduit l’interface du module Quiz et sa navigation. Les questions et le contenu pédagogique restent dans leur langue d’origine.</p>",
+          "target": [
+            ".field-help"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"page-heading\"><div><p class=\"eyebrow\">DÉCOUVRIR LE QUIZ</p><h1>Les bases de Python</h1><p>Python · Atelier quiz 1793039707862</p></div><a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗ </a></div>",
           "target": [
             ".page-heading"
           ]
@@ -5703,7 +6134,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div><p class=\"eyebrow\">DÉCOUVRIR LE QUIZ</p><h1>Les bases de Python</h1><p>Python · Atelier quiz 1793019489243</p></div>",
+          "html": "<div><p class=\"eyebrow\">DÉCOUVRIR LE QUIZ</p><h1>Les bases de Python</h1><p>Python · Atelier quiz 1793039707862</p></div>",
           "target": [
             ".page-heading > div"
           ]
@@ -5763,7 +6194,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Python · Atelier quiz 1793019489243</p>",
+          "html": "<p>Python · Atelier quiz 1793039707862</p>",
           "target": [
             "div > p:nth-child(3)"
           ]
@@ -5783,7 +6214,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/quiz\" data-discover=\"true\">Tous les quiz ↗ </a>",
           "target": [
             ".text-button[href$=\"quiz\"][data-discover=\"true\"]"
           ]
@@ -5883,7 +6314,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dl class=\"quiz-facts\"><div><dt>Groupe</dt><dd>Python · Atelier quiz 1793019489243</dd></div><div><dt>Questions</dt><dd>3</dd></div><div><dt>Total des points</dt><dd>6</dd></div><div><dt>Durée</dt><dd>10 min</dd></div><div><dt>Tentatives autorisées</dt><dd>2</dd></div></dl>",
+          "html": "<dl class=\"quiz-facts\"><div><dt>Groupe</dt><dd>Python · Atelier quiz 1793039707862</dd></div><div><dt>Questions</dt><dd>3</dd></div><div><dt>Total des points</dt><dd>6</dd></div><div><dt>Durée</dt><dd>10 min</dd></div><div><dt>Tentatives autorisées</dt><dd>2</dd></div></dl>",
           "target": [
             "dl"
           ]
@@ -5903,7 +6334,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div><dt>Groupe</dt><dd>Python · Atelier quiz 1793019489243</dd></div>",
+          "html": "<div><dt>Groupe</dt><dd>Python · Atelier quiz 1793039707862</dd></div>",
           "target": [
             "dl > div:nth-child(1)"
           ]
@@ -5943,7 +6374,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd>Python · Atelier quiz 1793019489243</dd>",
+          "html": "<dd>Python · Atelier quiz 1793039707862</dd>",
           "target": [
             "div:nth-child(1) > dd"
           ]
@@ -6263,9 +6694,29 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>0 tentative(s) utilisée(s) sur 2. Chaque tentative soumise ou expirée est comptabilisée.</p>",
+          "html": "<p>0 tentative(s) utilisée(s) sur 2. Chaque tentative soumise ou expirée est comptabilisée. </p>",
           "target": [
-            ".quiz-attempt-access > p"
+            ".quiz-attempt-access > p:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"notice\">L’échéance est la plus proche entre la durée et la fermeture du quiz. Temps disponible au départ : 10 min 0 s. L’heure serveur fait référence.</p>",
+          "target": [
+            ".notice"
           ]
         },
         {
@@ -6323,7 +6774,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗</a>",
+          "html": "<a class=\"text-button\" href=\"/espace/tentatives\" data-discover=\"true\">Toutes mes tentatives et corrections ↗ </a>",
           "target": [
             "a[href$=\"tentatives\"]"
           ]
@@ -6523,7 +6974,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora.</p>",
+          "html": "<p>Vos cours prennent vie. Votre potentiel aussi. Un projet académique porté par l’équipe Nexora. </p>",
           "target": [
             ".col-lg-3.col-sm-6:nth-child(1) > .single_footer > p"
           ]
@@ -6763,7 +7214,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul></div>",
+          "html": "<div class=\"single_footer\"><h2>Au quotidien</h2><ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer"
           ]
@@ -6803,7 +7254,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li></ul>",
+          "html": "<ul><li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li><li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li><li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li></ul>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul"
           ]
@@ -6823,7 +7274,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a></li>",
+          "html": "<li><a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(1)"
           ]
@@ -6843,7 +7294,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes</a>",
+          "html": "<a href=\"/espace/groupes\" data-discover=\"true\">Mes groupes </a>",
           "target": [
             "li:nth-child(1) > a[href$=\"groupes\"][data-discover=\"true\"]"
           ]
@@ -6863,7 +7314,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a></li>",
+          "html": "<li><a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(2)"
           ]
@@ -6883,7 +7334,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances</a>",
+          "html": "<a href=\"/espace/seances\" data-discover=\"true\">Mes séances </a>",
           "target": [
             "li:nth-child(2) > a[href$=\"seances\"][data-discover=\"true\"]"
           ]
@@ -6903,7 +7354,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a></li>",
+          "html": "<li><a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a></li>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(3) > .single_footer > ul > li:nth-child(3)"
           ]
@@ -6923,7 +7374,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité</a>",
+          "html": "<a href=\"/espace/assiduite\" data-discover=\"true\">Mon assiduité </a>",
           "target": [
             "li:nth-child(3) > a[href$=\"assiduite\"][data-discover=\"true\"]"
           ]
@@ -7143,7 +7594,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div></div>",
+          "html": "<div class=\"col-lg-2 col-sm-6\"><div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5)"
           ]
@@ -7163,7 +7614,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p></div>",
+          "html": "<div class=\"single_footer\"><h2>Nexora</h2><p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p></div>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer"
           ]
@@ -7203,7 +7654,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement.</p>",
+          "html": "<p>Cinq membres, une ambition : rapprocher apprentissage et accompagnement. </p>",
           "target": [
             ".col-lg-2.col-sm-6:nth-child(5) > .single_footer > p"
           ]
@@ -7331,6 +7782,69 @@
       ]
     },
     {
+      "id": "select-name",
+      "impact": null,
+      "tags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.n",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT"
+      ],
+      "description": "Ensure select element has an accessible name",
+      "help": "Select element must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/select-name?application=playwright",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "implicit-label",
+              "data": {
+                "implicitLabel": "Langue de l’interfaceLangue de l’interface"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<label class=\"quiz-language\"><span>Langue de l’interface</span><select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select></label>",
+                  "target": [
+                    "label"
+                  ]
+                }
+              ],
+              "impact": "critical",
+              "message": "Element has an implicit (wrapped) <label>"
+            },
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "hidden-explicit-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Form element has a visible explicit <label>"
+            }
+          ],
+          "impact": null,
+          "html": "<select aria-label=\"Langue de l’interface\"><option value=\"fr\">Français</option><option value=\"en\">English</option><option value=\"ar\">العربية</option></select>",
+          "target": [
+            "select"
+          ]
+        }
+      ]
+    },
+    {
       "id": "skip-link",
       "impact": null,
       "tags": [
@@ -7354,7 +7868,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu</a>",
+          "html": "<a class=\"skip-link\" href=\"#main\">Aller au contenu </a>",
           "target": [
             ".skip-link"
           ]
@@ -7399,7 +7913,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary aria-label=\"Menu de profil de Other_Student b2815e8214f4\"><span class=\"avatar\">Ob</span><span class=\"front-profile-name\">Other_Student b2815e8214f4<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
+          "html": "<summary aria-label=\"Menu de profil de Other_Student 22315872b8db\"><span class=\"avatar\">O2</span><span class=\"front-profile-name\">Other_Student 22315872b8db<small>Étudiant</small></span><span aria-hidden=\"true\">⌄</span></summary>",
           "target": [
             ".profile-menu > summary"
           ]

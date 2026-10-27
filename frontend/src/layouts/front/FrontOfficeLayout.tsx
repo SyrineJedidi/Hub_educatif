@@ -8,6 +8,7 @@ import "../../styles/front/portal.css";
 import "../../styles/front/front-theme.css";
 import "../../styles/front/aurora.css";
 import { useTemplate } from "../template";
+import { LanguageSelect, t } from "../../quizzes/i18n";
 export function Brand() {
   return (
     <Link
@@ -118,6 +119,7 @@ export default function FrontOfficeLayout() {
           <div className="portal-bar-actions">
             {user ? (
               <>
+                <LanguageSelect />
                 {backOffice && (
                   <Link className="portal-backoffice" to={backOffice}>
                     <span className="ti-settings" aria-hidden="true" />{" "}
@@ -193,41 +195,35 @@ export default function FrontOfficeLayout() {
           }}
         >
           <div className="container">
-            <NavLink to="/" end>
-              Accueil
-            </NavLink>
+            <NavLink to="/" end>{t("Accueil")}</NavLink>
             {user ? (
               <>
                 <NavLink to={destination(user)} end>
-                  {spaceLabel}
+                  {t(spaceLabel)}
                 </NavLink>
                 {user.role === "ADMIN" ? (
                   <>
-                    <NavLink to="/administration/resumes">
-                      Résumés et illustrations
-                    </NavLink>
-                    <NavLink to="/administration/quiz">Quiz</NavLink>
-                    <NavLink to="/administration/assistant">Assistant</NavLink>
-                    <NavLink to="/administration/seances">Séances</NavLink>
-                    <NavLink to="/administration/utilisateurs">
-                      Utilisateurs
-                    </NavLink>
+                    <NavLink to="/administration/resumes">{t("Résumés et illustrations")}</NavLink>
+                    <NavLink to="/administration/quiz">{t("Quiz")}</NavLink>
+                    <NavLink to="/administration/assistant">{t("Assistant")}</NavLink>
+                    <NavLink to="/administration/seances">{t("Séances")}</NavLink>
+                    <NavLink to="/administration/utilisateurs">{t("Utilisateurs")}</NavLink>
                   </>
                 ) : (
                   <>
-                    <NavLink to="/espace/fiches">Fiches de révision</NavLink>
-                    <NavLink to="/espace/quiz">Quiz</NavLink>
-                    <NavLink to="/espace/assistant">Assistant</NavLink>
+                    <NavLink to="/espace/fiches">{t("Fiches de révision")}</NavLink>
+                    <NavLink to="/espace/quiz">{t("Quiz")}</NavLink>
+                    <NavLink to="/espace/assistant">{t("Assistant")}</NavLink>
                     <NavLink to="/espace/seances">
-                      {user.role === "TEACHER" ? "Séances et appel" : "Mes séances"}
+                      {user.role === "TEACHER" ? t("Séances et appel") : t("Mes séances")}
                     </NavLink>
-                    <NavLink to="/espace/assiduite">Assiduité</NavLink>
-                    <NavLink to="/espace/groupes">Groupes</NavLink>
+                    <NavLink to="/espace/assiduite">{t("Assiduité")}</NavLink>
+                    <NavLink to="/espace/groupes">{t("Groupes")}</NavLink>
                   </>
                 )}
                 <details className="front-dropdown">
                   <summary>
-                    Tous les modules{" "}
+                    {t("Tous les modules")}{" "}
                     <span aria-hidden="true" className="ti-angle-down" />
                   </summary>
                   <div>

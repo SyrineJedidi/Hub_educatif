@@ -1,0 +1,110 @@
+{
+  "routeChecks": [
+    {
+      "language": "fr",
+      "path": "/espace/quiz"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f29220e"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/modifier"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/questions/6adf9dae016842318f29220f/modifier"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/previsualisation"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/generer"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/quiz/6adf9dae016842318f292206/resultats"
+    },
+    {
+      "language": "fr",
+      "path": "/espace/resultats-quiz/6adf9db0016842318f292214"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f29220e"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/modifier"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/questions/6adf9dae016842318f29220f/modifier"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/previsualisation"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/generer"
+    },
+    {
+      "language": "en",
+      "path": "/espace/quiz/6adf9dae016842318f292206/resultats"
+    },
+    {
+      "language": "en",
+      "path": "/espace/resultats-quiz/6adf9db0016842318f292214"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f29220e"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/modifier"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/questions/6adf9dae016842318f29220f/modifier"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/previsualisation"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f29220e/generer"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/quiz/6adf9dae016842318f292206/resultats"
+    },
+    {
+      "language": "ar",
+      "path": "/espace/resultats-quiz/6adf9db0016842318f292214"
+    }
+  ],
+  "language_persistence": true,
+  "unsaved_values_preserved": true,
+  "feedback_xss_executed": false,
+  "pdf_downloaded": true,
+  "progress": {
+    "completed": 1,
+    "remaining": 1,
+    "average": 100
+  },
+  "javascript_errors": []
+}

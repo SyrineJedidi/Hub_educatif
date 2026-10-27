@@ -1,0 +1,18 @@
+{
+  "branch": "Syrine",
+  "typescript": "passed",
+  "react_build": "passed",
+  "visual_combinations": 135,
+  "axe_analyses": 13,
+  "axe_violations": 0,
+  "regression_scenarios": 5,
+  "zoom": "200% reflow emulation: 720 CSS px, DPR 2, 1440 px screen; FR and AR",
+  "screenshots_before": 18,
+  "screenshots_after": 31,
+  "product_changes": "CSS and JSX class attributes only",
+  "new_dependencies": false,
+  "backend_tests_run_for_visual_task": false,
+  "native_browser_zoom_menu_tested": false,
+  "commit_push_merge": false,
+  "build_warning": "Pre-existing JavaScript bundle above 500 kB"
+}

@@ -106,11 +106,11 @@ class JobRatingView(SheetView):
 class AIStatusView(SheetView):
     def get(self, request):
         # What the interface can offer; never exposes keys.
-        summary = bool(settings.GEMINI_API_KEY or settings.OLLAMA_MODEL)
+        summary = bool(settings.GEMINI_API_KEY or settings.REVISIONS_OLLAMA_MODEL)
         return Response({
             'summary': summary, 'illustration': bool(settings.HF_TOKEN),
-            'summary_engine': f'Gemini · {settings.REVISIONS_GEMINI_MODEL}' if settings.GEMINI_API_KEY else (f'Ollama · {settings.OLLAMA_MODEL}' if settings.OLLAMA_MODEL else None),
-            'fallback_engine': f'Ollama · {settings.OLLAMA_MODEL}' if settings.GEMINI_API_KEY and settings.OLLAMA_MODEL else None,
+            'summary_engine': f'Gemini · {settings.REVISIONS_GEMINI_MODEL}' if settings.GEMINI_API_KEY else (f'Ollama · {settings.REVISIONS_OLLAMA_MODEL}' if settings.REVISIONS_OLLAMA_MODEL else None),
+            'fallback_engine': f'Ollama · {settings.REVISIONS_OLLAMA_MODEL}' if settings.GEMINI_API_KEY and settings.REVISIONS_OLLAMA_MODEL else None,
             'illustration_engine': f'Hugging Face · {(settings.HF_IMAGE_SPACE or settings.HF_IMAGE_MODEL).split("/")[-1]}' if settings.HF_TOKEN else None,
             'asynchronous': settings.AI_JOB_BACKEND != 'sync',
             'job_backend': {'celery': 'Celery + Redis', 'thread': 'File de tâches intégrée', 'sync': 'Synchrone'}.get(settings.AI_JOB_BACKEND, settings.AI_JOB_BACKEND),
@@ -134,7 +134,7 @@ class MetricsView(SheetView):
         data['configuration'] = {
             'job_backend': settings.AI_JOB_BACKEND,
             'gemini_model': settings.REVISIONS_GEMINI_MODEL if settings.GEMINI_API_KEY else None,
-            'ollama_model': settings.OLLAMA_MODEL or None,
+            'ollama_model': settings.REVISIONS_OLLAMA_MODEL or None,
             'image_model': (settings.HF_IMAGE_SPACE or settings.HF_IMAGE_MODEL) if settings.HF_TOKEN else None,
         }
         return Response(data)

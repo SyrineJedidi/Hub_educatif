@@ -1,0 +1,3 @@
+-r requirements.lock
+# Inspection visuelle des exports PDF, hors dépendances serveur.
+PyMuPDF==1.26.7

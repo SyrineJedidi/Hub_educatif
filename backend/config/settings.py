@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
+OLLAMA_BASE_URL = os.getenv('OLLAMA_BASE_URL', 'http://127.0.0.1:11434')
+OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'qwen3:8b')
+OLLAMA_TIMEOUT_SECONDS = os.getenv('OLLAMA_TIMEOUT_SECONDS', '180')
 DEBUG = os.getenv('DJANGO_DEBUG', 'true').lower() == 'true'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 if not SECRET_KEY:
@@ -100,9 +103,11 @@ HF_IMAGE_MODEL = os.getenv('HF_IMAGE_MODEL', 'stabilityai/stable-diffusion-3-med
 HF_IMAGE_SPACE = os.getenv('HF_IMAGE_SPACE', 'black-forest-labs/FLUX.1-schnell')
 AI_TIMEOUT_SECONDS = int(os.getenv('AI_TIMEOUT_SECONDS', '90'))
 # Optional local fallback for summaries when Gemini is unavailable (empty = disabled).
-OLLAMA_URL = os.getenv('OLLAMA_URL', 'http://127.0.0.1:11434')
-OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', '')
-OLLAMA_TIMEOUT_SECONDS = int(os.getenv('OLLAMA_TIMEOUT_SECONDS', '300'))
+# OLLAMA_MODEL and OLLAMA_TIMEOUT_SECONDS belong to the quiz generator (defined at the top); this module has its own,
+# which still follow OLLAMA_MODEL when it is set in .env.
+OLLAMA_URL = os.getenv('OLLAMA_URL', os.getenv('OLLAMA_BASE_URL', 'http://127.0.0.1:11434'))
+REVISIONS_OLLAMA_MODEL = os.getenv('REVISIONS_OLLAMA_MODEL', os.getenv('OLLAMA_MODEL', ''))
+REVISIONS_OLLAMA_TIMEOUT_SECONDS = int(os.getenv('REVISIONS_OLLAMA_TIMEOUT_SECONDS', '300'))
 # AI generations run in the background: Celery + Redis when a broker is configured,
 # otherwise an in-process thread pool ("sync" is reserved for automated tests).
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', '')

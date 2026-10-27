@@ -1,0 +1,14 @@
+{
+  "changed_existing_source_files": [
+    "frontend/src/quizzes/AttemptResult.tsx",
+    "frontend/src/quizzes/Feedback.tsx",
+    "frontend/src/quizzes/Progress.tsx",
+    "frontend/src/quizzes/quiz.css",
+    "frontend/src/quizzes/StudentResultDetail.tsx",
+    "frontend/src/quizzes/StudentResults.tsx"
+  ],
+  "backend_unchanged": true,
+  "routes_auth_validation_i18n_unchanged": true,
+  "existing_global_css_unchanged": true,
+  "jsx_changes_are_class_attributes_only": true
+}

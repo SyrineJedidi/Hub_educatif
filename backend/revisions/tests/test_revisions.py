@@ -226,7 +226,7 @@ class RevisionSheetTests(TransactionTestCase):
 
     def test_ai_errors_are_recorded_on_the_job(self):
         sheet = self.create()
-        with override_settings(GEMINI_API_KEY='', OLLAMA_MODEL=''):
+        with override_settings(GEMINI_API_KEY='', REVISIONS_OLLAMA_MODEL=''):
             job = self.generate(sheet['id'], {'source_text': 'Texte du cours ' * 10})
             self.assertEqual(job['status'], 'FAILED'); self.assertIn('Ollama n’est pas configuré', job['error'])
         with mock.patch('revisions.ai.jobs.generate_summary', side_effect=AIServiceError('Quota')):
@@ -291,7 +291,7 @@ class RevisionSheetTests(TransactionTestCase):
             jobs.dispatch(job)
         pool.submit.assert_called_once_with(jobs._run_in_thread, job.pk)
 
-    @override_settings(OLLAMA_MODEL='qwen3:8b')
+    @override_settings(REVISIONS_OLLAMA_MODEL='qwen3:8b')
     def test_ollama_fallback_when_gemini_fails(self):
         from ..ai.clients import generate_summary
         local = {**GENERATED, 'model': 'ollama/qwen3:8b'}
@@ -305,14 +305,14 @@ class RevisionSheetTests(TransactionTestCase):
             with self.assertRaisesMessage(AIServiceError, 'Surchargé'): generate_summary('t', title='T', course='C', length='SHORT')
         with override_settings(GEMINI_API_KEY=''), mock.patch('revisions.ai.clients.ollama_summary', return_value=local):
             self.assertFalse(generate_summary('t', title='T', course='C', length='SHORT')['fallback'])
-        with override_settings(OLLAMA_MODEL=''), mock.patch('revisions.ai.clients.gemini_summary', side_effect=AIServiceError('Surchargé')):
+        with override_settings(REVISIONS_OLLAMA_MODEL=''), mock.patch('revisions.ai.clients.gemini_summary', side_effect=AIServiceError('Surchargé')):
             with self.assertRaisesMessage(AIServiceError, 'Surchargé'): generate_summary('t', title='T', course='C', length='SHORT')
 
     def test_ollama_request_and_parsing(self):
         import json
         from ..ai.clients import ollama_summary
         answer = {'message': {'content': json.dumps({'summary': '## Titre\nTexte', 'key_points': ['Un'], 'glossary': [], 'tags': ['Bio'], 'illustration_prompt': 'leaf'})}}
-        with override_settings(OLLAMA_MODEL='qwen3:8b'), mock.patch('revisions.ai.clients._post', return_value=(json.dumps(answer).encode(), 'application/json')) as post:
+        with override_settings(REVISIONS_OLLAMA_MODEL='qwen3:8b'), mock.patch('revisions.ai.clients._post', return_value=(json.dumps(answer).encode(), 'application/json')) as post:
             result = ollama_summary('x' * 40000, title='T', course='C', length='SHORT')
         url, _, payload = post.call_args.args
         self.assertTrue(url.endswith('/api/chat')); self.assertEqual(payload['format']['type'], 'object')

@@ -1,5 +1,14 @@
 export type QuizStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED";
 export type Level = "EASY" | "MEDIUM" | "HARD";
+export interface Availability {
+  state: "UPCOMING" | "OPEN" | "CLOSED";
+  can_start: boolean;
+  opens_at: string | null;
+  closes_at: string | null;
+  available_seconds: number | null;
+  server_time: string;
+  time_zone: string;
+}
 export interface Quiz {
   id: string;
   title: string;
@@ -9,6 +18,9 @@ export interface Quiz {
   level: Level;
   duration_minutes: number | null;
   max_attempts: number;
+  opens_at?: string | null;
+  closes_at?: string | null;
+  availability?: Availability;
   status: QuizStatus;
   published_at: string | null;
   question_count: number;
@@ -29,6 +41,7 @@ export interface Question {
   choice_d: string;
   correct_answer: "A" | "B" | "C" | "D";
   explanation: string;
+  notion?: string;
   points: number;
   position: number;
 }

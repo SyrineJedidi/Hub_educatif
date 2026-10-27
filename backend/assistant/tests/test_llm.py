@@ -7,6 +7,7 @@ from unittest.mock import patch
 from django.test import SimpleTestCase, override_settings
 from assistant import llm
 from assistant.llm import MESSAGES, LLMError, answer_schema, checked, generate_answer, provider_status
+from .base import recorded_sleeps
 
 URLOPEN = 'urllib.request.urlopen'
 KEY = 'test-gemini-key'
@@ -201,8 +202,8 @@ class FakeProviderTests(SimpleTestCase):
         self.assertFalse(self.ask('Une norme ?', excerpts='[S1] (x)\nLe mot #erreur est écrit ici.').data['out_of_scope'])
 
     def test_slow_marker_waits_before_answering(self):
-        with patch('assistant.llm.time.sleep') as sleep: self.ask('Une norme ? #lent')
-        sleep.assert_called_once_with(2)
+        with recorded_sleeps() as pauses: self.ask('Une norme ? #lent')
+        self.assertEqual(pauses, [2])
 
     def test_without_a_user_turn_there_is_nothing_to_quote(self):
         model_only = [{'role': 'model', 'parts': [{'text': 'EXTRAITS:\n[S1] (x)\nTexte.\n\nQUESTION:\n#erreur'}]}]

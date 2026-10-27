@@ -173,8 +173,8 @@ def _lowercase_schema(schema):
 
 def ollama_summary(text, *, title, course, length):
     """Same contract as gemini_summary, using a local Ollama model."""
-    if not settings.OLLAMA_MODEL: raise AIUnavailable('Ollama n’est pas configuré : ajoutez OLLAMA_MODEL dans backend/.env.')
-    model = settings.OLLAMA_MODEL
+    if not settings.REVISIONS_OLLAMA_MODEL: raise AIUnavailable('Ollama n’est pas configuré : ajoutez REVISIONS_OLLAMA_MODEL (ou OLLAMA_MODEL) dans backend/.env.')
+    model = settings.REVISIONS_OLLAMA_MODEL
     payload = {
         'model': model, 'stream': False, 'think': False,
         'format': _lowercase_schema(SUMMARY_SCHEMA),
@@ -185,7 +185,7 @@ def ollama_summary(text, *, title, course, length):
     }
     started = time.monotonic()
     try:
-        body, _ = _post(settings.OLLAMA_URL.rstrip('/') + '/api/chat', {}, payload, timeout=settings.OLLAMA_TIMEOUT_SECONDS)
+        body, _ = _post(settings.OLLAMA_URL.rstrip('/') + '/api/chat', {}, payload, timeout=settings.REVISIONS_OLLAMA_TIMEOUT_SECONDS)
     except AIServiceError as exc:
         if 'ne répond pas' in str(exc.detail):
             raise AIServiceError('Ollama ne répond pas : vérifiez qu’il est lancé sur ce serveur.')
@@ -205,7 +205,7 @@ def generate_summary(text, *, title, course, length):
     try:
         return {**gemini_summary(text, **kwargs), 'fallback': False}
     except AIServiceError as gemini_error:
-        if not settings.OLLAMA_MODEL: raise
+        if not settings.REVISIONS_OLLAMA_MODEL: raise
         try:
             return {**ollama_summary(text, **kwargs), 'fallback': True}
         except AIServiceError:

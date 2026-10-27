@@ -71,7 +71,7 @@ class Command(BaseCommand):
             f'Mesures réelles produites par `manage.py evaluate_ai` le {timezone.localtime():%d/%m/%Y à %H:%M} '
             f'(résumés « {length} », traitement des tâches identique à la production). Relancer la commande régénère ce rapport.', '',
             '## Configuration', '',
-            f'- Résumés : `{settings.REVISIONS_GEMINI_MODEL if settings.GEMINI_API_KEY else "—"}` ; secours local : `{settings.OLLAMA_MODEL or "aucun"}`',
+            f'- Résumés : `{settings.REVISIONS_GEMINI_MODEL if settings.GEMINI_API_KEY else "—"}` ; secours local : `{settings.REVISIONS_OLLAMA_MODEL or "aucun"}`',
             f'- Illustrations : `{settings.HF_IMAGE_SPACE or settings.HF_IMAGE_MODEL}` (Hugging Face)',
             f'- Corpus : {len(summaries)} extraits de cours ({", ".join(s for s, _, _ in summaries)}), {len(illustrations)} illustrations', '',
             '## Synthèse', '',
