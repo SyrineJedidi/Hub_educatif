@@ -1,6 +1,7 @@
 #!/bin/sh
 # web: apply migrations, collect static files, then serve the API with gunicorn.
 # worker: run the Celery worker that processes AI generations.
+# courses-worker: extract and transcribe course resources (PDF, audio) queued by the courses module.
 set -e
 case "$1" in
   web)
@@ -16,6 +17,9 @@ case "$1" in
     ;;
   worker)
     exec celery -A config worker --loglevel=info --concurrency "${CELERY_CONCURRENCY:-2}"
+    ;;
+  courses-worker)
+    exec python manage.py process_course_jobs --sleep "${COURSES_WORKER_SLEEP:-5}"
     ;;
   *)
     exec "$@"

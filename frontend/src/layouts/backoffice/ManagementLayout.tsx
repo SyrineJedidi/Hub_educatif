@@ -27,6 +27,7 @@ const sections = [
       { to: "/espace/quiz", icon: "ti-help-alt", label: "Quiz" },
       { to: "/espace/groupes", icon: "ti-folder", label: "Groupes" },
       { to: "/espace/assistant", icon: "ti-comments", label: "Assistant pédagogique" },
+      { to: "/espace/suivi-revisions", icon: "ti-agenda", label: "Suivi des révisions" },
     ],
   },
   {

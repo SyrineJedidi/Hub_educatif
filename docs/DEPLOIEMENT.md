@@ -1,12 +1,13 @@
 # Déploiement en production
 
-L’application se déploie avec Docker Compose : cinq conteneurs, une seule commande.
+L’application se déploie avec Docker Compose : six conteneurs, une seule commande.
 
 | Service | Image | Rôle |
 |---|---|---|
 | `frontend` | nginx 1.27 + build Vite | Sert l’application React, relaie `/api/` vers Django, compresse (gzip) et met en cache les fichiers versionnés pendant un an. Seul port exposé : **8080**. |
 | `backend` | Python 3.12 + gunicorn | API Django. Au démarrage : migrations puis `collectstatic`. Vérification de santé sur `/api/health/` (ping MongoDB). |
 | `worker` | même image que `backend` | Worker Celery qui traite les générations IA en arrière-plan. |
+| `courses-worker` | même image que `backend` | Extraction des PDF et transcription Whisper des enregistrements de cours (`process_course_jobs`). |
 | `mongo` | MongoDB 7 | Replica set mono-nœud initialisé automatiquement (requis pour les transactions). Données dans le volume `mongo-data`. |
 | `redis` | Redis 7 | File de tâches Celery. |
 

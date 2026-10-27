@@ -14,6 +14,11 @@ import {
 } from "./assistant/AssistantRoutes";
 import { setQuizLanguageScope, useQuizLanguage } from "./quizzes/i18n";
 import { CourseManagerRoute, CourseModuleEntry } from "./courses/CourseRoutes";
+import {
+  PlanningCoachRoute,
+  PlanningModuleEntry,
+  PlanningStudentRoute,
+} from "./planning/PlanningRoutes";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/front/FrontOfficeLayout";
 import ProtectedLearningLayout from "./layouts/front/ProtectedLearningLayout";
@@ -45,6 +50,13 @@ const JobJournal = lazy(() => import("./revisions/pages/JobJournal"));
 const RevisionMode = lazy(() => import("./revisions/pages/RevisionMode"));
 const StudentFollowUp = lazy(() => import("./revisions/pages/StudentFollowUp"));
 const RolesPermissions = lazy(() => import("./pages/RolesPermissions"));
+const PlanningDashboard = lazy(() => import("./planning/PlanningDashboard"));
+const ObjectivesPage = lazy(() => import("./planning/ObjectivesPage"));
+const AvailabilityPage = lazy(() => import("./planning/AvailabilityPage"));
+const PlansPage = lazy(() => import("./planning/PlansPage"));
+const PlanDetail = lazy(() => import("./planning/PlanDetail"));
+const CoachStudents = lazy(() => import("./planning/CoachStudents"));
+const CoachStudentDetail = lazy(() => import("./planning/CoachStudentDetail"));
 const CourseList = lazy(() => import("./courses/CourseList"));
 const CourseDetail = lazy(() => import("./courses/CourseDetail"));
 const CourseEditor = lazy(() => import("./courses/CourseEditor"));
@@ -113,6 +125,7 @@ export default function App() {
         <Route path="modules/resumes" element={<SheetModuleEntry />} />
         <Route path="modules/assistant" element={<AssistantModuleEntry />} />
         <Route path="modules/cours" element={<CourseModuleEntry />} />
+        <Route path="modules/coaching" element={<PlanningModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -197,6 +210,24 @@ export default function App() {
               element={<CourseStatistics />}
             />
             <Route path="matieres" element={<SubjectList />} />
+          </Route>
+          <Route path="modules/coaching" element={<PlanningModuleEntry />} />
+          <Route element={<PlanningStudentRoute />}>
+            <Route path="planning" element={<PlanningDashboard />} />
+            <Route path="planning/objectifs" element={<ObjectivesPage />} />
+            <Route
+              path="planning/disponibilites"
+              element={<AvailabilityPage />}
+            />
+            <Route path="planning/plannings" element={<PlansPage />} />
+            <Route path="planning/plannings/:id" element={<PlanDetail />} />
+          </Route>
+          <Route element={<PlanningCoachRoute />}>
+            <Route path="suivi-revisions" element={<CoachStudents />} />
+            <Route
+              path="suivi-revisions/:studentId"
+              element={<CoachStudentDetail />}
+            />
           </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
@@ -283,6 +314,14 @@ export default function App() {
           <Route path="cours/:id/modifier" element={<CourseEditor />} />
           <Route path="cours/:id/statistiques" element={<CourseStatistics />} />
           <Route path="matieres" element={<SubjectList />} />
+        </Route>
+        <Route path="modules/coaching" element={<PlanningModuleEntry />} />
+        <Route element={<PlanningCoachRoute />}>
+          <Route path="suivi-revisions" element={<CoachStudents />} />
+          <Route
+            path="suivi-revisions/:studentId"
+            element={<CoachStudentDetail />}
+          />
         </Route>
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />

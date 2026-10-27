@@ -8,7 +8,7 @@ const modules: [string, string, string, string, boolean, string][] = [
   ["resumes", "ti-book", "Résumés et illustrations", "Des fiches de révision rédigées avec l’IA, relues par l’enseignant, et des cartes mémoire.", true, "sage"],
   ["cours", "ti-folder", "Cours et ressources", "Matières, chapitres, PDF et enregistrements audio transcrits, au même endroit.", true, "sun"],
   ["assistant", "ti-comments", "Assistant pédagogique", "Des réponses sourcées à partir de vos cours, par texte ou par la voix.", true, "apricot"],
-  ["coaching", "ti-target", "Planification et coaching", "Organiser son travail et avancer à son rythme.", false, "emerald"],
+  ["coaching", "ti-target", "Planification et coaching", "Objectifs, disponibilités et planning de révision proposé par l’IA.", true, "emerald"],
 ];
 const roles: [string, string, string, string[]][] = [
   ["ti-user", "Étudiant", "emerald", ["Ses séances et son assiduité", "Les quiz de ses groupes", "Les fiches partagées et les cartes de révision", "Ses propres fiches, avec l’IA"]],
@@ -221,8 +221,8 @@ export default function Home() {
               Une plateforme qui <em>grandit</em> avec vous
             </h2>
             <p>
-              Le socle commun, les cours, les quiz, les fiches de révision et
-              l’assistant sont disponibles ; la planification arrive bientôt.
+              Les six modules sont disponibles : socle commun, cours, quiz, fiches
+              de révision, assistant pédagogique et planification des révisions.
             </p>
           </header>
           <ul className="hm-modules">

@@ -55,6 +55,20 @@ services:
       disable: true
     restart: unless-stopped
 
+  courses-worker:
+    build:
+      context: .
+      dockerfile: deploy/backend/Dockerfile
+    command: ["courses-worker"]
+    env_file: deploy/.env.production
+    volumes:
+      - media:/data/media
+    depends_on:
+      backend: { condition: service_healthy }
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+
   frontend:
     build:
       context: .

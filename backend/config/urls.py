@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/', include('courses.urls')),
     path('api/', include('revisions.urls')),
     path('api/', include('assistant.urls')),
+    path('api/', include('planning.urls')),
     path('api/csrf/', v.CSRFView.as_view()),
     path('api/auth/register/', v.RegisterView.as_view()),
     path('api/auth/login/', v.LoginView.as_view()),

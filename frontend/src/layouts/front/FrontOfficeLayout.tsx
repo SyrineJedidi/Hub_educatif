@@ -9,6 +9,7 @@ import "../../styles/front/front-theme.css";
 import "../../styles/front/aurora.css";
 import { useTemplate } from "../template";
 import { LanguageSelect, t } from "../../quizzes/i18n";
+import { planningHome } from "../../planning/usePlanningContext";
 export function Brand() {
   return (
     <Link
@@ -30,7 +31,7 @@ const modules = [
   ["resumes", "Résumés et illustrations", "Fiches, résumés IA et illustrations"],
   ["assistant", "Assistant pédagogique", "Réponses sourcées, par texte ou par voix"],
   ["quiz", "Quiz et progression", "Quiz, tentatives et correction"],
-  ["coaching", "Planification et coaching", "En préparation"],
+  ["coaching", "Planification et coaching", "Objectifs, plannings et suivi"],
 ];
 export default function FrontOfficeLayout() {
   useTemplate("front");
@@ -216,6 +217,9 @@ export default function FrontOfficeLayout() {
                     <NavLink to="/espace/fiches">{t("Fiches de révision")}</NavLink>
                     <NavLink to="/espace/quiz">{t("Quiz")}</NavLink>
                     <NavLink to="/espace/assistant">{t("Assistant")}</NavLink>
+                    <NavLink to={planningHome(user.role)}>
+                      {user.role === "TEACHER" ? t("Suivi des révisions") : t("Mon planning")}
+                    </NavLink>
                     <NavLink to="/espace/seances">
                       {user.role === "TEACHER" ? t("Séances et appel") : t("Mes séances")}
                     </NavLink>
@@ -337,6 +341,9 @@ export function Footer() {
                   </li>
                   <li>
                     <Link to="/modules/quiz">Quiz et progression</Link>
+                  </li>
+                  <li>
+                    <Link to="/modules/coaching">Planification et coaching</Link>
                   </li>
                 </ul>
               </div>

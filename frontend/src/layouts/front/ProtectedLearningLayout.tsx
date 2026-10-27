@@ -7,6 +7,8 @@ const sections: Record<string, string> = {
   cours: "Mes cours",
   fiches: "Fiches de révision",
   assistant: "Assistant",
+  planning: "Mon planning",
+  "suivi-revisions": "Suivi des révisions",
   quiz: "Quiz",
   "resultats-quiz": "Résultats des quiz",
   seances: "Séances",

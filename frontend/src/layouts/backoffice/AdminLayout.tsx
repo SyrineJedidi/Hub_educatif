@@ -57,10 +57,8 @@ const sections = [
     ],
   },
   {
-    title: "Bientôt dans le hub",
-    links: [
-      { to: base + "/modules/coaching", icon: "ti-target", label: "Planification", soon: true },
-    ],
+    title: "Planification et coaching",
+    links: [{ to: base + "/suivi-revisions", icon: "ti-agenda", label: "Suivi des révisions" }],
   },
   {
     title: "Compte",
