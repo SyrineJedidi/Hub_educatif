@@ -272,3 +272,8 @@ Thumbs.db
 mongo-data/
 WiredTiger*
 *.wt
+
+# Production secrets
+deploy/.env.production
+backend/staticfiles/
+!deploy/.env.production.example

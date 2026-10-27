@@ -1,0 +1,70 @@
+# Complete production stack of the Hub Éducatif Multimodal.
+#   cp deploy/.env.production.example deploy/.env.production   (then fill in the secrets)
+#   docker compose up -d --build
+# The site is then served on http://localhost:8080 (put an HTTPS proxy in front for a public domain).
+name: nexora-hub
+
+services:
+  mongo:
+    image: mongo:7
+    command: ["mongod", "--replSet", "nexora", "--bind_ip_all"]
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+    # Starts the single-node replica set on first launch (transactions need one).
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval",
+             "try { rs.status().ok } catch (e) { rs.initiate({_id: 'nexora', members: [{_id: 0, host: 'mongo:27017'}]}).ok }"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 20s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: deploy/backend/Dockerfile
+    command: ["web"]
+    env_file: deploy/.env.production
+    volumes:
+      - media:/data/media
+    depends_on:
+      mongo: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: deploy/backend/Dockerfile
+    command: ["worker"]
+    env_file: deploy/.env.production
+    volumes:
+      - media:/data/media
+    depends_on:
+      backend: { condition: service_healthy }
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: deploy/frontend/Dockerfile
+    ports:
+      - "${HUB_PORT:-8080}:80"
+    depends_on:
+      backend: { condition: service_healthy }
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+  media:

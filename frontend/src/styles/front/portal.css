@@ -1,0 +1,436 @@
+/* Institutional look of the public site: utility bar, header, flat main navigation, footer. */
+.portal-header {
+  --portal-navy: #1f3b36;
+  --portal-blue: #17786a;
+  --portal-ink: #1f3b36;
+  position: relative;
+  z-index: 70;
+  background: #fff;
+  border-bottom: 1px solid #d5e6e2;
+  font-family: "Inter", sans-serif;
+}
+.portal-utility {
+  background: var(--portal-navy);
+  color: #b7e5db;
+  font-size: 13px;
+}
+.portal-utility .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 36px;
+}
+.portal-utility p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.portal-utility-right {
+  gap: 12px !important;
+}
+.portal-role {
+  background: #ffffff1f;
+  color: #fff;
+  border-radius: 20px;
+  padding: 1px 10px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.portal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 84px;
+}
+.portal-header .brand {
+  font-size: 22px;
+  gap: 14px;
+  color: var(--portal-ink);
+}
+.portal-header .brand small,
+.portal-footer .brand small {
+  letter-spacing: 0.3px;
+  font-size: 12.5px;
+  color: #4c5a56;
+  margin-top: 4px;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #17786a, #805516);
+  color: #fff;
+  font-size: 22px !important;
+  flex-shrink: 0;
+}
+.portal-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.portal-backoffice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--portal-navy);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.portal-backoffice:hover {
+  background: #113d33;
+  color: #fff;
+}
+.portal-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--portal-ink);
+  padding: 10px 14px;
+  border: 1px solid #bbd9d2;
+  border-radius: 8px;
+}
+.portal-signup {
+  font-weight: 600;
+  color: #fff;
+  background: var(--portal-blue);
+  padding: 11px 18px;
+  border-radius: 8px;
+}
+.portal-signup:hover {
+  background: #0f5c52;
+  color: #fff;
+}
+.portal-header .front-profile {
+  margin: 0;
+}
+.portal-header .front-profile summary {
+  font-size: 14px;
+}
+.portal-header .front-profile > div {
+  top: calc(100% + 12px);
+}
+.portal-nav {
+  border-top: 1px solid #faede7;
+  background: #fff;
+}
+.portal-nav > .container {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.portal-nav a,
+.portal-nav .front-dropdown summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 14px 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3936;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+.portal-nav > .container > a:hover,
+.portal-nav .front-dropdown summary:hover {
+  color: var(--portal-blue);
+  background: #fef6f3;
+}
+.portal-nav > .container > a.active {
+  color: var(--portal-blue);
+  border-bottom-color: var(--portal-blue);
+}
+.portal-nav .front-dropdown {
+  margin-left: auto;
+}
+.portal-nav .front-dropdown > div {
+  left: auto;
+  right: 0;
+  border-top-color: var(--portal-blue);
+}
+.portal-nav .front-dropdown > div a {
+  display: block;
+  border: 0;
+  padding: 10px 12px;
+  white-space: normal;
+}
+/* Pages under the header */
+.learning-trail {
+  background: #fdf4f0;
+  border: 0;
+  border-bottom: 1px solid #d9e9e6;
+  padding: 12px 0;
+}
+.learning-trail nav {
+  color: #4c5a56;
+  font-size: 14px;
+}
+.learning-trail nav a {
+  color: #0f5c52;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.learning-trail nav [aria-current] {
+  color: #1f3b36;
+  font-weight: 600;
+}
+/* Footer */
+.portal-footer .footer {
+  background: #1f3b36;
+  color: #aed9cf;
+}
+.portal-footer .single_footer h2 {
+  color: #fff;
+}
+.portal-footer .single_footer p,
+.portal-footer .single_footer ul li a {
+  color: #aed9cf;
+}
+.portal-footer .single_footer ul li a:hover {
+  color: #fff;
+}
+.portal-footer .brand {
+  color: #fff;
+}
+.portal-footer .brand small {
+  color: #87c5b7;
+}
+.portal-footer .foot_copy {
+  background: #051511;
+  border-top: 1px solid #ffffff14;
+}
+.portal-footer .foot_copy p {
+  color: #87c5b7;
+}
+.portal-footer .foot_copy a {
+  color: #fff;
+}
+.portal-footer a:focus-visible {
+  outline-color: #fff !important;
+}
+@media (max-width: 1199px) {
+  .portal-nav a,
+  .portal-nav .front-dropdown summary {
+    padding: 13px 10px 11px;
+    font-size: 14.5px;
+  }
+}
+@media (max-width: 991px) {
+  .portal-header .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
+  .portal-nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    box-shadow: 0 16px 30px #1f3b361f;
+    z-index: 60;
+  }
+  .portal-nav.open {
+    display: block;
+  }
+  .portal-nav > .container {
+    flex-direction: column;
+    padding-top: 8px;
+    padding-bottom: 12px;
+  }
+  .portal-nav a,
+  .portal-nav .front-dropdown summary {
+    border-bottom: 0;
+    border-left: 3px solid transparent;
+    padding: 12px 14px;
+  }
+  .portal-nav > .container > a.active {
+    border-left-color: var(--portal-blue);
+    background: #fef5f2;
+  }
+  .portal-nav .front-dropdown {
+    margin-left: 0;
+  }
+  .portal-nav .front-dropdown > div {
+    position: static;
+    box-shadow: none;
+    border: 0;
+    padding: 0 0 0 14px;
+  }
+  .front-profile-name {
+    display: none !important;
+  }
+  .portal-utility-right {
+    display: none !important;
+  }
+}
+@media (max-width: 575px) {
+  .portal-utility {
+    font-size: 12px;
+  }
+  .portal-bar {
+    min-height: 70px;
+    gap: 10px;
+  }
+  .portal-header .brand {
+    font-size: 17px;
+    gap: 10px;
+  }
+  .portal-header .brand small {
+    display: none;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    font-size: 18px !important;
+  }
+  .portal-bar-actions {
+    gap: 8px;
+  }
+  .portal-backoffice {
+    padding: 9px 10px;
+    font-size: 0;
+    gap: 0;
+  }
+  .portal-backoffice span {
+    font-size: 15px;
+  }
+  .portal-login {
+    padding: 9px 10px;
+  }
+  .portal-signup {
+    display: none;
+  }
+}
+.brand > .brand-mark {
+  color: #fff;
+}
+/* Module band on the learning home page */
+.module-band {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  margin: 0 0 35px;
+  padding: 26px 30px;
+  border-radius: 12px;
+  background: #1f3b36;
+  color: #b7e5db;
+}
+.module-band h2 {
+  color: #fff;
+  font-size: 24px;
+  margin: 4px 0 6px;
+}
+.module-band p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.module-band .eyebrow {
+  color: #67dcc1;
+}
+.module-band-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: #fff;
+  background: linear-gradient(135deg, #17786a, #805516);
+}
+.module-band-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.module-band-actions .btn_one {
+  white-space: nowrap;
+}
+.module-band-link {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.module-band-link:hover {
+  color: #a1ead9;
+}
+.module-band a:focus-visible {
+  outline-color: #fff !important;
+}
+@media (max-width: 991px) {
+  .module-band {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 20px;
+  }
+}
+.portal-footer .single_footer ul li a {
+  text-transform: none;
+}
+/* Access denied (403) */
+.denied {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: #fdf4f0;
+}
+.denied-card {
+  max-width: 560px;
+  background: #fff;
+  border: 1px solid #d9e9e6;
+  border-top: 5px solid #b3261e;
+  border-radius: 14px;
+  padding: 40px 36px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+.denied-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e0faf4;
+  color: #b3261e;
+  font-size: 26px;
+}
+.denied-code {
+  margin: 16px 0 4px;
+  font-weight: 700;
+  color: #9a2018;
+  letter-spacing: 0.5px;
+}
+.denied h1 {
+  font-size: 26px;
+  color: #1f3b36;
+  margin-bottom: 12px;
+}
+.denied-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+.denied-link {
+  font-weight: 600;
+  text-decoration: underline;
+}

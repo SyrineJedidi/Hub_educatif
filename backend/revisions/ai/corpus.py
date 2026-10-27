@@ -1,0 +1,36 @@
+"""Fixed evaluation corpus: short course extracts from varied subjects (written for this project)."""
+CORPUS = [
+    ('Biologie', 'La photosynthèse', """La photosynthèse est le processus par lequel les végétaux chlorophylliens produisent de la matière organique à partir de dioxyde de carbone et d'eau, en utilisant l'énergie lumineuse. Elle se déroule dans les chloroplastes, organites contenant la chlorophylle, un pigment qui absorbe surtout les radiations bleues et rouges.
+La phase photochimique a lieu dans les membranes des thylakoïdes. L'énergie lumineuse excite la chlorophylle ; l'eau est oxydée, ce qui libère du dioxygène, et l'énergie est convertie en ATP et en NADPH.
+La phase non photochimique, ou cycle de Calvin, se déroule dans le stroma. Le dioxyde de carbone est fixé par l'enzyme Rubisco sur un sucre à cinq carbones, puis réduit grâce à l'ATP et au NADPH pour former des trioses phosphates, précurseurs du glucose et de l'amidon.
+Le bilan global s'écrit : 6 CO2 + 6 H2O + lumière donne C6H12O6 + 6 O2. L'intensité lumineuse, la concentration en dioxyde de carbone et la température sont des facteurs limitants : le plus faible d'entre eux détermine la vitesse de la photosynthèse."""),
+    ('Informatique', 'Les algorithmes de tri', """Un algorithme de tri réorganise les éléments d'une collection selon une relation d'ordre. Son efficacité se mesure par sa complexité en temps et en mémoire, exprimée avec la notation O.
+Le tri par sélection cherche à chaque étape le plus petit élément restant et le place en tête ; il effectue toujours de l'ordre de n au carré comparaisons. Le tri par insertion insère chaque élément à sa place dans la partie déjà triée ; il est très rapide sur des données presque triées.
+Le tri fusion applique le principe diviser pour régner : la liste est coupée en deux moitiés triées récursivement puis fusionnées. Sa complexité est en n log n dans tous les cas et il est stable, c'est-à-dire qu'il conserve l'ordre des éléments égaux, mais il demande une mémoire supplémentaire.
+Le tri rapide choisit un pivot, place les éléments plus petits à gauche et les plus grands à droite, puis trie chaque partie. Il est en n log n en moyenne mais en n au carré dans le pire cas, lorsque le pivot est mal choisi. Une borne théorique montre qu'aucun tri par comparaisons ne peut faire mieux que n log n."""),
+    ('Histoire', 'La révolution industrielle', """La révolution industrielle désigne le passage d'une économie agricole et artisanale à une économie dominée par l'industrie et la production mécanisée. Elle débute en Grande-Bretagne à la fin du XVIIIe siècle avant de gagner l'Europe occidentale et les États-Unis au XIXe siècle.
+La machine à vapeur, perfectionnée par James Watt, en est le symbole. Elle alimente les usines textiles, les mines de charbon et les premières locomotives. Le chemin de fer transforme les échanges en réduisant le temps et le coût des transports.
+Les sociétés se transforment profondément. L'exode rural fait grossir les villes industrielles où apparaît une classe ouvrière soumise à de longues journées de travail, à de bas salaires et à des conditions de logement difficiles. Le travail des enfants est fréquent.
+Ces difficultés suscitent les premiers syndicats, les mouvements socialistes et, progressivement, des lois sociales limitant la durée du travail. Une seconde révolution industrielle, fondée sur l'électricité, le pétrole et la chimie, prolonge ces mutations à la fin du XIXe siècle."""),
+    ('Physique', 'Les lois de Newton', """Isaac Newton formule en 1687 trois lois qui fondent la mécanique classique.
+Le principe d'inertie affirme qu'un corps isolé, ou soumis à des forces qui se compensent, reste immobile ou garde un mouvement rectiligne uniforme. Un référentiel dans lequel ce principe est vérifié est dit galiléen.
+Le principe fondamental de la dynamique relie la somme des forces extérieures appliquées à un système à sa masse et à son accélération : la somme des forces est égale à la masse multipliée par l'accélération. Une force s'exprime en newtons.
+Le principe des actions réciproques indique que lorsqu'un corps A exerce une force sur un corps B, le corps B exerce sur A une force de même intensité, de même direction et de sens opposé.
+Ces lois permettent de prévoir le mouvement des projectiles, des véhicules ou des planètes. Associées à la loi de la gravitation universelle, elles expliquent les orbites elliptiques décrites par Kepler. Elles cessent d'être valables à des vitesses proches de celle de la lumière, où la relativité prend le relais."""),
+    ('Économie', 'L’inflation', """L'inflation est la hausse générale et durable du niveau des prix. Elle se mesure par l'indice des prix à la consommation, qui suit l'évolution du coût d'un panier de biens et de services représentatif.
+Plusieurs causes peuvent l'expliquer. L'inflation par la demande apparaît lorsque la demande globale dépasse les capacités de production. L'inflation par les coûts résulte de la hausse des matières premières, de l'énergie ou des salaires, que les entreprises répercutent sur leurs prix. Une création monétaire excessive peut également l'alimenter.
+L'inflation réduit le pouvoir d'achat des ménages dont les revenus ne suivent pas la hausse des prix et pénalise les épargnants. Elle allège en revanche le poids réel des dettes.
+Les banques centrales, comme la Banque centrale européenne, ont pour mission de maintenir la stabilité des prix, souvent autour d'un objectif de deux pour cent. Elles relèvent leurs taux directeurs pour freiner le crédit et la demande lorsque l'inflation est trop forte. À l'inverse, la déflation, baisse durable des prix, peut entraîner une spirale de report des achats et de récession."""),
+    ('Chimie', 'Les réactions acido-basiques', """Selon la théorie de Brønsted, un acide est une espèce chimique capable de céder un proton H+, et une base une espèce capable de le capter. Un acide et sa base conjuguée forment un couple acide-base, comme l'acide éthanoïque et l'ion éthanoate.
+Une réaction acido-basique est un échange de proton entre l'acide d'un couple et la base d'un autre couple. L'eau est une espèce amphotère : elle se comporte comme un acide dans le couple eau-ion hydroxyde et comme une base dans le couple ion oxonium-eau.
+Le pH mesure l'acidité d'une solution aqueuse : il est égal à moins le logarithme décimal de la concentration en ions oxonium. À 25 degrés, une solution est acide si son pH est inférieur à 7, neutre s'il vaut 7 et basique s'il est supérieur à 7.
+Un acide fort réagit totalement avec l'eau alors qu'un acide faible ne réagit que partiellement ; la constante d'acidité Ka caractérise cette force. Le dosage par titrage, suivi au pH-mètre ou à l'aide d'un indicateur coloré, permet de déterminer la concentration d'une solution grâce à l'équivalence."""),
+]
+IMAGE_PROMPTS = [
+    ('A green leaf absorbing sunlight, arrows showing CO2 and water entering, oxygen leaving', 'SCHEMA',
+     'Feuille qui absorbe la lumière, le CO₂ et l’eau, et rejette du dioxygène.'),
+    ('A steam locomotive in front of a nineteenth century textile factory', 'WATERCOLOR',
+     'Locomotive à vapeur devant une usine textile du XIXe siècle.'),
+    ('Planets orbiting the sun on elliptical paths, educational space diagram', 'FLAT',
+     'Planètes en orbite elliptique autour du Soleil.'),
+]

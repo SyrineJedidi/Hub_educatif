@@ -1,10 +1,39 @@
 # Hub Éducatif Multimodal — Nexora
 
-Module commun « Utilisateurs, groupes et assiduité ». L’accueil et toutes les pages étudiant/enseignant partagent le front-office Eduleb : header horizontal, menu mobile, avatar et footer. Le back-office React avec sidebar est exclusivement réservé à l’administrateur sous `/administration/*`. Les fichiers HTML et `assets/` à la racine restent les références originales. Le README original est conservé dans `docs/EDULEB_ORIGINAL_README.md`.
+Deux interfaces séparées : le **site public** (template Eduleb, accueil et espaces étudiant/enseignant) et le **back-office** (template Soft UI Dashboard de Creative Tim, MIT) sous `/administration/*` pour l’administrateur et `/gestion/*` pour la gestion des fiches par l’enseignant. Chaque zone ne charge que les feuilles de style de son template. Les fichiers HTML et `assets/` du template original sont conservés comme référence dans `template/eduleb-original/`. Le README original est conservé dans `docs/EDULEB_ORIGINAL_README.md`.
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Les autres modules, la génération IA et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Le socle commun utilisateurs/groupes/assiduité et le module Quiz–Question (conception, passage, reprise et correction automatique) sont disponibles. Le module Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face) est documenté dans [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md). Les autres modules et les statistiques avancées de progression restent à développer. Voir [le passage des quiz](docs/QUIZ-PASSAGE.md).
+
+## Organisation du dépôt
+
+```
+backend/            API Django (une application par module : accounts, classrooms, attendance, quizzes, revisions)
+  revisions/        module Résumés et illustrations
+    ai/             clients Gemini / Ollama / Hugging Face, tâches de fond, métriques de qualité
+    services/       règles métier (périmètres d’accès, contenu des fiches, suivi des étudiants)
+    views/          API regroupée par domaine (fiches, illustrations, IA, révision)
+    tests/          tests automatisés du module
+frontend/           application React (Vite)
+  src/layouts/front/        gabarit du site public
+  src/layouts/backoffice/   gabarit du back-office
+  src/styles/front/ · src/styles/backoffice/
+  src/revisions/            pages/ components/ hooks/ styles/ du module
+deploy/             Dockerfiles, configuration nginx, modèle de configuration de production
+docker-compose.yml  pile complète : nginx + React, Django/gunicorn, worker Celery, MongoDB, Redis
+docs/               documentation, scénarios de test, preuves (couverture, accessibilité)
+template/           template Eduleb original, conservé comme référence
+```
+
+## Déploiement
+
+```bash
+cp deploy/.env.production.example deploy/.env.production   # puis renseigner les secrets
+docker compose up -d --build                                # http://localhost:8080
+```
+
+Guide complet (HTTPS, sauvegardes, mises à jour) : [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
 
 ## Travail en équipe
 
@@ -115,9 +144,9 @@ Documentation : [API et rôles](docs/API.md), [architecture et conventions](docs
 
 Le code est intégré au dépôt partagé à partir d’un clone dédié. Le dépôt Git parent du profil Windows n’a pas été modifié. La publication GitHub ne constitue pas un déploiement de l’application. Les protections sont présentes dans l’API ; les modèles importés directement dans un shell sont réservés aux opérations techniques maîtrisées.
 
-Le serveur Django de développement et le replica set mono-nœud lié à localhost servent à l’exécution locale. Une production nécessite une clé secrète propre, HTTPS, `DJANGO_DEBUG=false`, hôtes/origines explicites, MongoDB authentifié avec sauvegardes, SMTP choisi et un serveur adapté. Le routage du frontend doit réécrire ses routes vers `index.html` et relayer `/api/` sans mise en cache des réponses privées.
+Le serveur Django de développement et le replica set mono-nœud lié à localhost servent à l’exécution locale. La production utilise la pile Docker décrite dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) (gunicorn, nginx, HTTPS par un proxy, `DJANGO_DEBUG=false`). Restent à la charge de l’hébergeur : le nom de domaine et son certificat, l’authentification MongoDB et les sauvegardes planifiées, et le serveur SMTP.
 
-L’archive mentionne MIT dans son README mais ne contient pas le texte intégral de la licence. Les crédits sont préservés ; l’autorisation d’utilisation des photographies n’est pas déduite de cette seule mention. Les polices Google restent chargées à distance, comme dans le template.
+L’archive mentionne MIT dans son README mais ne contient pas le texte intégral de la licence. Les crédits sont préservés ; l’autorisation d’utilisation des photographies n’est pas déduite de cette seule mention. Les polices Inter et Jost (SIL OFL) sont hébergées par l’application elle-même : aucune requête vers un service tiers au chargement.
 
 Règles de rôles mises à jour : [docs/ROLES.md](docs/ROLES.md).
 

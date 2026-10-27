@@ -1,0 +1,20 @@
+Couverture du module revisions (Résumés et illustrations) — 26/10/2026 16:55
+Commande : python -m coverage run --source=backend/revisions backend/manage.py test revisions accounts.tests.test_seed_demo
+Exclus : migrations, fichiers de tests, corpus et commande d'évaluation (appels IA réels, exécutés via evaluate_ai).
+
+Name                                                Stmts   Miss  Cover
+-----------------------------------------------------------------------
+backend\revisions\__init__.py                           0      0   100%
+backend\revisions\ai.py                               144     29    80%
+backend\revisions\jobs.py                             109      9    92%
+backend\revisions\management\__init__.py                0      0   100%
+backend\revisions\management\commands\__init__.py       0      0   100%
+backend\revisions\metrics.py                           53      0   100%
+backend\revisions\models.py                           116      3    97%
+backend\revisions\serializers.py                      185      1    99%
+backend\revisions\services.py                         170     15    91%
+backend\revisions\tasks.py                              5      1    80%
+backend\revisions\urls.py                               3      0   100%
+backend\revisions\views.py                            235      3    99%
+-----------------------------------------------------------------------
+TOTAL                                                1020     61    94%

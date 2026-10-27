@@ -1,0 +1,17 @@
+# Build context of the images is the repository root: only backend/, frontend/ and deploy/ are needed.
+.git
+template
+docs
+scripts
+**/__pycache__
+**/*.pyc
+backend/.venv
+backend/.env
+backend/media
+backend/staticfiles
+frontend/node_modules
+frontend/dist
+frontend/tests
+frontend/test-results
+deploy/.env.production
+.coverage

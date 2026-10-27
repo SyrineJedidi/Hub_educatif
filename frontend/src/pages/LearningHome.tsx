@@ -54,7 +54,7 @@ export default function LearningHome() {
             </Link>
           </div>
         </div>
-        <img src="/assets/img/home-img2.png" alt="" />
+        <img src="/assets/img/home-img2.webp" alt="" />
       </section>
       <section className="learning-access" aria-label="Accès à vos activités">
         {[
@@ -101,6 +101,45 @@ export default function LearningHome() {
             <span aria-hidden="true">↗</span>
           </Link>
         ))}
+      </section>
+      <section className="module-band" aria-labelledby="module-band-title">
+        <span className="module-band-icon" aria-hidden="true">
+          <span className="ti-wand" />
+        </span>
+        <div>
+          <p className="eyebrow">MODULE RÉSUMÉS ET ILLUSTRATIONS</p>
+          <h2 id="module-band-title">
+            {teacher
+              ? "Préparez vos fiches de révision avec l’IA"
+              : "Révisez avec des fiches claires"}
+          </h2>
+          <p>
+            {teacher
+              ? "Un cours devient une fiche : résumé, points clés, glossaire et illustration générés, relus par vous, puis partagés avec vos groupes."
+              : "Lisez les fiches de vos enseignants, copiez-les dans votre espace ou laissez l’IA résumer vos propres notes."}
+          </p>
+        </div>
+        <div className="module-band-actions">
+          {teacher ? (
+            <>
+              <Link className="btn_one" to="/gestion">
+                Gérer mes fiches
+              </Link>
+              <Link className="module-band-link" to="/gestion/atelier-ia">
+                Atelier IA ↗
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link className="btn_one" to="/espace/fiches">
+                Mes fiches de révision
+              </Link>
+              <Link className="module-band-link" to="/espace/fiches/atelier-ia">
+                Atelier IA ↗
+              </Link>
+            </>
+          )}
+        </div>
       </section>
       <AssistantHomePanel teacher={teacher} />
       <section className="learning-upcoming panel">

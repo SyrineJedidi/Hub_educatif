@@ -3,18 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf2" />
     <meta
       name="description"
-      content="Hub Éducatif Multimodal par Nexora : vos groupes, séances et assiduité."
+      content="Hub Éducatif Multimodal par Nexora : séances, assiduité, quiz et fiches de révision avec une IA relue par vos enseignants."
     />
     <title>Hub Éducatif Multimodal — Nexora</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Jost:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+    <!-- Self-hosted fonts (Inter, Jost — SIL OFL) and icons: no third-party request. -->
+    <link rel="preload" href="/assets/fonts/web/inter-latin-1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/fonts/web/fonts.css" />
     <link rel="stylesheet" href="/assets/fonts/themify-icons.css" />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script>
+      // Two separate templates: Eduleb for the public site, Soft UI Dashboard (Creative Tim, MIT)
+      // for the back-office. Only the stylesheets of the current area are downloaded and applied.
+      window.__templates = {
+        front: ["/assets/bootstrap/css/bootstrap.min.css", "/assets/css/style.css"],
+        back: ["/assets/backoffice/css/nucleo-icons.css", "/assets/backoffice/css/soft-ui-dashboard.min.css"],
+      };
+      (function () {
+        var area = /^\/(administration|gestion)(\/|$)/.test(location.pathname) ? "back" : "front";
+        document.documentElement.dataset.template = area;
+        window.__templates[area].forEach(function (href) {
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = href;
+          link.dataset.template = area;
+          document.head.appendChild(link);
+        });
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
