@@ -14,6 +14,7 @@ import {
 } from "../components/UI";
 import SessionForm from "./SessionForm";
 import { QuizPriorities } from "../quizzes/Progress";
+import AssistantHomePanel from "../assistant/AssistantHomePanel";
 export default function LearningHome() {
   const { user } = useAuth();
   const teacher = user!.role === "TEACHER";
@@ -142,6 +143,7 @@ export default function LearningHome() {
           )}
         </div>
       </section>
+      <AssistantHomePanel teacher={teacher} />
       <section className="learning-upcoming panel">
         <div className="panel-heading">
           <div>

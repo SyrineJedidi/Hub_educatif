@@ -6,20 +6,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     DJANGO_MEDIA_ROOT=/data/media \
-    DJANGO_STATIC_ROOT=/app/staticfiles
+    DJANGO_STATIC_ROOT=/app/staticfiles \
+    HF_HOME=/data/huggingface
 
 WORKDIR /app
 COPY backend/requirements.lock backend/requirements-whisper.txt ./
 RUN pip install -r requirements.lock
-# Local Whisper for voice questions: docker compose build --build-arg WITH_WHISPER=true
+# Local transcription of voice questions and course recordings (WHISPER_PROVIDER=local) adds about 450 MB, so it is opt-in.
 ARG WITH_WHISPER=false
 RUN if [ "$WITH_WHISPER" = "true" ]; then pip install -r requirements-whisper.txt; fi
 
 COPY backend/ .
 COPY deploy/backend/entrypoint.sh /entrypoint.sh
-# Runs as an unprivileged user; uploaded illustrations live in a volume.
+# Runs as an unprivileged user; uploaded illustrations and downloaded Whisper models live in volumes.
 RUN useradd --create-home --uid 1000 nexora \
-    && mkdir -p /data/media /app/staticfiles \
+    && mkdir -p /data/media /data/huggingface /app/staticfiles \
     && chown -R nexora /data /app
 USER nexora
 
