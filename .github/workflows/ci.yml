@@ -136,8 +136,14 @@ jobs:
       - name: Build the images
         run: docker compose build
 
-      - name: Start the stack and wait until every service is healthy
-        run: docker compose up -d --wait --wait-timeout 300
+      # --wait refuses services whose health check is disabled, like the Celery worker:
+      # wait for the services that have one, then check that the worker stays up.
+      - name: Start the stack and wait until it is healthy
+        run: |
+          docker compose up -d --wait --wait-timeout 300 mongo redis backend frontend
+          docker compose up -d worker
+          sleep 10
+          test "$(docker compose ps --status running --quiet worker)" != ""
 
       - name: Smoke test through nginx
         run: |
