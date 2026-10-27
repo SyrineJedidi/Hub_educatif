@@ -24,6 +24,7 @@ Renseigner au minimum :
 - `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, `FRONTEND_URL` : le domaine public
 - le serveur SMTP (réinitialisation de mot de passe)
 - `GEMINI_API_KEY` et `HF_TOKEN` pour activer l’IA (vides : la saisie manuelle reste disponible)
+- assistant pédagogique : `ASSISTANT_LLM_PROVIDER=gemini` ; questions vocales avec `WHISPER_PROVIDER=groq` (clé `GROQ_API_KEY`) ou `local`, qui demande de construire l’image avec `docker compose build --build-arg WITH_WHISPER=true`
 
 `deploy/.env.production` est ignoré par Git : les secrets ne quittent jamais le serveur.
 

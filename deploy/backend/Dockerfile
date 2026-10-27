@@ -9,8 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_STATIC_ROOT=/app/staticfiles
 
 WORKDIR /app
-COPY backend/requirements.lock .
+COPY backend/requirements.lock backend/requirements-whisper.txt ./
 RUN pip install -r requirements.lock
+# Local Whisper for voice questions: docker compose build --build-arg WITH_WHISPER=true
+ARG WITH_WHISPER=false
+RUN if [ "$WITH_WHISPER" = "true" ]; then pip install -r requirements-whisper.txt; fi
 
 COPY backend/ .
 COPY deploy/backend/entrypoint.sh /entrypoint.sh

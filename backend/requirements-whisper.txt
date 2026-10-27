@@ -1,0 +1,5 @@
+# Optional: local voice transcription (WHISPER_PROVIDER=local) for the teaching assistant.
+# The model is downloaded on first use (WHISPER_MODEL, "small" ≈ 460 MB).
+faster-whisper==1.2.1
+# PyAV 15 removed the "metadata_errors" argument that faster-whisper 1.2.1 still passes.
+av>=11,<15
