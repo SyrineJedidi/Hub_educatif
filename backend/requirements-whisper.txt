@@ -1,0 +1,4 @@
+# Optional local transcription (WHISPER_PROVIDER=local), installed on top of requirements.lock.
+# av stays below 19: faster-whisper 1.2.1 fails to open audio with PyAV 19.
+faster-whisper==1.2.1
+av==18.1.0

@@ -6,17 +6,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     DJANGO_MEDIA_ROOT=/data/media \
-    DJANGO_STATIC_ROOT=/app/staticfiles
+    DJANGO_STATIC_ROOT=/app/staticfiles \
+    HF_HOME=/data/huggingface
 
 WORKDIR /app
 COPY backend/requirements.lock .
 RUN pip install -r requirements.lock
+# Local transcription of voice questions (WHISPER_PROVIDER=local) adds about 450 MB, so it is opt-in.
+ARG WITH_WHISPER=false
+COPY backend/requirements-whisper.txt .
+RUN if [ "$WITH_WHISPER" = "true" ]; then pip install -r requirements-whisper.txt; fi
 
 COPY backend/ .
 COPY deploy/backend/entrypoint.sh /entrypoint.sh
-# Runs as an unprivileged user; uploaded illustrations live in a volume.
+# Runs as an unprivileged user; uploaded illustrations and downloaded Whisper models live in volumes.
 RUN useradd --create-home --uid 1000 nexora \
-    && mkdir -p /data/media /app/staticfiles \
+    && mkdir -p /data/media /data/huggingface /app/staticfiles \
     && chown -R nexora /data /app
 USER nexora
 

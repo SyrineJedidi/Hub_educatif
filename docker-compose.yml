@@ -32,10 +32,15 @@ services:
     build:
       context: .
       dockerfile: deploy/backend/Dockerfile
+      # WITH_WHISPER=true docker compose up -d --build installs local Whisper (WHISPER_PROVIDER=local).
+      args:
+        WITH_WHISPER: ${WITH_WHISPER:-false}
     command: ["web"]
     env_file: deploy/.env.production
     volumes:
       - media:/data/media
+      # Whisper models, downloaded on the first voice question and kept across updates.
+      - whisper-models:/data/huggingface
     depends_on:
       mongo: { condition: service_healthy }
       redis: { condition: service_healthy }
@@ -45,6 +50,9 @@ services:
     build:
       context: .
       dockerfile: deploy/backend/Dockerfile
+      # Same arguments as backend, so both services run the same image.
+      args:
+        WITH_WHISPER: ${WITH_WHISPER:-false}
     command: ["worker"]
     env_file: deploy/.env.production
     volumes:
@@ -68,3 +76,4 @@ services:
 volumes:
   mongo-data:
   media:
+  whisper-models:
