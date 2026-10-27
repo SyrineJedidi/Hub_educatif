@@ -1,4 +1,4 @@
 [run]
-source = accounts,classrooms,attendance,quizzes,revisions,assistant,ai
+source = accounts,classrooms,attendance,quizzes,courses,revisions,assistant,ai
 [report]
 omit = */migrations/*,*/tests/*,*/tests.py,*/management/*

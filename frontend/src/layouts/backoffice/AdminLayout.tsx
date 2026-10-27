@@ -24,6 +24,13 @@ const sections = [
     ],
   },
   {
+    title: "Cours et ressources",
+    links: [
+      { to: base + "/cours", icon: "ti-book", label: "Cours" },
+      { to: base + "/matieres", icon: "ti-bookmark-alt", label: "Matières" },
+    ],
+  },
+  {
     title: "Quiz et progression",
     links: [
       { to: base + "/quiz", icon: "ti-help-alt", label: "Quiz" },
@@ -52,7 +59,6 @@ const sections = [
   {
     title: "Bientôt dans le hub",
     links: [
-      { to: base + "/modules/cours", icon: "ti-blackboard", label: "Cours et ressources", soon: true },
       { to: base + "/modules/coaching", icon: "ti-target", label: "Planification", soon: true },
     ],
   },

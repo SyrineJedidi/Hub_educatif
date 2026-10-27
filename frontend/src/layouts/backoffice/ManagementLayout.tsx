@@ -22,6 +22,7 @@ const sections = [
     title: "Mon enseignement",
     links: [
       { to: "/espace/enseignant", icon: "ti-home", label: "Espace enseignant", end: true },
+      { to: "/espace/cours", icon: "ti-book", label: "Mes cours" },
       { to: "/espace/seances", icon: "ti-calendar", label: "Séances et appel" },
       { to: "/espace/quiz", icon: "ti-help-alt", label: "Quiz" },
       { to: "/espace/groupes", icon: "ti-folder", label: "Groupes" },

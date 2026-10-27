@@ -108,6 +108,17 @@ const labels: Record<string, string> = {
   note: "Note",
   action: "Action",
   question: "Question publiée",
+  subject_id: "Matière",
+  group_ids: "Groupes",
+  chapter_id: "Chapitre",
+  chapter_ids: "Ordre des chapitres",
+  resource_ids: "Ordre des ressources",
+  file: "Fichier",
+  code: "Code",
+  name: "Nom",
+  text: "Texte",
+  kind: "Type",
+  archived: "Archivage",
 };
 export function Field({
   label,

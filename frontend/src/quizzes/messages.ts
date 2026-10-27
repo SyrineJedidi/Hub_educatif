@@ -1,6 +1,9 @@
 // Fixed French-source interface dictionaries; no translation service.
 export const messages: Record<string, [string, string]> = {
   // Navigation of the public site and back-office, shown while the quiz pages are in English or Arabic.
+  "Cours": ["Courses", "الدروس"],
+  "Mes cours": ["My courses", "دروسي"],
+  "Matières": ["Subjects", "المواد"],
   "Assistant": ["Assistant", "المساعد"],
   "Atelier IA": ["AI workshop", "ورشة الذكاء الاصطناعي"],
   "Back-office": ["Back office", "لوحة الإدارة"],

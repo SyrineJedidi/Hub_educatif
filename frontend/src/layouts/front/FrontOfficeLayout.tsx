@@ -26,7 +26,7 @@ export function Brand() {
   );
 }
 const modules = [
-  ["cours", "Cours et ressources", "En préparation"],
+  ["cours", "Cours et ressources", "Chapitres, PDF et enregistrements audio"],
   ["resumes", "Résumés et illustrations", "Fiches, résumés IA et illustrations"],
   ["assistant", "Assistant pédagogique", "Réponses sourcées, par texte ou par voix"],
   ["quiz", "Quiz et progression", "Quiz, tentatives et correction"],
@@ -203,6 +203,7 @@ export default function FrontOfficeLayout() {
                 </NavLink>
                 {user.role === "ADMIN" ? (
                   <>
+                    <NavLink to="/administration/cours">{t("Cours")}</NavLink>
                     <NavLink to="/administration/resumes">{t("Résumés et illustrations")}</NavLink>
                     <NavLink to="/administration/quiz">{t("Quiz")}</NavLink>
                     <NavLink to="/administration/assistant">{t("Assistant")}</NavLink>
@@ -211,6 +212,7 @@ export default function FrontOfficeLayout() {
                   </>
                 ) : (
                   <>
+                    <NavLink to="/espace/cours">{t("Mes cours")}</NavLink>
                     <NavLink to="/espace/fiches">{t("Fiches de révision")}</NavLink>
                     <NavLink to="/espace/quiz">{t("Quiz")}</NavLink>
                     <NavLink to="/espace/assistant">{t("Assistant")}</NavLink>

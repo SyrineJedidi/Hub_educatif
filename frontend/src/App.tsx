@@ -13,6 +13,7 @@ import {
   AssistantUserRoute,
 } from "./assistant/AssistantRoutes";
 import { setQuizLanguageScope, useQuizLanguage } from "./quizzes/i18n";
+import { CourseManagerRoute, CourseModuleEntry } from "./courses/CourseRoutes";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import FrontOfficeLayout from "./layouts/front/FrontOfficeLayout";
 import ProtectedLearningLayout from "./layouts/front/ProtectedLearningLayout";
@@ -44,6 +45,13 @@ const JobJournal = lazy(() => import("./revisions/pages/JobJournal"));
 const RevisionMode = lazy(() => import("./revisions/pages/RevisionMode"));
 const StudentFollowUp = lazy(() => import("./revisions/pages/StudentFollowUp"));
 const RolesPermissions = lazy(() => import("./pages/RolesPermissions"));
+const CourseList = lazy(() => import("./courses/CourseList"));
+const CourseDetail = lazy(() => import("./courses/CourseDetail"));
+const CourseEditor = lazy(() => import("./courses/CourseEditor"));
+const CourseSearch = lazy(() => import("./courses/CourseSearch"));
+const CourseStatistics = lazy(() => import("./courses/CourseStatistics"));
+const ResourceViewer = lazy(() => import("./courses/ResourceViewer"));
+const SubjectList = lazy(() => import("./courses/SubjectList"));
 const AssistantPage = lazy(() => import("./assistant/AssistantPage"));
 const NotesPage = lazy(() => import("./assistant/NotesPage"));
 const SettingsPage = lazy(() => import("./assistant/SettingsPage"));
@@ -104,6 +112,7 @@ export default function App() {
         <Route path="modules/quiz" element={<QuizModuleEntry />} />
         <Route path="modules/resumes" element={<SheetModuleEntry />} />
         <Route path="modules/assistant" element={<AssistantModuleEntry />} />
+        <Route path="modules/cours" element={<CourseModuleEntry />} />
         <Route path="modules/:slug" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
         <Route path="espace" element={<ProtectedLearningLayout />}>
@@ -171,6 +180,23 @@ export default function App() {
               path="assistant/signalements/:id"
               element={<ReviewDetail />}
             />
+          </Route>
+          <Route path="cours" element={<CourseList />} />
+          <Route path="cours/recherche" element={<CourseSearch />} />
+          <Route path="cours/:id" element={<CourseDetail />} />
+          <Route
+            path="cours/:id/ressources/:resourceId"
+            element={<ResourceViewer />}
+          />
+          <Route path="modules/cours" element={<CourseModuleEntry />} />
+          <Route element={<CourseManagerRoute />}>
+            <Route path="cours/nouveau" element={<CourseEditor />} />
+            <Route path="cours/:id/modifier" element={<CourseEditor />} />
+            <Route
+              path="cours/:id/statistiques"
+              element={<CourseStatistics />}
+            />
+            <Route path="matieres" element={<SubjectList />} />
           </Route>
           <Route path="profil" element={<Profile />} />
           <Route path="groupes" element={<Groups />} />
@@ -244,6 +270,20 @@ export default function App() {
         <Route path="assistant/signalements" element={<ReviewQueue />} />
         <Route path="assistant/signalements/:id" element={<ReviewDetail />} />
         <Route path="modules/assistant" element={<AssistantModuleEntry />} />
+        <Route path="cours" element={<CourseList />} />
+        <Route path="cours/recherche" element={<CourseSearch />} />
+        <Route path="cours/:id" element={<CourseDetail />} />
+        <Route
+          path="cours/:id/ressources/:resourceId"
+          element={<ResourceViewer />}
+        />
+        <Route path="modules/cours" element={<CourseModuleEntry />} />
+        <Route element={<CourseManagerRoute />}>
+          <Route path="cours/nouveau" element={<CourseEditor />} />
+          <Route path="cours/:id/modifier" element={<CourseEditor />} />
+          <Route path="cours/:id/statistiques" element={<CourseStatistics />} />
+          <Route path="matieres" element={<SubjectList />} />
+        </Route>
         <Route path="profil" element={<Profile />} />
         <Route path="groupes" element={<Groups />} />
         <Route path="groupes/:id" element={<GroupDetail />} />

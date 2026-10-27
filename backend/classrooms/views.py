@@ -44,9 +44,10 @@ class GroupDetailView(SecureView):
         from attendance.models import LearningSession
         from quizzes.models import Quiz
         from assistant.models import TeacherNote
+        from courses.models import CourseGroup
         group = get_object(LearningGroup, uid)
         group_access(request.user, group, write=True)
-        if Enrollment.objects.filter(group=group).exists() or LearningSession.objects.filter(group=group).exists() or Quiz.objects.filter(learning_group=group).exists() or TeacherNote.objects.filter(group=group).exists():
+        if Enrollment.objects.filter(group=group).exists() or LearningSession.objects.filter(group=group).exists() or Quiz.objects.filter(learning_group=group).exists() or TeacherNote.objects.filter(group=group).exists() or CourseGroup.objects.filter(group=group).exists():
             raise ValidationError('Ce groupe possède un historique. Archivez-le.')
         group.delete()
         return Response(status=204)

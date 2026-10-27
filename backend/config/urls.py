@@ -7,6 +7,7 @@ urlpatterns = [
     path('api/', include('classrooms.urls')),
     path('api/', include('attendance.urls')),
     path('api/', include('quizzes.urls')),
+    path('api/', include('courses.urls')),
     path('api/', include('revisions.urls')),
     path('api/', include('assistant.urls')),
     path('api/csrf/', v.CSRFView.as_view()),

@@ -4,7 +4,9 @@ import { useAuth, destination } from "../../auth/AuthContext";
 import { Alert, Loading } from "../../components/UI";
 import { t } from "../../quizzes/i18n";
 const sections: Record<string, string> = {
+  cours: "Mes cours",
   fiches: "Fiches de révision",
+  assistant: "Assistant",
   quiz: "Quiz",
   "resultats-quiz": "Résultats des quiz",
   seances: "Séances",

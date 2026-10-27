@@ -4,12 +4,12 @@ Deux interfaces séparées : le **site public** (template Eduleb, accueil et esp
 
 React 19.2 / TypeScript 5.9 / Vite 7.3.7 ; Python 3.13 / Django 5.2.18 / DRF 3.16.1 / backend officiel MongoDB 5.2.4. Les versions transitives sont verrouillées dans `frontend/package-lock.json` et `backend/requirements.lock`. Aucune base SQL de remplacement.
 
-La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Modules disponibles : le socle commun utilisateurs/groupes/assiduité ; Quiz et progression (conception, génération locale de propositions avec Ollama, passage, correction, calendrier, progression, export PDF et retours étudiants — voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md)) ; Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face — voir [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md)) ; l’assistant pédagogique (réponses Gemini sourcées, questions vocales Whisper). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md).
+La présentation générale et les objectifs définis par l’équipe sont conservés dans [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). Modules disponibles : le socle commun utilisateurs/groupes/assiduité ; Cours et ressources (matières, chapitres, PDF, transcription audio Whisper — voir [docs/COURS.md](docs/COURS.md)) ; Quiz et progression (conception, génération locale de propositions avec Ollama, passage, correction, calendrier, progression, export PDF et retours étudiants — voir [le passage des quiz](docs/QUIZ-PASSAGE.md) et [les compléments du module](docs/QUIZ-PROGRESSION.md)) ; Résumés et illustrations (fiches de révision, résumés Gemini, illustrations Hugging Face — voir [docs/RESUMES-ILLUSTRATIONS.md](docs/RESUMES-ILLUSTRATIONS.md)) ; l’assistant pédagogique (réponses Gemini sourcées, questions vocales Whisper). Données de démonstration : `manage.py seed_demo` ; parcours de test de toute l’application : [docs/SCENARIO-COMPLET.md](docs/SCENARIO-COMPLET.md).
 
 ## Organisation du dépôt
 
 ```
-backend/            API Django (une application par module : accounts, classrooms, attendance, quizzes, revisions, assistant)
+backend/            API Django (une application par module : accounts, classrooms, attendance, courses, quizzes, revisions, assistant)
   revisions/        module Résumés et illustrations
     ai/             clients Gemini / Ollama / Hugging Face, tâches de fond, métriques de qualité
     services/       règles métier (périmètres d’accès, contenu des fiches, suivi des étudiants)
