@@ -220,11 +220,19 @@ export default function FrontOfficeLayout() {
                     <NavLink to={planningHome(user.role)}>
                       {user.role === "TEACHER" ? t("Suivi des révisions") : t("Mon planning")}
                     </NavLink>
-                    <NavLink to="/espace/seances">
-                      {user.role === "TEACHER" ? t("Séances et appel") : t("Mes séances")}
-                    </NavLink>
-                    <NavLink to="/espace/assiduite">{t("Assiduité")}</NavLink>
-                    <NavLink to="/espace/groupes">{t("Groupes")}</NavLink>
+                    {/* Sessions, attendance and groups share one entry so the bar stays on one line. */}
+                    <details className={"front-dropdown nav-group" + (/^\/espace\/(seances|assiduite|groupes)(\/|$)/.test(pathname) ? " is-current" : "")}>
+                      <summary>
+                        {t("Ma classe")} <span aria-hidden="true" className="ti-angle-down" />
+                      </summary>
+                      <div>
+                        <NavLink to="/espace/seances">
+                          {user.role === "TEACHER" ? t("Séances et appel") : t("Mes séances")}
+                        </NavLink>
+                        <NavLink to="/espace/assiduite">{t("Assiduité")}</NavLink>
+                        <NavLink to="/espace/groupes">{t("Groupes")}</NavLink>
+                      </div>
+                    </details>
                   </>
                 )}
                 <details className="front-dropdown">

@@ -1,14 +1,17 @@
 import hashlib
 import json
+from bson import ObjectId
+from django.conf import settings
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError, PermissionDenied
+from rest_framework.exceptions import NotFound, ValidationError, PermissionDenied
 from rest_framework.response import Response
 from accounts.models import User
 from accounts.services import limit
 from accounts.views import validated
 from classrooms.services import mutation, Conflict
 from .generation import GenerationInputSerializer, configuration, generate_questions, validate_proposals
-from .models import Question, QuestionImport
+from .generation_jobs import dispatch, expire_stale, job_data
+from .models import Question, QuestionGenerationJob, QuestionImport
 from .serializers import QuizInputSerializer, QuestionReadSerializer
 from .services import managed_quiz, draft_only, model_errors
 from .views import ManagerView
@@ -21,21 +24,45 @@ def editable_quiz(user, uid):
     return quiz
 
 
+def private(response):
+    response['Cache-Control'] = 'private, no-store'
+    return response
+
+
 class GenerateQuestionsView(ManagerView):
     def post(self, request, uid):
         quiz = editable_quiz(request.user, uid)
         inputs = validated(GenerationInputSerializer, request)
         configuration()
         limit(request, 'quiz-local-ai', maximum=5, seconds=300, identity=str(request.user.pk))
+        if settings.QUIZ_GENERATION_ASYNC:
+            # Ollama often needs 30 s or more: the page polls the job instead of holding the request.
+            job = QuestionGenerationJob.objects.create(quiz=quiz, teacher=request.user, inputs=dict(inputs))
+            dispatch(job)
+            job.refresh_from_db()
+            return private(Response(job_data(job), status=202))
         # Never hold the shared write transaction during an external request.
         proposals = generate_questions(quiz, inputs)
         actor = User.objects.filter(pk=request.user.pk).first()
         if actor is None or not actor.is_active or actor.role != request.user.role:
             raise PermissionDenied('Vos droits ont changé. Reconnectez-vous.')
         editable_quiz(actor, uid)  # A concurrent publication also locks this page.
-        response = Response({'questions': proposals})
-        response['Cache-Control'] = 'private, no-store'
-        return response
+        return private(Response({'questions': proposals}))
+
+
+class GenerationJobView(ManagerView):
+    def get(self, request, uid, job_id):
+        quiz = editable_quiz(request.user, uid)  # Rights and the draft state are checked again on delivery.
+        job = QuestionGenerationJob.objects.filter(pk=job_id if ObjectId.is_valid(job_id) else None, quiz=quiz, teacher=request.user).first()
+        if job is None: raise NotFound('Génération introuvable.')
+        job = expire_stale(job)
+        if job.status != QuestionGenerationJob.Status.SUCCEEDED or job.delivered:
+            return private(Response(job_data(job, [] if job.delivered else None)))
+        # Proposals are handed over once, then forgotten: only confirmed questions are kept.
+        if not QuestionGenerationJob.objects.filter(pk=job.pk, delivered=False).update(delivered=True, proposals=[]):
+            job.refresh_from_db()
+            return private(Response(job_data(job, [])))
+        return private(Response(job_data(job, job.proposals)))
 
 
 class ImportSerializer(QuizInputSerializer):

@@ -8,6 +8,8 @@ load_dotenv(BASE_DIR / '.env')
 OLLAMA_BASE_URL = os.getenv('OLLAMA_BASE_URL', 'http://127.0.0.1:11434')
 OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'qwen3:8b')
 OLLAMA_TIMEOUT_SECONDS = os.getenv('OLLAMA_TIMEOUT_SECONDS', '180')
+# Quiz question generation runs in the background (AI_JOB_BACKEND) unless this is false.
+QUIZ_GENERATION_ASYNC = os.getenv('QUIZ_GENERATION_ASYNC', 'true').lower() == 'true'
 DEBUG = os.getenv('DJANGO_DEBUG', 'true').lower() == 'true'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 if not SECRET_KEY:

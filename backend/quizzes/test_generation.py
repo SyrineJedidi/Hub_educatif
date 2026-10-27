@@ -28,7 +28,8 @@ def envelope(items):
     return {'done': True, 'done_reason': 'stop', 'message': {'role': 'assistant', 'content': json.dumps({'questions': items})}}
 
 
-@override_settings(PASSWORD_HASHERS=['django.contrib.auth.hashers.MD5PasswordHasher'],
+# The preview contract, synchronous path; the background one is covered by test_generation_jobs.
+@override_settings(PASSWORD_HASHERS=['django.contrib.auth.hashers.MD5PasswordHasher'], QUIZ_GENERATION_ASYNC=False,
                    OLLAMA_BASE_URL='http://127.0.0.1:11434', OLLAMA_MODEL='qwen3:8b', OLLAMA_TIMEOUT_SECONDS='180')
 class OllamaQuizTests(TransactionTestCase):
     def setUp(self):

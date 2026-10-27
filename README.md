@@ -157,3 +157,7 @@ Consultation des résultats des étudiants, réservée à l’enseignant propri�
 Génération locale de propositions depuis un texte de cours, avec révision et confirmation avant ajout : [IA locale — Qwen3 via Ollama](docs/QUIZ-OLLAMA.md).
 
 Calendrier, priorités, progression, export PDF, retours et interface FR/EN/AR : [compléments du module Quiz](docs/QUIZ-PROGRESSION.md).
+
+## Grille de validation
+
+Preuves par critère (tests, couverture, sécurité, accessibilité, métriques IA, CI et déploiement) : [docs/GRILLE-VALIDATION.md](docs/GRILLE-VALIDATION.md).

@@ -4,6 +4,7 @@ export const messages: Record<string, [string, string]> = {
   "Cours": ["Courses", "الدروس"],
   "Mes cours": ["My courses", "دروسي"],
   "Matières": ["Subjects", "المواد"],
+  "Ma classe": ["My class", "قسمي"],
   "Suivi des révisions": ["Revision follow-up", "متابعة المراجعة"],
   "Mon planning": ["My planner", "جدولي"],
   "Assistant": ["Assistant", "المساعد"],

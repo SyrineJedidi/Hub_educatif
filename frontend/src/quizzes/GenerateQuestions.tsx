@@ -1,5 +1,5 @@
 import { t, LanguageNotice } from "./i18n";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, ApiError } from "../api/client";
@@ -16,6 +16,16 @@ import "./quiz.css";
 
 type Proposal = Omit<QuestionValues, "position"> & { notion: string };
 type Draft = { id: string; selected: boolean; values: Proposal };
+type GeneratedQuestion = Omit<Proposal, "points"> & { points: number };
+// The local AI runs in the background: the request answers 202 with a job that the page polls.
+type GenerationJob = {
+  id: string;
+  status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED";
+  delivered: boolean;
+  questions?: GeneratedQuestion[];
+  error?: { code: string; message: string; status: number; fields: Record<string, string[]> };
+};
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 type ImportPayload = {
   import_key: string;
   confirmed: true;
@@ -43,6 +53,19 @@ function Generator({ quiz }: { quiz: Quiz }) {
   });
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [busy, setBusy] = useState<"generate" | "import" | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+  const alive = useRef(true);
+  // Stops polling when the page is left (and survives the double mount of React's strict mode).
+  useEffect(() => {
+    alive.current = true;
+    return () => void (alive.current = false);
+  }, []);
+  useEffect(() => {
+    if (busy !== "generate") return;
+    setElapsed(0);
+    const timer = setInterval(() => setElapsed((value) => value + 1), 1000);
+    return () => clearInterval(timer);
+  }, [busy]);
   const [error, setError] = useState<unknown>();
   const [uncertain, setUncertain] = useState(false);
   const [added, setAdded] = useState(0);
@@ -109,14 +132,27 @@ function Generator({ quiz }: { quiz: Quiz }) {
     try {
       generation.check();
       setBusy("generate");
-      const response = await api<{
-        questions: (Omit<Proposal, "points"> & { points: number })[];
-      }>(`quizzes/${quiz.id}/generate-questions/`, "POST", {
-        ...inputs,
-        count: Number(inputs.count),
-      });
+      const started = await api<GenerationJob | { questions: GeneratedQuestion[] }>(
+        `quizzes/${quiz.id}/generate-questions/`,
+        "POST",
+        { ...inputs, count: Number(inputs.count) },
+      );
+      let questions = "questions" in started ? started.questions : undefined;
+      if (!questions && "id" in started) {
+        let job: GenerationJob = started;
+        while (alive.current && !job.questions && job.status !== "FAILED") {
+          await sleep(2000);
+          job = await api<GenerationJob>(`quizzes/${quiz.id}/generate-questions/${job.id}/`);
+        }
+        if (!alive.current) return;
+        if (job.status === "FAILED" && job.error)
+          throw new ApiError(job.error.status || 503, job.error.message, job.error.fields, job.error.code);
+        if (!job.questions?.length)
+          throw new ApiError(410, "Ces propositions ont déjà été affichées. Relancez la génération.");
+        questions = job.questions;
+      }
       setDrafts(
-        response.questions.map((values) => ({
+        (questions || []).map((values) => ({
           id: crypto.randomUUID(),
           selected: true,
           values: { ...values, points: String(values.points) },
@@ -325,7 +361,8 @@ function Generator({ quiz }: { quiz: Quiz }) {
             <p role="status" className="notice">
               {t(
                 "L’IA locale prépare les propositions. Rien n’est encore enregistré. La génération peut prendre quelques minutes. ",
-              )}
+              )}{" "}
+              <span aria-hidden="true">({elapsed} s)</span>
             </p>
           )}
           {drafts.length > 0 && (

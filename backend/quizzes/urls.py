@@ -16,6 +16,7 @@ urlpatterns = [
     path('quizzes/<str:uid>/feedback/', ManagerFeedbackView.as_view()),
     path('quizzes/<str:uid>/questions/', v.QuestionsView.as_view()),
     path('quizzes/<str:uid>/generate-questions/', ai.GenerateQuestionsView.as_view()),
+    path('quizzes/<str:uid>/generate-questions/<str:job_id>/', ai.GenerationJobView.as_view()),
     path('quizzes/<str:uid>/import-questions/', ai.ImportQuestionsView.as_view()),
     path('quizzes/<str:uid>/questions/<str:question_id>/', v.QuestionDetailView.as_view()),
     path('quizzes/<str:uid>/reorder/', v.ReorderView.as_view()),

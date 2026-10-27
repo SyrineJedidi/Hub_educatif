@@ -35,6 +35,22 @@ Le délai total est de 180 secondes par défaut, partagé entre les vérificatio
 
 La limite existante de cinq demandes par compte sur cinq minutes est conservée. Un bail atomique partagé en base, avec échéance et libération après succès/erreur, empêche deux générations simultanées vers le même serveur depuis les workers Django utilisant cette base. Ce bail réutilise les compteurs existants sans migration supplémentaire.
 
+## Traitement en arrière-plan et métriques
+
+Un appel à Ollama prend souvent 30 secondes ou plus : il ne bloque plus la requête HTTP.
+
+1. `POST /api/quizzes/{id}/generate-questions/` valide la demande (droits, brouillon, quota, configuration), enregistre une tâche `QuestionGenerationJob` et répond **202** avec son identifiant.
+2. La tâche est exécutée par le worker Celery (Redis), comme les générations du module Résumés ; sans broker, par un thread du serveur (`AI_JOB_BACKEND`).
+3. La page interroge `GET /api/quizzes/{id}/generate-questions/{tâche}/` toutes les deux secondes et affiche le temps écoulé. Les erreurs d’Ollama (serveur arrêté, délai, réponse invalide, cours trop long) sont rendues avec le même message qu’auparavant.
+
+Le principe du module est conservé : le cours est effacé de la tâche dès que le modèle l’a lu, et les propositions sont effacées dès leur première remise à l’enseignant. Seules les questions confirmées sont enregistrées. Une tâche abandonnée par un worker arrêté passe en échec au-delà de `OLLAMA_TIMEOUT_SECONDS` + 2 minutes. `QUIZ_GENERATION_ASYNC=false` rétablit l’appel synchrone (tests du contrat d’aperçu).
+
+Chaque tâche enregistre ses mesures, sans le cours ni les questions : durée, modèle, questions demandées et valides, énoncés distincts, répartition des bonnes réponses, notions. La commande suivante évalue le modèle sur un corpus fixe et écrit [QUIZ-IA-EVALUATION.md](QUIZ-IA-EVALUATION.md) :
+
+```powershell
+.\backend\.venv\Scripts\python.exe backend\manage.py evaluate_quiz_generation --count 3 --runs 1
+```
+
 ## Interfaces et permissions
 
 L’enseignant propriétaire ouvre un quiz en brouillon → **Générer des questions avec l’IA**, route `/espace/quiz/{id}/generer`. L’administrateur utilise `/administration/quiz/{id}/generer`. Le header/footer Eduleb, les formulaires, le clavier, le responsive, la conservation des saisies après erreur et les sauvegardes confirmées restent en place. Les étudiants, enseignants extérieurs, comptes inactifs et quiz verrouillés sont refusés côté Django. La publication reste manuelle.

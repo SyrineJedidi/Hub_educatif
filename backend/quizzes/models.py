@@ -155,3 +155,32 @@ class QuizFeedback(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         constraints = [models.UniqueConstraint(fields=['quiz', 'student'], name='unique_student_quiz_feedback')]
+
+
+class QuestionGenerationJob(models.Model):
+    """One generation of quiz questions by the local AI, run outside the HTTP request (Celery or a thread).
+
+    The course text is kept only while the job runs, and the proposals only until the teacher first
+    retrieves them: as with the synchronous preview, nothing generated is kept until it is confirmed.
+    """
+    class Status(models.TextChoices):
+        QUEUED = 'QUEUED', 'En attente'
+        RUNNING = 'RUNNING', 'En cours'
+        SUCCEEDED = 'SUCCEEDED', 'Terminée'
+        FAILED = 'FAILED', 'Échec'
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='generation_jobs')
+    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='quiz_generation_jobs')
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.QUEUED)
+    inputs = models.JSONField(default=dict)
+    proposals = models.JSONField(default=list)
+    delivered = models.BooleanField(default=False)
+    error_code = models.CharField(max_length=40, blank=True, default='')
+    error_message = models.CharField(max_length=500, blank=True, default='')
+    error_status = models.IntegerField(null=True, blank=True)
+    error_fields = models.JSONField(default=dict)
+    metrics = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    class Meta:
+        indexes = [models.Index(fields=['status', 'created_at'])]

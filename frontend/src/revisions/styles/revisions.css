@@ -378,7 +378,7 @@
   position: absolute;
   left: 15px;
   bottom: 16px;
-  color: #6e8a83;
+  color: #55635f;
   pointer-events: none;
 }
 .sheets-search input {
@@ -400,7 +400,7 @@
   color: #315f54;
 }
 .sheets-tags button span {
-  color: #6e8a83;
+  color: #55635f;
   font-weight: 500;
   margin-left: 3px;
 }
@@ -1072,7 +1072,7 @@
 }
 .sheet-gallery-empty > span {
   font-size: 26px;
-  color: #6e8a83;
+  color: #55635f;
 }
 dialog:has(.sheet-lightbox) {
   width: min(1000px, calc(100% - 28px));

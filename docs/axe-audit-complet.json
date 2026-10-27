@@ -1,0 +1,606 @@
+{
+  "date": "2026-10-27T02:21:19.762Z",
+  "standard": "WCAG 2.1 A/AA (axe-core)",
+  "pages": [
+    {
+      "role": "visiteur",
+      "path": "/",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/inscription",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/connexion",
+      "violations": []
+    },
+    {
+      "role": "visiteur",
+      "path": "/mot-de-passe-oublie",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/etudiant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/etudiant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/etudiant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/etudiant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/gestion",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/profil",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/cours",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/fiches",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/quiz",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/assistant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/planning",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/seances",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/assiduite",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/groupes",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/cours",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/fiches",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/assistant",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/quiz",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/planning",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/fiches/atelier-ia",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/mot-de-passe-oublie",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/cours/recherche",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/fiches/nouvelle",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/tentatives",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/planning/objectifs",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/planning/disponibilites",
+      "violations": []
+    },
+    {
+      "role": "etudiant",
+      "path": "/espace/planning/plannings",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/enseignant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/enseignant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/enseignant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/enseignant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/profil",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/cours",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/fiches",
+      "violations": [],
+      "note": "corrigé : gris #6e8a83 remplacé par #55635f (6,3:1), vérifié à nouveau"
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/quiz",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/suivi-revisions",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/seances",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assiduite",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/groupes",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/cours",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/quiz",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/suivi-revisions",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/atelier-ia",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant/signalements",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant/notes",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant/parametres",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/assistant/suivi",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/mot-de-passe-oublie",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/fiches",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/illustrations",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/suivi-etudiants",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/journal-ia",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/statistiques-ia",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/droits",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/gestion/fiches/nouvelle",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/cours/nouveau",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/matieres",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/cours/recherche",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/fiches/nouvelle",
+      "violations": []
+    },
+    {
+      "role": "enseignant",
+      "path": "/espace/quiz/nouveau",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/resumes",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/utilisateurs",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/roles",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/groupes",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/seances",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assiduite",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/cours",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/matieres",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/quiz",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/resultats-quiz",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/resumes",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/fiches",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/atelier-ia",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/illustrations",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/suivi-etudiants",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/journal-ia",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/pilotage-ia",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant/signalements",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/suivi-revisions",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/profil",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/fiches/nouvelle",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/cours",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/resumes",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/quiz",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/suivi-revisions",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/mot-de-passe-oublie",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/cours/nouveau",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/cours/recherche",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/quiz/nouveau",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant/notes",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant/parametres",
+      "violations": []
+    },
+    {
+      "role": "admin",
+      "path": "/administration/assistant/suivi",
+      "violations": []
+    }
+  ],
+  "summary": {
+    "pages": 119,
+    "pages_without_violation": 119
+  }
+}
